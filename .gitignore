@@ -1,10 +1,11 @@
 # =============== #
 # Unity generated #
 # =============== #
-Temp/
-Obj/
-UnityGenerated/
-Library/
+[Tt]emp/
+[Oo]bj/
+[Uu]nityGenerated/
+[Ll]ibrary/
+[Bb]uild/
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -19,7 +20,18 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
- 
+*.tmp
+
+# ============================ #
+# Unity3D generated meta files #
+# ============================ #
+*.pid.meta
+
+# ======================================= #
+# Unity3D generated file on crash reports #
+# ======================================= #
+sysinfo.txt
+
 # ============ #
 # OS generated #
 # ============ #
