@@ -7,12 +7,12 @@ public class EnemySight : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-		Debug.Log ("sense something");
+		//Debug.Log ("sense something");
         GameObject other_object = other.gameObject;
 
         if (other_object.tag == "Player")
 		{
-            Debug.Log("sense player");
+         //   Debug.Log("sense player");
 
 			Vector3 player_position = other_object.transform.position;
 			Vector3 eye_position = eyes.transform.position;
@@ -23,7 +23,7 @@ public class EnemySight : MonoBehaviour
 
 			if(hit)
 			{
-				Debug.Log ("i can see something");
+			//	Debug.Log ("i can see something");
 				Collider coll = hitInfo.collider;
 				if(coll.gameObject.tag == "Player")
 					Debug.Log ("i can see the player");
