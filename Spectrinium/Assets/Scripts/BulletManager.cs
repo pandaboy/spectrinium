@@ -3,13 +3,22 @@ using System.Collections;
 
 public class BulletManager : MonoBehaviour {
 
+
 	public Transform spawnPoint;
-	public Rigidbody bullet;
-	
+	public GameObject bulletPrefab;
+    public float fireRate;
+
+    void Start()
+    {
+
+    }
+
 	// Update is called once per frame
-	void Update () {
-		if(Input.GetButtonDown("Fire1")) {
-			Rigidbody bulletInstance = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation) as Rigidbody;
+	void Update ()
+    {
+		if(Input.GetButtonDown("Fire1"))
+        {
+            GameObject bulletInstance = (GameObject)Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
 		}
 	}
 }
