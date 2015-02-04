@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour {
 	public float lifetime = 3.0f;
 	// damage the bullet does if it hits an active object
 	public int damage = 5;
+	// bullet speed
+	public int speed = 100;
 	
 	// update the bullet
 	void Update () {
@@ -14,7 +16,9 @@ public class Bullet : MonoBehaviour {
 		
 		if(lifetime <= 0.0f) {
 			Destroy(gameObject);
-		}	
+		}
+		
+		transform.Translate(Vector3.forward * speed * Time.deltaTime);
 	}
 	
 	void OnCollisionEnter(Collision other) {
