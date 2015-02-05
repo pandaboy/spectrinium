@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 	public int damage = 5;
 
 	// bullet speed
-	public int speed = 10;
+	public int speed = 100;
 	
 	// update the bullet
 	void FixedUpdate ()
