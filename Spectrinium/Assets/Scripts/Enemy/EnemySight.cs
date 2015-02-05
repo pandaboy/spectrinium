@@ -4,10 +4,20 @@ using System.Collections;
 public class EnemySight : MonoBehaviour
 {
 	public GameObject eyes;
+    public bool playerInSight;
+
+    void Start()
+    {
+        playerInSight = false;
+    }
+
+
 
     //rigidbody in view cone
     void OnTriggerStay(Collider other)
     {
+
+
         GameObject other_object = other.gameObject;
 
         //if the object is the player
@@ -24,9 +34,20 @@ public class EnemySight : MonoBehaviour
 			if(hit)
 			{
 				Collider coll = hitInfo.collider;
-				if(coll.gameObject.tag == "Player")
-					Debug.Log ("i can see the player");
+                if (coll.gameObject.tag == "Player")
+                {
+                    playerInSight = true;
+                    Debug.Log("i can see the player");
+                }
 			}
 		}
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        GameObject other_object = other.gameObject;
+
+        if(other_object.tag == "Player")
+            playerInSight = false;
     }
 }
