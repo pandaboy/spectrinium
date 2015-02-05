@@ -11,10 +11,11 @@ public class Bullet : MonoBehaviour
 	public int damage = 5;
 
 	// bullet speed
-	public int speed = 100;
+	public int speed = 10;
 	
 	// update the bullet
-	void Update () {
+	void FixedUpdate ()
+    {
 		lifetime -= Time.deltaTime;
 		
 		if(lifetime <= 0.0f) {
