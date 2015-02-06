@@ -14,7 +14,8 @@ public class Bullet : MonoBehaviour
 	public int speed = 100;
 	
 	// update the bullet
-	void Update () {
+	void FixedUpdate ()
+    {
 		lifetime -= Time.deltaTime;
 		
 		if(lifetime <= 0.0f) {
