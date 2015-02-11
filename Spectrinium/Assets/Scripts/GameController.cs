@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
 	// tracks the current wavelength
 	private Wavelength currentWavelength;
 	
+	private Map map = new Map(3, 3);
+	
 	/**
 	 * Returns the current wavelength's int value
 	 */
@@ -44,18 +46,18 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		currentWavelength = Wavelength.BLUE;
-		// Debug.Log ("Current Wavelength: " + getCurrentWavelengthAsString());
+		Debug.Log ("Current Wavelength: " + getCurrentWavelengthAsString());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.T)) {
 			nextWavelength();
-			// Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
+			Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
 		}
 		if(Input.GetKeyDown(KeyCode.R)) {
 			prevWavelength();
-			// Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
+			Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
 		}
 	}
 }
