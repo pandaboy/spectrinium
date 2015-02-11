@@ -2,31 +2,7 @@
 using System;
 using System.Collections;
 
-// struct class for each spot on the map grid
-public struct Tile {
-	private bool red_value;
-	public bool red
-	{
-		get { return red_value; }
-		set { red_value = value; }
-	}
-	
-	private bool green_value;
-	public bool green
-	{
-		get { return green_value; }
-		set { green_value = value; }
-	}
-	
-	private bool blue_value;
-	public bool blue
-	{
-		get { return blue_value; }
-		set { blue_value = value; }
-	}
-}
-
-// basic 2D Map object.
+// basic Map object.
 public class Map
 {	
 	// Map Dimensions
@@ -34,6 +10,9 @@ public class Map
 	
 	// 2D array of tiles
 	Tile[,] tiles;
+	
+	// Floor gameObject
+	GameObject floor;
 	
 	// TESTING
 	// red test array
@@ -68,6 +47,8 @@ public class Map
 		Debug.Log ("width: " + width + ",length: " + length);
 		BuildMap(reds, greens, blues);		
 		Debug.Log ("value at [1,1]: (" + GetTile (1,1).red + "," + GetTile(1,1).green + "," + GetTile(1,1).blue + ")");
+		Debug.Log ("Trying to build a floor");
+		BuildFloor();
 	}
 	
 	// builds the map using the passed arrays
@@ -81,7 +62,22 @@ public class Map
 		return true;
 	}
 	
-	Tile GetTile(int x, int y) {
+	// builds the floor using Cube Primitives
+	public void BuildFloor() {
+		floor  = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		floor.name = "Blue Floor!";
+		floor.tag = "Environment";
+		floor.transform.position = new Vector3(2.0F, 1.0F, 2.0F);
+		floor.transform.localScale = new Vector3(length, floor.transform.localScale.y, width);
+		floor.renderer.material.color = Color.blue;
+	}
+	
+	// updates the map (switching from red to blue walls)
+	public void Update() {
+		
+	}
+	
+	public Tile GetTile(int x, int y) {
 		return tiles[x,y];
 	}
 	
@@ -93,17 +89,17 @@ public class Map
 	}
 	
 	// convenience methods, could also just use getTile(x,y).red
-	bool IsRedTile(int x, int y) {
+	public bool IsRedTile(int x, int y) {
 		return GetTile(x,y).red;
 	}
 	
 	// convenience methods, could also just use getTile(x,y).green
-	bool IsGreenTile(int x, int y) {
+	public bool IsGreenTile(int x, int y) {
 		return GetTile(x,y).green;
 	}
 	
 	// convenience methods, could also just use getTile(x,y).blue
-	bool IsBlueTile(int x, int y) {
+	public bool IsBlueTile(int x, int y) {
 		return GetTile(x,y).blue;
 	}
 }

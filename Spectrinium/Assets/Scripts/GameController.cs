@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 	// tracks the current wavelength
 	private Wavelength currentWavelength;
 	
-	private Map map = new Map(3, 3);
+	private Map map;
 	
 	/**
 	 * Returns the current wavelength's int value
@@ -45,8 +45,15 @@ public class GameController : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
+		// set the start wavelength
 		currentWavelength = Wavelength.BLUE;
 		Debug.Log ("Current Wavelength: " + getCurrentWavelengthAsString());
+		
+		// create the map
+		map = new Map(3, 3);
+		Debug.Log ("Map created.");
+		
+		// spawn the player
 	}
 	
 	// Update is called once per frame
