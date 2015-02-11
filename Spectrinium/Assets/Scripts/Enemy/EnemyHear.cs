@@ -9,6 +9,8 @@ public class EnemyHear : MonoBehaviour
     private NavMeshAgent nav;
     private SphereCollider col;
 
+    public Vector3 lastHeardPosition;
+
     void Start()
     {
         playerHeard = false;
@@ -31,8 +33,7 @@ public class EnemyHear : MonoBehaviour
 
                 playerHeard = true;
                 Debug.Log("i can hear the player");
-                Vector3 player_position = other_object.transform.position;
-                Vector3 ear_position = ears.transform.position;
+                lastHeardPosition = other_object.transform.position;
             }
         }
     }
