@@ -6,6 +6,8 @@ public class EnemySight : MonoBehaviour
 	public GameObject eyes;
     public bool playerInSight;
 
+    public Vector3 lastSeenPosition;
+
     void Start()
     {
         playerInSight = false;
@@ -38,6 +40,7 @@ public class EnemySight : MonoBehaviour
                 {
                     playerInSight = true;
                     Debug.Log("i can see the player");
+                    lastSeenPosition = coll.gameObject.transform.position;
                 }
 			}
 		}
