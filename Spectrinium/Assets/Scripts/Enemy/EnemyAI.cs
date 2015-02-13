@@ -46,7 +46,7 @@ public class EnemyAI : MonoBehaviour
             nav.destination = lastSeen;
 
         nav.speed = runSpeed;
-
+		/*
         if (nav.remainingDistance <= nav.stoppingDistance)
         {
             chaseTimer = Time.deltaTime;
@@ -58,20 +58,21 @@ public class EnemyAI : MonoBehaviour
         }
         else
             chaseTimer = 0f;
+*/
     }
 
     void Look()
     {
         Debug.Log("looking");
 
-        Vector3 lastSeen = sight.lastSeenPosition;
-        Vector3 diffSighting = lastSeen - transform.position;
+        Vector3 lastHeard = hearing.lastHeardPosition;
+		Vector3 diffHearing = lastHeard - transform.position;
 
-        if (diffSighting.sqrMagnitude >= walkSpeed)
-            nav.destination = lastSeen;
+		if (diffHearing.sqrMagnitude >= walkSpeed)
+			nav.destination = lastHeard;
 
         nav.speed = walkSpeed;
-
+/*
         if (nav.remainingDistance <= nav.stoppingDistance)
         {
             chaseTimer = Time.deltaTime;
@@ -83,6 +84,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
             chaseTimer = 0f;
+*/
     }
 
     void Idle()
