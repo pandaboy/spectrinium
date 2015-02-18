@@ -6,12 +6,18 @@ public class EnemyAI : MonoBehaviour
     public EnemySight sight;
     public EnemyHear hearing;
     private NavMeshAgent nav;
+    public EnemyShooting gun;
 
     public float runSpeed = 2f;
     public float walkSpeed = 1f;
 
     public float waitTime = 1f;
     private float chaseTimer;
+
+
+	private Vector3 lastSeen;
+	private float sq_distance;
+
 
 
     void Start()
@@ -22,8 +28,14 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Fire1"))
+            gun.Shoot();
+
         if (sight.playerInSight)
-            Chase();
+            if(checkInRange())
+				Attack();
+			else
+				Chase ();
         else if (hearing.playerHeard)
             Look();
         else
@@ -32,33 +44,40 @@ public class EnemyAI : MonoBehaviour
 
     void Attack()
     {
-        
+        Debug.Log("pew pew");
+		nav.Stop ();
+        Vector3 dist_vec = lastSeen - rigidbody.position;
+        Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
+        Quaternion lookDir = Quaternion.LookRotation(dist_vec, up);
+
+        transform.rotation = lookDir;
+        gun.Shoot();
+
     }
+
+	bool checkInRange()
+	{
+		lastSeen = sight.lastSeenPosition;
+		Vector3 dist_vec = lastSeen - transform.position;
+		sq_distance = dist_vec.sqrMagnitude;
+
+        float attackRange = gun.fireRange;
+
+		if (sq_distance <= attackRange * attackRange)
+			return true;
+
+		return false;
+	}
 
     void Chase()
     {
         Debug.Log("chasing");
 
-        Vector3 lastSeen = sight.lastSeenPosition;
-        Vector3 diffSighting = lastSeen - transform.position;
 
-        if (diffSighting.sqrMagnitude >= runSpeed)
+        if (sq_distance >= runSpeed)
             nav.destination = lastSeen;
 
         nav.speed = runSpeed;
-		/*
-        if (nav.remainingDistance <= nav.stoppingDistance)
-        {
-            chaseTimer = Time.deltaTime;
-
-            if (chaseTimer > waitTime)
-            {
-                chaseTimer = 0f;
-            }
-        }
-        else
-            chaseTimer = 0f;
-*/
     }
 
     void Look()
@@ -72,19 +91,6 @@ public class EnemyAI : MonoBehaviour
 			nav.destination = lastHeard;
 
         nav.speed = walkSpeed;
-/*
-        if (nav.remainingDistance <= nav.stoppingDistance)
-        {
-            chaseTimer = Time.deltaTime;
-
-            if (chaseTimer > waitTime)
-            {
-                chaseTimer = 0f;
-            }
-        }
-        else
-            chaseTimer = 0f;
-*/
     }
 
     void Idle()
