@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 	private Wavelength currentWavelength;
 	
 	private Map map;
+	public GameObject wall;
 	
 	// create a 3x6 map
 	private int[,,] map_source = {
@@ -77,7 +78,7 @@ public class GameController : MonoBehaviour
 		//map = new Map(map_source);
 		//map = new Map(extents);
 		//map = new Map(big_extents);
-		map = new Map(gigantic);
+		map = new Map(gigantic, wall, getCurrentWavelengthAsString());
 		//map = new Map(simple);
 		//map = new Map(jagged_extents);
 		Debug.Log ("Map created.");
@@ -89,10 +90,12 @@ public class GameController : MonoBehaviour
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.T)) {
 			nextWavelength();
+			map.WavelengthWalls(getCurrentWavelengthAsString());
 			Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
 		}
 		if(Input.GetKeyDown(KeyCode.R)) {
 			prevWavelength();
+			map.WavelengthWalls(getCurrentWavelengthAsString());
 			Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
 		}
 	}
