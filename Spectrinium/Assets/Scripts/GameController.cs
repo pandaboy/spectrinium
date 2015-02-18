@@ -48,6 +48,9 @@ public class GameController : MonoBehaviour
 		{ {1,0,0}, {0,0,0}, {0,1,0} }
 	};
 	
+	// GIGANTIC MAP
+	private int[,,] gigantic;
+	
 	// create a 1x3 map - using a traditional, c-style array
 	private int[][][] jagged_extents = new int[][][] {
 		new int[][] {new int[] {1, 0, 0 }, new int[] {0, 0, 0 }, new int[] {0, 1, 0 } },
@@ -60,10 +63,21 @@ public class GameController : MonoBehaviour
 		// set the start wavelength
 		currentWavelength = Wavelength.BLUE;
 		
+		gigantic = new int[10,10,3];
+		// build a gigantic map
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				for(int k = 0; k < 3; k++){
+					gigantic[i,j,k] = (j % 2 == 0 && i % 2 == 0) ? 1 : 0;
+				}
+			}
+		}
+		
 		// create the map
 		//map = new Map(map_source);
 		//map = new Map(extents);
-		map = new Map(big_extents);
+		//map = new Map(big_extents);
+		map = new Map(gigantic);
 		//map = new Map(simple);
 		//map = new Map(jagged_extents);
 		Debug.Log ("Map created.");
