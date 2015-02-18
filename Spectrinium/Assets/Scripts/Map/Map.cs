@@ -130,6 +130,8 @@ public class Map
 		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		plane.name = name;
 		plane.tag = tag;
+		pos.x -= wall_thickness/2;
+		pos.z -= wall_thickness/2;
 		plane.transform.position = pos;
 		plane.transform.localScale = new Vector3(
 			plane.transform.localScale.x * scale.x,
