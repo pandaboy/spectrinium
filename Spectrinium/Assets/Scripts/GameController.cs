@@ -11,6 +11,16 @@ public class GameController : MonoBehaviour
 	
 	private Map map;
 	
+	// create a 3x6 map
+	private int[,,] map_source= {
+		{ {0,0,1}, {0,0,0}, {0,0,0} },
+		{ {0,1,0}, {1,0,0}, {0,1,0} },
+		{ {1,0,0}, {0,0,1}, {0,1,0} },
+		{ {0,1,0}, {1,0,0}, {0,1,0} },
+		{ {0,0,1}, {0,0,1}, {0,1,0} },
+		{ {1,0,0}, {0,1,0}, {0,0,0} },
+	};
+	
 	/**
 	 * Returns the current wavelength's int value
 	 */
@@ -50,7 +60,8 @@ public class GameController : MonoBehaviour
 		Debug.Log ("Current Wavelength: " + getCurrentWavelengthAsString());
 		
 		// create the map
-		map = new Map(3, 3);
+		// map = new Map(3, 3);
+		map = new Map(map_source);
 		Debug.Log ("Map created.");
 		
 		// spawn the player
