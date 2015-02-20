@@ -38,11 +38,11 @@ public class GameController : MonoBehaviour
 		
 		// create the map
 		//map = new Map(EXAMPLES.map_source, wall, getCurrentWavelengthAsString());
-		map = new Map(EXAMPLES.extents, wall, getCurrentWavelengthAsString());
+		//map = new Map(EXAMPLES.extents, wall, getCurrentWavelengthAsString());
 		//map = new Map(EXAMPLES.big_extents, wall, getCurrentWavelengthAsString());
 		//map = new Map(EXAMPLES.simple, wall, getCurrentWavelengthAsString());
 		//map = new Map(EXAMPLES.jagged_extents, wall, getCurrentWavelengthAsString());
-		//map = new Map(auto, wall, getCurrentWavelengthAsString());
+		map = new Map(auto, wall, getCurrentWavelengthAsString());
 		
 		// spawn the player
 	}
@@ -52,12 +52,10 @@ public class GameController : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.T)) {
 			nextWavelength();
 			map.WavelengthWalls(getCurrentWavelengthAsString());
-			Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
 		}
 		if(Input.GetKeyDown(KeyCode.R)) {
 			prevWavelength();
 			map.WavelengthWalls(getCurrentWavelengthAsString());
-			Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
 		}
 	}
 	

@@ -44,7 +44,6 @@ public class Map
 	
 	// builds the map using the passed arrays
 	bool BuildMap(int[][][] source, string wavelength) {
-		Debug.Log("This map of mine");
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
 				bool red = source[i][j][0] == 1 ? true : false;
@@ -57,7 +56,7 @@ public class Map
 		//BuildWalls();
 		//WavelengthWalls(wavelength);
 		BuildFloor();
-		BuildRoof();
+		//BuildRoof();
 		
 		return true;
 	}
@@ -75,7 +74,7 @@ public class Map
 		//BuildWalls();
 		//WavelengthWalls(wavelength);
 		BuildFloor();
-		BuildRoof();
+		//BuildRoof();
 		
 		return true;
 	}
