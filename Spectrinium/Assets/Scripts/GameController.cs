@@ -14,6 +14,9 @@ public class GameController : MonoBehaviour
 	private Map map;
 	public GameObject wall;
 
+    public int mapDimensionX = 16;
+    public int mapDimensionY = 16;
+
     void Awake()
     {
         Instance = this;
@@ -23,21 +26,25 @@ public class GameController : MonoBehaviour
 	void Start () {
 		// set the start wavelength
 		currentWavelength = Wavelength.BLUE;
-        map = new Map(Map.GenerateMapArray(4,4), wall);
+        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), wall);
 		
         // spawn the player
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.T)) {
-            nextWavelength();
-            map.UpdateVisibleCollidable();
+        if(Input.GetKeyDown(KeyCode.T)) 
+        {
+            if(nextWavelength())
+                map.UpdateVisibleCollidable();
+
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
         }
-        if(Input.GetKeyDown(KeyCode.R)) {
-            prevWavelength();
-            map.UpdateVisibleCollidable();
+        if(Input.GetKeyDown(KeyCode.R)) 
+        {
+            if(prevWavelength())
+                map.UpdateVisibleCollidable();
+
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
         }
 	}
@@ -61,16 +68,32 @@ public class GameController : MonoBehaviour
 	/**
 	 * Moves the current wavelength one step forward.
 	 */
-	public void nextWavelength()
+	public bool nextWavelength()
 	{
-		currentWavelength = currentWavelength.Next();
+        if (Wall.CanSwitch(currentWavelength.Next().ToString()))
+        {
+            currentWavelength = currentWavelength.Next();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 	}
 	
 	/**
 	 * Moves the current wavelength one step back
 	 */
-	public void prevWavelength()
+	public bool prevWavelength()
 	{
-		currentWavelength = currentWavelength.Prev();
+        if (Wall.CanSwitch(currentWavelength.Prev().ToString()))
+        {
+            currentWavelength = currentWavelength.Prev();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 	}
 }

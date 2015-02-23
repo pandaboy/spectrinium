@@ -12,9 +12,9 @@ public class Map
 	
     // grouping for the walls
 	private GameObject wall_group;
-    private GameObject red_group;
-    private GameObject blue_group;
-    private GameObject green_group;
+    public static GameObject red_group;
+    public static GameObject blue_group;
+    public static GameObject green_group;
 	
 	// internal stuff.
 	private int length;
@@ -40,13 +40,18 @@ public class Map
 
             Debug.LogError("HERE!");
 
-            while (steppedOnCount < 5)
+            while (steppedOnCount < (width * height)/3)
             {
                 if (map_array[walker.x, walker.y, wavelength] != 0)
                 {
                     map_array[walker.x, walker.y, wavelength] = 0;
                     steppedOnCount++;
                 }
+                //else
+                //{
+                //    map_array[walker.x, walker.y, wavelength] = 1;
+                //    steppedOnCount--;
+                //}
 
                 walker.Step();
             }
@@ -249,12 +254,21 @@ public class Map
         wall.renderer.enabled = false;
         wall.collider.isTrigger = true;
 
-        if(color == Color.red)
+        if (color == Color.red)
+        {
             wall.transform.parent = red_group.transform;
+            wall.layer = LayerMask.NameToLayer("Red");
+        }
         else if (color == Color.green)
+        {
             wall.transform.parent = green_group.transform;
+            wall.layer = LayerMask.NameToLayer("Green");
+        }
         else
+        {
             wall.transform.parent = blue_group.transform;
+            wall.layer = LayerMask.NameToLayer("Blue");
+        }
         
 		return wall;
 	}
