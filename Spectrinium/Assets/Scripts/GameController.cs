@@ -38,11 +38,13 @@ public class GameController : MonoBehaviour
 		
 		// create the map
 		//map = new Map(EXAMPLES.map_source, wall, getCurrentWavelengthAsString());
-		map = new Map(EXAMPLES.extents, wall, getCurrentWavelengthAsString());
+		//map = new Map(EXAMPLES.extents, wall, getCurrentWavelengthAsString());
 		//map = new Map(EXAMPLES.big_extents, wall, getCurrentWavelengthAsString());
 		//map = new Map(EXAMPLES.simple, wall, getCurrentWavelengthAsString());
 		//map = new Map(EXAMPLES.jagged_extents, wall, getCurrentWavelengthAsString());
 		//map = new Map(auto, wall, getCurrentWavelengthAsString());
+
+        map = new Map(Map.GenerateMapArray(4,4), wall, getCurrentWavelengthAsString());
 		
 		// spawn the player
 	}

@@ -1,6 +1,45 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+
+struct RandomWalker
+{
+    public int x, y;
+    int mapWidth, mapHeight;
+
+    public RandomWalker(int startX, int startY, int pMapWidth, int pMapHeight)
+    {
+		x = startX;
+		y = startY;
+
+		mapWidth = pMapWidth;
+		mapHeight = pMapHeight;
+	}
+
+    public void Step()
+    {
+        int r = UnityEngine.Random.Range(0,4);
+
+        if (r == 0)
+            x++;
+        else if (r == 1)
+            x--;
+        else if (r == 2)
+            y++;
+        else
+            y--;
+
+        if (x < 0)
+            x = 0;
+        if (y < 0)
+            y = 0;
+        if (x >= mapWidth)
+            x = mapWidth - 1;
+        if (y >= mapHeight)
+            y = mapHeight - 1;
+    }
+};
 
 public class Map
 {
@@ -18,7 +57,62 @@ public class Map
 	private float roof_y = 5;
 	private float wall_height = 5;
 	private float wall_thickness = 10;
-	
+
+    public static int[, ,] GenerateMapArray(int width, int height)
+    {
+        int[, ,] map_array = new int[width, height, 3];
+
+        for (int wavelength = 0; wavelength < 3; wavelength++)
+        {
+            for (int w = 0; w < width; w++)
+                for (int h = 0; h < height; h++)
+                    map_array[w, h, wavelength] = 1;
+
+            RandomWalker walker = new RandomWalker(width / 2, height / 2, width, height);
+            int steppedOnCount = 0;
+
+            Debug.LogError("HERE!");
+
+            while (steppedOnCount < 5)
+            {
+                if (map_array[walker.x, walker.y, wavelength] != 0)
+                {
+                    map_array[walker.x, walker.y, wavelength] = 0;
+                    steppedOnCount++;
+                }
+
+                walker.Step();
+            }
+
+            //SECOND PASS
+            //List<Vector2> SetToZero = new List<Vector2>();
+
+            //for (int w = 1; w < width - 1; w++)
+            //{
+            //    for (int h = 1; h < height - 1; h++)
+            //    {
+            //        if (map_array[w, h, wavelength] == 1)
+            //        {
+            //            int neighbours = 0;
+
+            //            for (int i = -1; i <= 1; i++)
+            //                for (int j = -1; j <= 1; j++)
+            //                    if (map_array[w + i, h + j, wavelength] == 1)
+            //                        neighbours++;
+
+            //            if (neighbours <= 1)
+            //                SetToZero.Add(new Vector2(w, h));
+            //        }
+            //    }
+            //}
+
+            //for (int i = 0; i < SetToZero.Count; i++)
+            //    map_array[(int)SetToZero[i].x, (int)SetToZero[i].y, wavelength] = 0;
+        }
+
+        return map_array;
+    }
+
 	public Map(int[,,] map_array, GameObject wall, string wavelength) {
 		length = map_array.GetLength(0);
 		width = map_array.GetLength(1);
