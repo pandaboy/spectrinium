@@ -3,52 +3,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-struct RandomWalker
-{
-    public int x, y;
-    int mapWidth, mapHeight;
-
-    public RandomWalker(int startX, int startY, int pMapWidth, int pMapHeight)
-    {
-		x = startX;
-		y = startY;
-
-		mapWidth = pMapWidth;
-		mapHeight = pMapHeight;
-	}
-
-    public void Step()
-    {
-        int r = UnityEngine.Random.Range(0,4);
-
-        if (r == 0)
-            x++;
-        else if (r == 1)
-            x--;
-        else if (r == 2)
-            y++;
-        else
-            y--;
-
-        if (x < 0)
-            x = 0;
-        if (y < 0)
-            y = 0;
-        if (x >= mapWidth)
-            x = mapWidth - 1;
-        if (y >= mapHeight)
-            y = mapHeight - 1;
-    }
-};
-
 public class Map
 {
 	// Internal storage
 	private Tile[,] tiles;
 	// prefab to use to create the walls - passed in through the constructor	
 	private GameObject wall_prefab;
-	// grouping for the walls
+	
+    // grouping for the walls
 	private GameObject wall_group;
+    private GameObject red_group;
+    private GameObject blue_group;
+    private GameObject green_group;
 	
 	// internal stuff.
 	private int length;
@@ -58,6 +24,7 @@ public class Map
 	private float wall_height = 5;
 	private float wall_thickness = 10;
 
+    //This function uses a RandomWalker to generate a 3d array (x,y,colour) to be used by the map
     public static int[, ,] GenerateMapArray(int width, int height)
     {
         int[, ,] map_array = new int[width, height, 3];
@@ -84,6 +51,7 @@ public class Map
                 walker.Step();
             }
 
+            #region SECOND PASS
             //SECOND PASS
             //List<Vector2> SetToZero = new List<Vector2>();
 
@@ -108,100 +76,140 @@ public class Map
 
             //for (int i = 0; i < SetToZero.Count; i++)
             //    map_array[(int)SetToZero[i].x, (int)SetToZero[i].y, wavelength] = 0;
+            #endregion
         }
 
         return map_array;
     }
 
-	public Map(int[,,] map_array, GameObject wall, string wavelength) {
+	public Map(int[,,] map_array, GameObject wall)
+    {
 		length = map_array.GetLength(0);
 		width = map_array.GetLength(1);
 		tiles = new Tile[length, width];
-		wall_prefab = wall;
-		wall_group = new GameObject();
+		
+        wall_prefab = wall;
+		
+        wall_group = new GameObject();
 		wall_group.name = "Walls";
-		
-		BuildMap(map_array, wavelength);
+
+        red_group = new GameObject();
+        red_group.name = "Red";
+        red_group.transform.parent = wall_group.transform;
+
+        green_group = new GameObject();
+        green_group.name = "Green";
+        green_group.transform.parent = wall_group.transform;
+
+        blue_group = new GameObject();
+        blue_group.name = "Blue";
+        blue_group.transform.parent = wall_group.transform;
+
+		BuildMap(map_array);
 	}
-	
-	public Map(int[][][] map_array, GameObject wall, string wavelength) {
-		length = map_array.Length;
-		width = map_array[0].Length;
-		tiles = new Tile[length, width];
-		wall_prefab = wall;
+
+    bool BuildMap(int[,,] source)
+    {
+        //Set the tiles using the source
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                bool red = source[i, j, 0] == 1 ? true : false;
+                bool green = source[i, j, 1] == 1 ? true : false;
+                bool blue = source[i, j, 2] == 1 ? true : false;
+                SetTile(i, j, red, green, blue);
+            }
+        }
+
+        //Build the walls (blocks) given said tile map
+        BuildWalls();
+
+        //Set the current wavelength
+        UpdateVisibleCollidable();
+        
+        BuildFloor();
+        BuildRoof();
+
+        return true;
+    }
+
+    #region ALTERNATE
+    //public Map(int[][][] map_array, GameObject wall) 
+    //{
+    //    length = map_array.Length;
+    //    width = map_array[0].Length;
+    //    tiles = new Tile[length, width];
 		
-		wall_group = new GameObject();
-		wall_group.name = "Walls";
+    //    wall_prefab = wall;
 		
-		BuildMap(map_array, wavelength);
-	}
-	
-	// builds the map using the passed arrays
-	bool BuildMap(int[][][] source, string wavelength) {
-		Debug.Log("This map of mine");
-		for(int i = 0; i < length; i++) {
-			for(int j = 0; j < width; j++) {
-				bool red = source[i][j][0] == 1 ? true : false;
-				bool green = source[i][j][1] == 1 ? true : false;
-				bool blue = source[i][j][2] == 1 ? true : false;
-				SetTile(i, j, red, green, blue);
-			}
-		}
+    //    wall_group = new GameObject();
+    //    wall_group.name = "Walls";
 		
-		//BuildWalls();
-		//WavelengthWalls(wavelength);
-		BuildFloor();
-		BuildRoof();
+    //    BuildMap(map_array);
+    //}
+
+    //// builds the map using the passed arrays
+    //bool BuildMap(int[][][] source) 
+    //{
+    //    for(int i = 0; i < length; i++) {
+    //        for(int j = 0; j < width; j++) {
+    //            bool red = source[i][j][0] == 1 ? true : false;
+    //            bool green = source[i][j][1] == 1 ? true : false;
+    //            bool blue = source[i][j][2] == 1 ? true : false;
+    //            SetTile(i, j, red, green, blue);
+    //        }
+    //    }
 		
-		return true;
-	}
-	
-	bool BuildMap(int[,,] source, string wavelength) {
-		for(int i = 0; i < length; i++) {
-			for(int j = 0; j < width; j++) {
-				bool red = source[i,j,0] == 1 ? true : false;
-				bool green = source[i,j,1] == 1 ? true : false;
-				bool blue = source[i,j,2] == 1 ? true : false;
-				SetTile(i, j, red, green, blue);
-			}
-		}
+    //    //BuildWalls();
+    //    //WavelengthWalls(wavelength);
+    //    BuildFloor();
+    //    BuildRoof();
 		
-		//BuildWalls();
-		//WavelengthWalls(wavelength);
-		BuildFloor();
-		BuildRoof();
-		
-		return true;
-	}
-	
-	public void WavelengthWalls(string wavelength)
+    //    return true;
+    //}
+    #endregion
+
+    public void UpdateVisibleCollidable()
+    {
+        switch (GameController.Instance.getCurrentWavelengthAsString())
+        {
+            case "RED":
+                WavelengthWalls(red_group.transform);
+                break;
+            case "GREEN":
+                WavelengthWalls(green_group.transform);
+                break;
+            case "BLUE":
+                WavelengthWalls(blue_group.transform);
+                break;
+        }
+    }
+
+    public void WavelengthWalls(Transform wavelengthGroup)
 	{
-		ClearWalls();
-		for(int i = 0; i < length; i++) {
-			for(int j = 0; j < width; j++) {
-				Tile tile = tiles[i, j];
-				if(tile.red && wavelength == "RED") {
-					BuildWall("RED", "Environment",i,j,Color.red);
-				}
-				if(tile.green && wavelength == "GREEN") {
-					BuildWall("GREEN", "Environment",i,j,Color.green);
-				}
-				if(tile.blue && wavelength == "BLUE") {
-					BuildWall("BLUE", "Environment",i,j,Color.blue);
-				}
-			}
-		}
+        ClearWalls();
+
+        foreach (Transform child in wavelengthGroup)
+        {
+            child.transform.renderer.enabled = true;
+            child.transform.collider.isTrigger = false;
+        }
 	}
-	
-	void ClearWalls()
-	{
-		for(int i = 0; i < wall_group.transform.childCount; i++){
-			GameObject child = wall_group.transform.GetChild(i).gameObject;
-			GameObject.Destroy(child);
-		}
-	}
-	
-	// build walls from the tiles array
+
+    public void ClearWalls()
+    {
+        foreach (Transform child in wall_group.transform)
+        {
+            foreach (Transform grandchild in child)
+            {
+                grandchild.transform.renderer.enabled = false;
+                grandchild.transform.collider.isTrigger = true;
+            }
+        }
+    }
+
+    // build walls from the tiles array
 	public void BuildWalls()
 	{
 		for(int i = 0; i < length; i++) {
@@ -224,20 +232,30 @@ public class Map
 	{
 		float x_offset = x - (length/2);
 		float z_offset = z - (width/2);
-		GameObject wall = GameObject.Instantiate(wall_prefab,new Vector3(
+		
+        GameObject wall = GameObject.Instantiate(wall_prefab,new Vector3(
 			x_offset * wall_thickness,
 			floor_y + (wall_height/2),
 			z_offset * wall_thickness
 			), Quaternion.identity) as GameObject;
-		wall.renderer.material.color = color;
+		
+        wall.renderer.material.color = color;
 		wall.transform.localScale = new Vector3(
 			wall_thickness,
 			wall.transform.localScale.y * wall_height,
 			wall_thickness
 		);
-		
-		wall.transform.parent = wall_group.transform;
-		
+
+        wall.renderer.enabled = false;
+        wall.collider.isTrigger = true;
+
+        if(color == Color.red)
+            wall.transform.parent = red_group.transform;
+        else if (color == Color.green)
+            wall.transform.parent = green_group.transform;
+        else
+            wall.transform.parent = blue_group.transform;
+        
 		return wall;
 	}
 	
