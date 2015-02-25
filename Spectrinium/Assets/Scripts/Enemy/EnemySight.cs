@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//controls enemy sight + view cone
 public class EnemySight : MonoBehaviour
 {
 	public GameObject eyes;

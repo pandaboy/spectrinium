@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//controls enemy fsm
 public class EnemyAI : MonoBehaviour
 {
     public EnemySight sight;
@@ -10,7 +11,7 @@ public class EnemyAI : MonoBehaviour
 
     public float runSpeed = 2f;
     public float walkSpeed = 1f;
-    public float turnSpeed = 0.5f;
+    public float turnSpeed = 2f;
 
     public float waitTime = 1f;
     private float chaseTimer;
@@ -43,6 +44,7 @@ public class EnemyAI : MonoBehaviour
             Idle();
     }
 
+    //turns towards player and shoots
     void Attack()
     {
         Debug.Log("pew pew");
@@ -78,6 +80,7 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    //clamps an angle to between 0-360
     float zeroTo360Range(float angle)
     {
         float new_angle = angle;
@@ -91,7 +94,7 @@ public class EnemyAI : MonoBehaviour
         return new_angle;
     }
 
-
+    //checks if the enemy is within firing range of the player
 	bool checkInRange()
 	{
 		lastSeen = sight.lastSeenPosition;
@@ -106,6 +109,7 @@ public class EnemyAI : MonoBehaviour
 		return false;
 	}
 
+    //runs towards players position
     void Chase()
     {
         Debug.Log("chasing");
@@ -117,6 +121,7 @@ public class EnemyAI : MonoBehaviour
         nav.speed = runSpeed;
     }
 
+    //walks towards players position
     void Look()
     {
         Debug.Log("looking");
@@ -130,6 +135,7 @@ public class EnemyAI : MonoBehaviour
         nav.speed = walkSpeed;
     }
 
+    //does nothing
     void Idle()
     {
         Debug.Log("idle");

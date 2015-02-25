@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//controls enemy hearing
 public class EnemyHear : MonoBehaviour
 {
     public GameObject ears;
@@ -49,6 +50,7 @@ public class EnemyHear : MonoBehaviour
         }
     }
 
+    //calculates the path the sound takes on the navmesh - ensure player is not in another room
     float CalculateSoundPathLength(Vector3 targetPos)
     {
         NavMeshPath path = new NavMeshPath();

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//controls the enemies health and death
 public class EnemyHealth : MonoBehaviour
 {
 	public int max_health = 100;
@@ -12,10 +13,10 @@ public class EnemyHealth : MonoBehaviour
 		current_health = max_health;
 	}
 
-
-	public void shot(int dec)
+    //gets shot by bullet that does specified damage
+    public void shot(int damage)
 	{
-		current_health -= dec;
+        current_health -= damage;
 
 		if(current_health < 0)
 			current_health = 0;
