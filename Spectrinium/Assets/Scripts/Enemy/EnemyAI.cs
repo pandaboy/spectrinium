@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
 
     public float runSpeed = 2f;
     public float walkSpeed = 1f;
+    public float turnSpeed = 0.5f;
 
     public float waitTime = 1f;
     private float chaseTimer;
@@ -50,10 +51,46 @@ public class EnemyAI : MonoBehaviour
         Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
         Quaternion lookDir = Quaternion.LookRotation(dist_vec, up);
 
-        transform.rotation = lookDir;
-        gun.Shoot();
+        Vector3 currEuler = transform.rotation.eulerAngles;
+        float currAngle = currEuler.y;
+        float wantAngle = lookDir.eulerAngles.y;
+
+        currAngle = zeroTo360Range(currAngle);
+        wantAngle = zeroTo360Range(wantAngle);
+
+        float diffAngle = wantAngle - currAngle;
+
+        if (Mathf.Abs(diffAngle) <= 5)
+            gun.Shoot();
+        else if (diffAngle < 0)
+            currAngle -= turnSpeed;
+        else
+            currAngle += turnSpeed;
+
+        currEuler.y = currAngle;
+
+        transform.rotation = Quaternion.Euler(currEuler);
+
+
+
+  //      transform.rotation = lookDir;
+ //       gun.Shoot();
 
     }
+
+    float zeroTo360Range(float angle)
+    {
+        float new_angle = angle;
+
+        while (new_angle < 0)
+            new_angle += 360;
+
+        while (new_angle >= 360)
+            new_angle -= 360;
+
+        return new_angle;
+    }
+
 
 	bool checkInRange()
 	{
