@@ -24,6 +24,9 @@ public class Map
 	private float wall_height = 5;
 	private float wall_thickness = 10;
 
+    
+
+
     //This function uses a RandomWalker to generate a 3d array (x,y,colour) to be used by the map
     public static int[, ,] GenerateMapArray(int width, int height)
     {
@@ -38,7 +41,7 @@ public class Map
             RandomWalker walker = new RandomWalker(width / 2, height / 2, width, height);
             int steppedOnCount = 0;
 
-            Debug.LogError("HERE!");
+            Debug.Log("HERE!");
 
             while (steppedOnCount < (width * height)/3)
             {
