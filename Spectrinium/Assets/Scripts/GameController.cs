@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour
 {
+    //public GUIText currentColor;
+
+    public Text currentColor;
     public static GameController Instance;
 
 	// available wavelengths
@@ -39,6 +43,7 @@ public class GameController : MonoBehaviour
                 map.UpdateVisibleCollidable();
 
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
+            currentColor.text =  getCurrentWavelengthAsString();
         }
         if(Input.GetKeyDown(KeyCode.R)) 
         {
@@ -46,6 +51,9 @@ public class GameController : MonoBehaviour
                 map.UpdateVisibleCollidable();
 
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
+            currentColor.text = getCurrentWavelengthAsString();
+       
+
         }
 	}
 	
@@ -96,4 +104,5 @@ public class GameController : MonoBehaviour
             return false;
         }
 	}
+
 }
