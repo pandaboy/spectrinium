@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class Wall : MonoBehaviour {
 
     public static int insideRed = 0;
     public static int insideGreen = 0;
     public static int insideBlue = 0;
+
+    void Start()
+    {
+        //make walls navigation static for navmesh - SARAH
+        GameObjectUtility.SetStaticEditorFlags(gameObject, StaticEditorFlags.NavigationStatic);
+    }
 
     void OnTriggerEnter(Collider other)
     {

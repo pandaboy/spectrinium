@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class Map
 {
@@ -139,6 +140,8 @@ public class Map
         BuildFloor();
         BuildRoof();
 
+       
+
         return true;
     }
 
@@ -223,18 +226,61 @@ public class Map
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
 				Tile tile = tiles[i, j];
+                GameObject wallObject = null;
+
 				if(tile.red){
-					BuildWall ("red wall", "Environment", i, j, Color.red);
+					wallObject = BuildWall ("red wall", "Environment", i, j, Color.red);
 				}
 				if(tile.green){
-					BuildWall ("green wall", "Environment", i, j, Color.green);
+                    wallObject = BuildWall("green wall", "Environment", i, j, Color.green);
 				}
 				if(tile.blue){
-					BuildWall ("blue wall", "Environment", i, j, Color.blue);
+                    wallObject = BuildWall("blue wall", "Environment", i, j, Color.blue);
 				}
+
+                if (wallObject != null)
+                {
+                    int layerID = GetWallNavLayerID(tile);
+                    GameObjectUtility.SetNavMeshLayer(wallObject, layerID);
+                }
+
+    
 			}
 		}
 	}
+
+    private int GetWallNavLayerID(Tile tile)
+    {
+  
+        if (tile.red)
+        {
+            if (tile.green)
+            {
+                if (tile.blue)
+                    return GameObjectUtility.GetNavMeshLayerFromName("RedGreenBlue");
+                
+                return GameObjectUtility.GetNavMeshLayerFromName("RedGreen");
+            }
+
+            if (tile.blue)
+                return GameObjectUtility.GetNavMeshLayerFromName("RedBlue");
+            
+            return GameObjectUtility.GetNavMeshLayerFromName("Red");
+        }
+        if (tile.green)
+        {
+            if (tile.blue)
+                return GameObjectUtility.GetNavMeshLayerFromName("GreenBlue");
+           
+            return GameObjectUtility.GetNavMeshLayerFromName("Green");
+        }
+
+        if (tile.blue)
+            return GameObjectUtility.GetNavMeshLayerFromName("Blue");
+
+        return GameObjectUtility.GetNavMeshLayerFromName("Space");
+
+    }
 	
 	GameObject BuildWall(string name, string tag, int x, int z, Color color)
 	{
@@ -277,11 +323,13 @@ public class Map
 	}
 	
 	void BuildFloor() {
-		BuildPlane("Floor", "Environment",
-			new Vector3(0.0F, floor_y, 0.0f),
-			new Vector3(length, 1.0F, width),
-			Color.white
-		);
+		GameObject floorObject = BuildPlane(    "Floor", "Environment",
+			                                    new Vector3(0.0F, floor_y, 0.0f),
+			                                    new Vector3(length, 1.0F, width),
+			                                    Color.white
+		                                    );
+        //make floor navagation static
+        GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
 	}
 	
 	void BuildRoof() {

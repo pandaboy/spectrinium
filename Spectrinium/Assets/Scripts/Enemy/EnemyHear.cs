@@ -16,7 +16,7 @@ public class EnemyHear : MonoBehaviour
     {
         playerHeard = false;
         col = GetComponent<SphereCollider>();
-        nav = enemy.GetComponent<NavMeshAgent>();
+        
     }
 
     //rigidbody in hear sphere
@@ -75,5 +75,11 @@ public class EnemyHear : MonoBehaviour
         }
 
         return pathLength;
+    }
+
+
+    public void SetNavMeshAgent()
+    {
+        nav = enemy.GetComponent<NavMeshAgent>();
     }
 }

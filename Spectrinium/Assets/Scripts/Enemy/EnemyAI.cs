@@ -20,12 +20,11 @@ public class EnemyAI : MonoBehaviour
 	private Vector3 lastSeen;
 	private float sq_distance;
 
-
+    public string wavelength;
 
     void Start()
     {
-  
-        nav = GetComponent<NavMeshAgent>();
+        gameObject.layer = LayerMask.NameToLayer(wavelength);
     }
 
     void Update()
@@ -140,5 +139,37 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("idle");
         nav.Stop();
+    }
+
+    public void SetupNavMeshAgent()
+    {
+
+        NavMeshHit closestHit;
+        if (NavMesh.SamplePosition(transform.position, out closestHit, 500, 1))
+        {
+            transform.position = closestHit.position;
+            gameObject.AddComponent<NavMeshAgent>();
+            //TODO
+            nav = GetComponent<NavMeshAgent>();
+        }
+        else
+        {
+            Debug.Log("oh no");
+        }
+
+
+        SetNavLayer(nav);
+
+        hearing.SetNavMeshAgent();
+    }
+
+    private void SetNavLayer(NavMeshAgent nma)
+    {
+        if (wavelength == "Red")
+            nma.walkableMask = 1433;
+        else if (wavelength == "Green")
+            nma.walkableMask = 1705;
+        else
+            nma.walkableMask = 1865;
     }
 }
