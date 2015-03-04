@@ -40,8 +40,6 @@ public class GameController : MonoBehaviour
         //will set up enemy navmeshes in there, til then...
 
         NavMeshBuilder.BuildNavMesh();
-        while (NavMeshBuilder.isRunning)
-            Debug.Log("wait please");
 
 
 

@@ -16,6 +16,7 @@ public class Map
     public static GameObject red_group;
     public static GameObject blue_group;
     public static GameObject green_group;
+    public static GameObject floor_group;
 	
 	// internal stuff.
 	private int length;
@@ -114,6 +115,9 @@ public class Map
         blue_group.name = "Blue";
         blue_group.transform.parent = wall_group.transform;
 
+        floor_group = new GameObject();
+        floor_group.name = "Floors";
+
 		BuildMap(map_array);
 	}
 
@@ -137,7 +141,7 @@ public class Map
         //Set the current wavelength
         UpdateVisibleCollidable();
         
-        BuildFloor();
+        BuildFloorTiles();
         BuildRoof();
 
        
@@ -223,8 +227,10 @@ public class Map
     // build walls from the tiles array
 	public void BuildWalls()
 	{
-		for(int i = 0; i < length; i++) {
-			for(int j = 0; j < width; j++) {
+		for(int i = 0; i < length; i++)
+        {
+			for(int j = 0; j < width; j++)
+            {
 				Tile tile = tiles[i, j];
                 GameObject wallObject = null;
 
@@ -238,18 +244,23 @@ public class Map
                     wallObject = BuildWall("blue wall", "Environment", i, j, Color.blue);
 				}
 
+                int layerID = GetTileNavLayerID(tile);
+
                 if (wallObject != null)
                 {
-                    int layerID = GetWallNavLayerID(tile);
                     GameObjectUtility.SetNavMeshLayer(wallObject, layerID);
                 }
+
+          //      GameObject floorObject = BuildFloorTile(i, j);
+         //       GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
+
 
     
 			}
 		}
 	}
 
-    private int GetWallNavLayerID(Tile tile)
+    private int GetTileNavLayerID(Tile tile)
     {
   
         if (tile.red)
@@ -322,6 +333,7 @@ public class Map
 		return wall;
 	}
 	
+    //build floor as one plane
 	void BuildFloor() {
 		GameObject floorObject = BuildPlane(    "Floor", "Environment",
 			                                    new Vector3(0.0F, floor_y, 0.0f),
@@ -330,7 +342,44 @@ public class Map
 		                                    );
         //make floor navagation static
         GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
+        floorObject.transform.parent = floor_group.transform;
 	}
+
+    //build floor tile at position, and return tile
+    GameObject BuildFloorTile(int i, int j)
+    {
+        GameObject floorObject = BuildPlane("Floor", "Environment",
+                                                        new Vector3((i - length / 2) * 10 + 5, floor_y, (j - width / 2) * 10 + 5),
+                                                        new Vector3(1.0f, 1.0F, 1.0f),
+                                                        Color.white
+                                                    );
+        GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
+        floorObject.transform.parent = floor_group.transform;
+        return floorObject;
+    }
+
+
+    //build floor in tiles
+    void BuildFloorTiles()
+    {
+        for(int i=0; i<length; i++)
+            for (int j = 0; j < width; j++)
+            {
+                GameObject floorObject = BuildPlane("Floor", "Environment",
+                                                        new Vector3((i - length/2)*10 + 5, floor_y, (j - width/2)*10 + 5),
+                                                        new Vector3(1.0f, 1.0F, 1.0f),
+                                                        Color.white
+                                                    );
+                //make floor navagation static
+                GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
+                floorObject.transform.parent = floor_group.transform;
+
+                Tile tile = tiles[i, j];
+                int layerID = GetTileNavLayerID(tile);
+
+                GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
+            }
+    }
 	
 	void BuildRoof() {
 		BuildPlane(
