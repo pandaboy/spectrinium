@@ -6,7 +6,8 @@ public class EnemyHear : MonoBehaviour
 {
     public GameObject ears;
     public bool playerHeard;
-    public GameObject enemy;
+    public GameObject enemyObject;
+    private EnemyAI enemy;
     private NavMeshAgent nav;
     private SphereCollider col;
 
@@ -16,6 +17,7 @@ public class EnemyHear : MonoBehaviour
     {
         playerHeard = false;
         col = GetComponent<SphereCollider>();
+        enemy = enemyObject.GetComponent<EnemyAI>();
         
     }
 
@@ -24,8 +26,8 @@ public class EnemyHear : MonoBehaviour
     {
         GameObject other_object = other.gameObject;
 
-        //if the object is the player
-        if (other_object.tag == "Player")
+        //if the object is the player and they are in the same wavelength
+        if ((other_object.tag == "Player")&&(other_object.layer == LayerMask.NameToLayer(enemy.wavelength)))
         {
             float soundPathLength = CalculateSoundPathLength(other_object.transform.position);
 
@@ -80,6 +82,6 @@ public class EnemyHear : MonoBehaviour
 
     public void SetNavMeshAgent()
     {
-        nav = enemy.GetComponent<NavMeshAgent>();
+        nav = enemyObject.GetComponent<NavMeshAgent>();
     }
 }
