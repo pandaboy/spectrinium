@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 //controls enemy fsm
 public class EnemyAI : MonoBehaviour
@@ -35,7 +36,7 @@ public class EnemyAI : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer(wavelength);
 
-        patrolWayPoints = new Vector3[numWayPoints];
+        
     }
     /*
     void Update()
@@ -244,6 +245,8 @@ public class EnemyAI : MonoBehaviour
 
     void SetPatrolWayPoints()
     {
+        patrolWayPoints = new Vector3[numWayPoints];
+
         GameObject[] environmentObjects = GameObject.FindGameObjectsWithTag("Environment");
         int numEnvironmentObjects = environmentObjects.Length;
 
@@ -257,13 +260,20 @@ public class EnemyAI : MonoBehaviour
             {
                 int objectNum = Random.Range(0, numEnvironmentObjects);
 
-                Wall wall = environmentObjects[objectNum].GetComponent<Wall>();
+                GameObject tile = environmentObjects[objectNum];
 
-                if (wall != null)
+                if (tile.name == "Floor")
                 {
-                    if (wall.transform.parent != Map.blue_group.transform)
+                    int tileLayerID = GameObjectUtility.GetNavMeshLayer(tile);
+
+         
+                    string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
+                    int layerMask = nav.walkableMask;
+
+                    int check = layerMask >> tileLayerID;
+                    if(check%2 != 0)
                     {
-                        patrolWayPoints[count] = wall.transform.position;
+                        patrolWayPoints[count] = tile.transform.position;
                         count++;
                         break;
                     }

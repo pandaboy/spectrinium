@@ -99,6 +99,7 @@ public class GameController : MonoBehaviour
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
             currentColor.text =  getCurrentWavelengthAsString();
             SetPlayerLayer();
+            EnemyVisibileCollidable();
         }
         if(Input.GetKeyDown(KeyCode.R)) 
         {
@@ -108,6 +109,7 @@ public class GameController : MonoBehaviour
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
             currentColor.text = getCurrentWavelengthAsString();
             SetPlayerLayer();
+            EnemyVisibileCollidable();
 
         }
 	}
