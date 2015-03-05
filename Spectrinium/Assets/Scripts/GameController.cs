@@ -138,10 +138,13 @@ public class GameController : MonoBehaviour
             currentWavelength = currentWavelength.Next();
             return true;
         }
-        else
+        else if(Wall.CanSwitch(currentWavelength.Next().Next().ToString()))
         {
-            return false;
+            currentWavelength = currentWavelength.Next().Next();
+            return true;
         }
+        else
+            return false;
 	}
 	
 	/**
@@ -154,10 +157,13 @@ public class GameController : MonoBehaviour
             currentWavelength = currentWavelength.Prev();
             return true;
         }
-        else
+        else if (Wall.CanSwitch(currentWavelength.Prev().Prev().ToString()))
         {
-            return false;
+            currentWavelength = currentWavelength.Prev().Prev();
+            return true;
         }
+        else
+            return false;
 	}
 
 }
