@@ -19,6 +19,7 @@ public class BulletManager : MonoBehaviour {
 		if(Input.GetButtonDown("Fire1"))
         {
             GameObject bulletInstance = (GameObject)Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+			GetComponent<AudioSource>().Play();
 		}
 	}
 }
