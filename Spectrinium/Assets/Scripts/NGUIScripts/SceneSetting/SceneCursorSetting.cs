@@ -5,7 +5,8 @@ public class SceneCursorSetting : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Cursor.visible = false;
+    //    Cursor.visible = false;
+        Screen.showCursor = false;
 	}
 	
 	// Update is called once per frame

@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         enemy_group = new GameObject();
         enemy_group.name = "Enemies";
