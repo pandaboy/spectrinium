@@ -17,8 +17,8 @@ public class EnemyHear : MonoBehaviour
     {
         playerHeard = false;
         col = GetComponent<SphereCollider>();
+        enemyObject = ears.transform.parent.gameObject;
         enemy = enemyObject.GetComponent<EnemyAI>();
-        
     }
 
     //rigidbody in hear sphere
@@ -82,6 +82,6 @@ public class EnemyHear : MonoBehaviour
 
     public void SetNavMeshAgent()
     {
-        nav = enemyObject.GetComponent<NavMeshAgent>();
+        nav = GetComponentInParent<NavMeshAgent>();
     }
 }

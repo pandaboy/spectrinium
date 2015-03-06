@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent nav;
     public EnemyShooting gun;
 
+    public GameObject floor_group;
+
     public float runSpeed = 2f;
     public float walkSpeed = 1f;
     public float turnSpeed = 2f;
@@ -178,6 +180,7 @@ public class EnemyAI : MonoBehaviour
  * */
 
         nav = gameObject.AddComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
         nav.stoppingDistance = 0.8f;
 
         SetNavLayer(nav);
@@ -285,5 +288,30 @@ public class EnemyAI : MonoBehaviour
         }
         wayPointsSet = true;
         
+    }
+
+
+    public Vector3 FindRandomClearPosition()
+    {
+        foreach (Transform child in floor_group.transform)
+        {
+            int tileLayerID = GameObjectUtility.GetNavMeshLayer(child.gameObject);
+
+
+            string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
+            int layerMask = nav.walkableMask;
+
+            int check = layerMask >> tileLayerID;
+            if (check % 2 != 0)
+            {
+                return child.position;
+            }
+        }
+        return new Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    public void AssignFloors(GameObject floors)
+    {
+        floor_group = floors;
     }
 }

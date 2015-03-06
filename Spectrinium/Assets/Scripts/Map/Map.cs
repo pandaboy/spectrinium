@@ -26,6 +26,7 @@ public class Map
 	private float wall_height = 5;
 	private float wall_thickness = 10;
 
+
     
 
 

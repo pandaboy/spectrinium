@@ -39,9 +39,16 @@ public class GameController : MonoBehaviour
         //SPAWN ENEMIES HERE PLEASE PATRICK
         //will set up enemy navmeshes in there, til then...
 
+        
+
+
         NavMeshBuilder.BuildNavMesh();
 
+        EnemyManager enemyManager = GetComponent<EnemyManager>();
+        enemyManager.AssignFloors(Map.floor_group);
+        enemyManager.SpawnEnemies();
 
+/*
 
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -51,65 +58,33 @@ public class GameController : MonoBehaviour
             EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
             enemy.SetupNavMeshAgent();
         }
-
+*/
         SetPlayerLayer();
 	}
 
-    private void SetPlayerLayer()
-    {
-        string wavString = getCurrentWavelengthAsString();
-        string layerName = wavString.Substring(0, 1).ToUpper() + wavString.Substring(1, wavString.Length - 1).ToLower();
-        int layerID = LayerMask.NameToLayer(layerName);
-
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
-        for(int i=0; i<playerObjects.Length; i++)
-            playerObjects[i].layer = layerID;
-    }
-
-    //toggles visibility/collidability of enemies
-    //should be moved to enemy manager/similar when enemy spawner completed
-    private void EnemyVisibileCollidable()
-    {
-        string wavString = getCurrentWavelengthAsString();
-        string layerName = wavString.Substring(0, 1).ToUpper() + wavString.Substring(1, wavString.Length - 1).ToLower();
-        int layerID = LayerMask.NameToLayer(layerName);
-
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < enemyObjects.Length; i++)
-            if (enemyObjects[i].layer == layerID)
-            {
-                enemyObjects[i].renderer.enabled = true;
-                enemyObjects[i].collider.isTrigger = false;
-            }
-            else
-            {
-                enemyObjects[i].renderer.enabled = false;
-                enemyObjects[i].collider.isTrigger = true;
-            }
-    }
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.T)) 
         {
-            if(nextWavelength())
-                map.UpdateVisibleCollidable();
+            if (nextWavelength())
+            {
+                UpdateLayers();
+            }
 
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
-            currentColor.text =  getCurrentWavelengthAsString();
-            SetPlayerLayer();
-            EnemyVisibileCollidable();
+            currentColor.text = getCurrentWavelengthAsString();
         }
         if(Input.GetKeyDown(KeyCode.R)) 
         {
             if(prevWavelength())
-                map.UpdateVisibleCollidable();
+            {
+                UpdateLayers();
+            }
 
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
             currentColor.text = getCurrentWavelengthAsString();
-            SetPlayerLayer();
-            EnemyVisibileCollidable();
 
         }
 	}
@@ -167,5 +142,49 @@ public class GameController : MonoBehaviour
         else
             return false;
 	}
+
+
+
+    private void SetPlayerLayer()
+    {
+        string wavString = getCurrentWavelengthAsString();
+        string layerName = wavString.Substring(0, 1).ToUpper() + wavString.Substring(1, wavString.Length - 1).ToLower();
+        int layerID = LayerMask.NameToLayer(layerName);
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < playerObjects.Length; i++)
+            playerObjects[i].layer = layerID;
+    }
+
+    //toggles visibility/collidability of enemies
+    //should be moved to enemy manager/similar when enemy spawner completed
+    private void EnemyVisibileCollidable()
+    {
+        string wavString = getCurrentWavelengthAsString();
+        string layerName = wavString.Substring(0, 1).ToUpper() + wavString.Substring(1, wavString.Length - 1).ToLower();
+        int layerID = LayerMask.NameToLayer(layerName);
+
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < enemyObjects.Length; i++)
+            if (enemyObjects[i].layer == layerID)
+            {
+                enemyObjects[i].renderer.enabled = true;
+                enemyObjects[i].collider.isTrigger = false;
+            }
+            else
+            {
+                enemyObjects[i].renderer.enabled = false;
+                enemyObjects[i].collider.isTrigger = true;
+            }
+    }
+
+    private void UpdateLayers()
+    {
+
+        map.UpdateVisibleCollidable();
+        SetPlayerLayer();
+        EnemyVisibileCollidable();
+
+    }
 
 }
