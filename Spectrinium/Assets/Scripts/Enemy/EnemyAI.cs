@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
 
 //controls enemy fsm
 public class EnemyAI : MonoBehaviour
@@ -11,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     public EnemyShooting gun;
 
     public GameObject floor_group;
+    private List<GameObject> floor_objects;
+    private int num_floorObjects = 0;
 
     public float runSpeed = 2f;
     public float walkSpeed = 1f;
@@ -290,12 +293,28 @@ public class EnemyAI : MonoBehaviour
         
     }
 
+    private void AssignFloorObjects()
+    {
+        floor_objects = new List<GameObject>();
+        foreach (Transform child in floor_group.transform)
+        {
+            floor_objects.Add(child.gameObject);
+            num_floorObjects++;
+        }
+    }
+
+
 
     public Vector3 FindRandomClearPosition()
     {
-        foreach (Transform child in floor_group.transform)
+        for (int i = 0; i < 10; i++)
         {
-            int tileLayerID = GameObjectUtility.GetNavMeshLayer(child.gameObject);
+            int randomNum = Random.Range(0, num_floorObjects - 1);
+
+            GameObject floorObject = floor_objects[randomNum];
+
+
+            int tileLayerID = GameObjectUtility.GetNavMeshLayer(floorObject);
 
 
             string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
@@ -304,14 +323,17 @@ public class EnemyAI : MonoBehaviour
             int check = layerMask >> tileLayerID;
             if (check % 2 != 0)
             {
-                return child.position;
+                return floorObject.transform.position;
             }
         }
+        
         return new Vector3(0.0f, 0.0f, 0.0f);
     }
 
     public void AssignFloors(GameObject floors)
     {
         floor_group = floors;
+
+        AssignFloorObjects();
     }
 }
