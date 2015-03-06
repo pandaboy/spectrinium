@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
     public int mapDimensionX = 16;
     public int mapDimensionY = 16;
 
+    private EnemyManager enemyManager;
+
     void Awake()
     {
         Instance = this;
@@ -44,7 +46,7 @@ public class GameController : MonoBehaviour
 
         NavMeshBuilder.BuildNavMesh();
 
-        EnemyManager enemyManager = GetComponent<EnemyManager>();
+        enemyManager = GetComponent<EnemyManager>();
         enemyManager.AssignFloors(Map.floor_group);
         enemyManager.SpawnEnemies();
 
@@ -59,7 +61,7 @@ public class GameController : MonoBehaviour
             enemy.SetupNavMeshAgent();
         }
 */
-        SetPlayerLayer();
+        UpdateLayers();
 	}
 
 
@@ -183,7 +185,7 @@ public class GameController : MonoBehaviour
 
         map.UpdateVisibleCollidable();
         SetPlayerLayer();
-        EnemyVisibileCollidable();
+        enemyManager.UpdateVisibleCollidable();
 
     }
 

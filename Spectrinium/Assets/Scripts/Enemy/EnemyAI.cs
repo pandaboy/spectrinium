@@ -43,7 +43,7 @@ public class EnemyAI : MonoBehaviour
 
         
     }
-    /*
+    
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -62,13 +62,13 @@ public class EnemyAI : MonoBehaviour
             else
                 Idle();
     }
-    */
-
+    
+    /*
     void Update()
     {
         Patrol();
     }
-
+*/
     //turns towards player and shoots
     void Attack()
     {
