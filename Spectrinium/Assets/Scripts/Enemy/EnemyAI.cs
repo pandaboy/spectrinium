@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 //controls enemy fsm
 public class EnemyAI : MonoBehaviour
@@ -13,6 +14,15 @@ public class EnemyAI : MonoBehaviour
     public float walkSpeed = 1f;
     public float turnSpeed = 2f;
 
+    public int numWayPoints = 2;
+    public float patrolSpeed = 0.5f;
+    public Vector3[] patrolWayPoints;
+    public float patrolWaitTime = 1.0f;
+    private float patrolTimer;
+    private int wayPointIndex = 0;
+    private bool wayPointsSet = false;
+    
+
     public float waitTime = 1f;
     private float chaseTimer;
 
@@ -20,28 +30,38 @@ public class EnemyAI : MonoBehaviour
 	private Vector3 lastSeen;
 	private float sq_distance;
 
-
+    public string wavelength;
 
     void Start()
     {
-  
-        nav = GetComponent<NavMeshAgent>();
-    }
+        gameObject.layer = LayerMask.NameToLayer(wavelength);
 
+        
+    }
+    /*
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
             gun.Shoot();
 
         if (sight.playerInSight)
-            if(checkInRange())
-				Attack();
-			else
-				Chase ();
+            if (checkInRange())
+                Attack();
+            else
+                Chase();
         else if (hearing.playerHeard)
             Look();
         else
-            Idle();
+            if (wayPointsSet)
+                Patrol();
+            else
+                Idle();
+    }
+    */
+
+    void Update()
+    {
+        Patrol();
     }
 
     //turns towards player and shoots
@@ -140,5 +160,130 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("idle");
         nav.Stop();
+    }
+
+    public void SetupNavMeshAgent()
+    {
+/*
+        NavMeshHit closestHit;
+        if (NavMesh.SamplePosition(transform.position, out closestHit, 500, 1))
+        {
+            transform.position = closestHit.position;
+            nav = gameObject.AddComponent<NavMeshAgent>();
+        }
+        else
+        {
+             Debug.Log("oh no");
+        }
+ * */
+
+        nav = gameObject.AddComponent<NavMeshAgent>();
+        nav.stoppingDistance = 0.8f;
+
+        SetNavLayer(nav);
+
+        hearing.SetNavMeshAgent();
+
+        SetPatrolWayPoints();
+    }
+
+    private void SetNavLayer(NavMeshAgent nma)
+    {
+        int d = NavMesh.GetNavMeshLayerFromName("Default");
+        int space = NavMesh.GetNavMeshLayerFromName("Space");
+        int R = NavMesh.GetNavMeshLayerFromName("Red");
+        int G = NavMesh.GetNavMeshLayerFromName("Green");
+        int B = NavMesh.GetNavMeshLayerFromName("Blue");
+        int RG = NavMesh.GetNavMeshLayerFromName("RedGreen");
+        int RB = NavMesh.GetNavMeshLayerFromName("RedBlue");   
+        int GB = NavMesh.GetNavMeshLayerFromName("GreenBlue");
+        int RGB = NavMesh.GetNavMeshLayerFromName("RedGreenBlue");
+
+        int layerMask = (1 << d) + (1 << space);
+
+        if (wavelength == "Red")
+            layerMask += (1 << G) + (1 << B) + (1 << GB);
+        else if (wavelength == "Green")
+            layerMask += (1 << R) + (1 << B) + (1 << RB);
+        else
+            layerMask += (1 << R) + (1 << G) + (1 << RG);
+
+        nma.walkableMask = layerMask;
+
+
+
+
+       
+    }
+
+
+    void Patrol()
+    {
+        nav.speed = patrolSpeed;
+
+        if (nav.remainingDistance < nav.stoppingDistance)
+        {
+            patrolTimer += Time.deltaTime;
+
+            if (patrolTimer >= patrolWaitTime)
+            {
+                if (wayPointIndex >= patrolWayPoints.Length - 1)
+                    wayPointIndex = 0;
+                else
+                    wayPointIndex++;
+
+                patrolTimer = 0.0f;
+            }
+          
+        }
+        else
+            patrolTimer = 0.0f;
+
+        nav.destination = patrolWayPoints[wayPointIndex];
+
+    }
+
+    void SetPatrolWayPoints()
+    {
+        patrolWayPoints = new Vector3[numWayPoints];
+
+        GameObject[] environmentObjects = GameObject.FindGameObjectsWithTag("Environment");
+        int numEnvironmentObjects = environmentObjects.Length;
+
+        int count = 0;
+
+        while (count < numWayPoints)
+        {
+  
+
+            while (true)
+            {
+                int objectNum = Random.Range(0, numEnvironmentObjects);
+
+                GameObject tile = environmentObjects[objectNum];
+
+                if (tile.name == "Floor")
+                {
+                    int tileLayerID = GameObjectUtility.GetNavMeshLayer(tile);
+
+         
+                    string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
+                    int layerMask = nav.walkableMask;
+
+                    int check = layerMask >> tileLayerID;
+                    if(check%2 != 0)
+                    {
+                        patrolWayPoints[count] = tile.transform.position;
+                        count++;
+                        break;
+                    }
+
+                }
+
+
+            }
+        }
+        wayPointsSet = true;
+        
     }
 }
