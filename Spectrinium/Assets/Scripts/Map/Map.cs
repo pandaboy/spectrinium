@@ -200,8 +200,8 @@ public class Map
 
         foreach (Transform child in wavelengthGroup)
         {
-            child.transform.renderer.enabled = true;
-            child.transform.collider.isTrigger = false;
+            child.transform.GetComponent<Renderer>().enabled = true;
+            child.transform.GetComponent<Collider>().isTrigger = false;
         }
 	}
 
@@ -211,8 +211,8 @@ public class Map
         {
             foreach (Transform grandchild in child)
             {
-                grandchild.transform.renderer.enabled = false;
-                grandchild.transform.collider.isTrigger = true;
+                grandchild.transform.GetComponent<Renderer>().enabled = false;
+                grandchild.transform.GetComponent<Collider>().isTrigger = true;
             }
         }
     }
@@ -247,15 +247,15 @@ public class Map
 			z_offset * wall_thickness
 			), Quaternion.identity) as GameObject;
 		
-        wall.renderer.material.color = color;
+        wall.GetComponent<Renderer>().material.color = color;
 		wall.transform.localScale = new Vector3(
 			wall_thickness,
 			wall.transform.localScale.y * wall_height,
 			wall_thickness
 		);
 
-        wall.renderer.enabled = false;
-        wall.collider.isTrigger = true;
+        wall.GetComponent<Renderer>().enabled = false;
+        wall.GetComponent<Collider>().isTrigger = true;
 
         if (color == Color.red)
         {
@@ -306,7 +306,7 @@ public class Map
 			plane.transform.localScale.y * scale.y,
 			plane.transform.localScale.z * scale.z
 		);
-		plane.renderer.material.color = color;
+		plane.GetComponent<Renderer>().material.color = color;
 		
 		return plane;
 	}

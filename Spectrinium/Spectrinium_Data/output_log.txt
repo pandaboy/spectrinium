@@ -1,4 +1,4 @@
-Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+Initialize engine version: 5.0.0f4 (5b98b70ebeb9)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
@@ -18,48 +18,65 @@ Platform assembly: C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectriniu
 Loading C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectrinium_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectrinium_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectrinium_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.082 seconds
-desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
+- Completed reload, in  0.092 seconds
+desktop: 2880x1800 60Hz; virtual: 2880x1800 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+<RI> Initialized touch support.
 Platform assembly: C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectrinium_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectrinium_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 2.711657 ms
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.043177 ms
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 554.
-Total: 0.779524 ms (FindLiveObjects: 0.018987 ms CreateObjectMapping: 0.009237 ms MarkObjects: 0.372057 ms  DeleteObjects: 0.023606 ms)
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 564.
+Total: 0.435692 ms (FindLiveObjects: 0.041567 ms CreateObjectMapping: 0.054910 ms MarkObjects: 0.332029 ms  DeleteObjects: 0.006671 ms)
 
-UnloadTime: 0.616332 ms
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.577844 ms
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 806.
-Total: 0.766181 ms (FindLiveObjects: 0.025145 ms CreateObjectMapping: 0.012316 ms MarkObjects: 0.339726 ms  DeleteObjects: 0.018987 ms)
-
-HERE!
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 810.
+Total: 0.540382 ms (FindLiveObjects: 0.055936 ms CreateObjectMapping: 0.025659 ms MarkObjects: 0.448009 ms  DeleteObjects: 0.010263 ms)
 
 HERE!
  
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
 HERE!
  
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+HERE!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
 Platform assembly: C:\Users\WaltXin\Documents\spectrinium\Spectrinium\Spectrinium_Data\Managed\Boo.Lang.dll (this message is harmless)
 Environment
  
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
 hit something
  
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-UnloadTime: 5.773304 ms
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+Environment
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-Unloading 597 unused Assets to reduce memory usage. Loaded Objects now: 579.
-Total: 2.375522 ms (FindLiveObjects: 0.029764 ms CreateObjectMapping: 0.069279 ms MarkObjects: 0.388479 ms  DeleteObjects: 1.522612 ms)
+hit something
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Environment
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+hit something
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.500618 ms
+
+Unloading 597 unused Assets to reduce memory usage. Loaded Objects now: 589.
+Total: 0.808263 ms (FindLiveObjects: 0.040028 ms CreateObjectMapping: 0.050291 ms MarkObjects: 0.384374 ms  DeleteObjects: 0.333056 ms)
 

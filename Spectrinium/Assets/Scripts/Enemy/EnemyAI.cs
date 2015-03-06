@@ -49,7 +49,7 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("pew pew");
 		nav.Stop ();
-        Vector3 dist_vec = lastSeen - rigidbody.position;
+        Vector3 dist_vec = lastSeen - GetComponent<Rigidbody>().position;
         Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
         Quaternion lookDir = Quaternion.LookRotation(dist_vec, up);
 

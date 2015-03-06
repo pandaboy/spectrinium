@@ -20,7 +20,7 @@ public class resumeBtn : MonoBehaviour {
         Time.timeScale = 1.0f;
         PauseMenu.SetActive(false);
         FPSController.SetActive(true);
-        Screen.showCursor = false;
+        Cursor.visible = false;
           showPauseMenu = false;
     }
 }
