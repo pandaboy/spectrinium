@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
 
 //controls enemy fsm
 public class EnemyAI : MonoBehaviour
@@ -9,6 +10,10 @@ public class EnemyAI : MonoBehaviour
     public EnemyHear hearing;
     private NavMeshAgent nav;
     public EnemyShooting gun;
+
+    public GameObject floor_group;
+    private List<GameObject> floor_objects;
+    private int num_floorObjects = 0;
 
     public float runSpeed = 2f;
     public float walkSpeed = 1f;
@@ -38,7 +43,7 @@ public class EnemyAI : MonoBehaviour
 
         
     }
-    /*
+    
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -57,13 +62,13 @@ public class EnemyAI : MonoBehaviour
             else
                 Idle();
     }
-    */
-
+    
+    /*
     void Update()
     {
         Patrol();
     }
-
+*/
     //turns towards player and shoots
     void Attack()
     {
@@ -178,6 +183,7 @@ public class EnemyAI : MonoBehaviour
  * */
 
         nav = gameObject.AddComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
         nav.stoppingDistance = 0.8f;
 
         SetNavLayer(nav);
@@ -285,5 +291,49 @@ public class EnemyAI : MonoBehaviour
         }
         wayPointsSet = true;
         
+    }
+
+    private void AssignFloorObjects()
+    {
+        floor_objects = new List<GameObject>();
+        foreach (Transform child in floor_group.transform)
+        {
+            floor_objects.Add(child.gameObject);
+            num_floorObjects++;
+        }
+    }
+
+
+
+    public Vector3 FindRandomClearPosition()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            int randomNum = Random.Range(0, num_floorObjects - 1);
+
+            GameObject floorObject = floor_objects[randomNum];
+
+
+            int tileLayerID = GameObjectUtility.GetNavMeshLayer(floorObject);
+
+
+            string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
+            int layerMask = nav.walkableMask;
+
+            int check = layerMask >> tileLayerID;
+            if (check % 2 != 0)
+            {
+                return floorObject.transform.position;
+            }
+        }
+        
+        return new Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    public void AssignFloors(GameObject floors)
+    {
+        floor_group = floors;
+
+        AssignFloorObjects();
     }
 }
