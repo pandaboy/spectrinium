@@ -11,7 +11,7 @@ function Update () {
     var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
     //  Cursor.visible = false;
-    Screen.showCursor = false;
+    Cursor.visible = false;
 
 	
 	if (directionVector != Vector3.zero) {

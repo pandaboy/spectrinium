@@ -65,8 +65,8 @@ public class EnemyManager : MonoBehaviour {
     {
         foreach (Transform child in wavelengthGroup)
         {
-            child.transform.renderer.enabled = true;
-            child.transform.collider.isTrigger = false;
+            child.transform.GetComponent<Renderer>().enabled = true;
+            child.transform.GetComponent<Collider>().isTrigger = false;
         }
     }
 
@@ -75,8 +75,8 @@ public class EnemyManager : MonoBehaviour {
     {
         foreach (Transform child in wavelengthGroup)
         {
-            child.transform.renderer.enabled = false;
-            child.transform.collider.isTrigger = true;
+            child.transform.GetComponent<Renderer>().enabled = false;
+            child.transform.GetComponent<Collider>().isTrigger = true;
         }
     }
 

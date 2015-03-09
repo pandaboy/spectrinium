@@ -21,7 +21,7 @@ public class resumeBtn : MonoBehaviour {
         PauseMenu.SetActive(false);
         FPSController.SetActive(true);
  //       Cursor.visible = false;
-        Screen.showCursor = false;
+        Cursor.visible = false;
           showPauseMenu = false;
     }
 }
