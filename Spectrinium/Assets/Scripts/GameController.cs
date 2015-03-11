@@ -170,13 +170,13 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < enemyObjects.Length; i++)
             if (enemyObjects[i].layer == layerID)
             {
-                enemyObjects[i].renderer.enabled = true;
-                enemyObjects[i].collider.isTrigger = false;
+                enemyObjects[i].GetComponent<Renderer>().enabled = true;
+                enemyObjects[i].GetComponent<Collider>().isTrigger = false;
             }
             else
             {
-                enemyObjects[i].renderer.enabled = false;
-                enemyObjects[i].collider.isTrigger = true;
+                enemyObjects[i].GetComponent<Renderer>().enabled = false;
+                enemyObjects[i].GetComponent<Collider>().isTrigger = true;
             }
     }
 
