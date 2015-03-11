@@ -71,7 +71,7 @@ public class EnemySight : MonoBehaviour
     private void SeesPlayer(Vector3 playerPos)
     {
         playerInSight = true;
-        Debug.Log("i can see the player");
+  //      Debug.Log("i can see the player");
         lastSeenPosition = playerPos;
     }
 

@@ -40,10 +40,8 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         gameObject.layer = LayerMask.NameToLayer(wavelength);
-
-        
     }
-    
+    /*
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -62,13 +60,13 @@ public class EnemyAI : MonoBehaviour
             else
                 Idle();
     }
+    */
     
-    /*
     void Update()
     {
         Patrol();
     }
-*/
+
     //turns towards player and shoots
     void Attack()
     {
@@ -195,15 +193,16 @@ public class EnemyAI : MonoBehaviour
 
     private void SetNavLayer(NavMeshAgent nma)
     {
-        int d = NavMesh.GetNavMeshLayerFromName("Default");
-        int space = NavMesh.GetNavMeshLayerFromName("Space");
-        int R = NavMesh.GetNavMeshLayerFromName("Red");
-        int G = NavMesh.GetNavMeshLayerFromName("Green");
-        int B = NavMesh.GetNavMeshLayerFromName("Blue");
-        int RG = NavMesh.GetNavMeshLayerFromName("RedGreen");
-        int RB = NavMesh.GetNavMeshLayerFromName("RedBlue");   
-        int GB = NavMesh.GetNavMeshLayerFromName("GreenBlue");
-        int RGB = NavMesh.GetNavMeshLayerFromName("RedGreenBlue");
+
+        int d = NavMesh.GetAreaFromName("Walkable");
+        int space = NavMesh.GetAreaFromName("Space");
+        int R = NavMesh.GetAreaFromName("Red");
+        int G = NavMesh.GetAreaFromName("Green");
+        int B = NavMesh.GetAreaFromName("Blue");
+        int RG = NavMesh.GetAreaFromName("RedGreen");
+        int RB = NavMesh.GetAreaFromName("RedBlue");
+        int GB = NavMesh.GetAreaFromName("GreenBlue");
+        int RGB = NavMesh.GetAreaFromName("RedGreenBlue");
 
         int layerMask = (1 << d) + (1 << space);
 
@@ -214,7 +213,7 @@ public class EnemyAI : MonoBehaviour
         else
             layerMask += (1 << R) + (1 << G) + (1 << RG);
 
-        nma.walkableMask = layerMask;
+        nma.areaMask = layerMask;
 
 
 
@@ -270,11 +269,11 @@ public class EnemyAI : MonoBehaviour
 
                 if (tile.name == "Floor")
                 {
-                    int tileLayerID = GameObjectUtility.GetNavMeshLayer(tile);
+                    int tileLayerID = GameObjectUtility.GetNavMeshArea(tile);
 
          
-                    string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
-                    int layerMask = nav.walkableMask;
+                    string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
+                    int layerMask = nav.areaMask;
 
                     int check = layerMask >> tileLayerID;
                     if(check%2 != 0)
@@ -309,16 +308,16 @@ public class EnemyAI : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            int randomNum = Random.Range(0, num_floorObjects - 1);
+            int randomNum = Random.Range(0, num_floorObjects);
 
             GameObject floorObject = floor_objects[randomNum];
 
 
-            int tileLayerID = GameObjectUtility.GetNavMeshLayer(floorObject);
+            int tileLayerID = GameObjectUtility.GetNavMeshArea(floorObject);
 
 
-            string tileLayerString = GameObjectUtility.GetNavMeshLayerNames()[tileLayerID];
-            int layerMask = nav.walkableMask;
+            string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
+            int layerMask = nav.areaMask;
 
             int check = layerMask >> tileLayerID;
             if (check % 2 != 0)

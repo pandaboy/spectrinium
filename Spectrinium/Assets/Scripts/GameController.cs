@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
     public int mapDimensionY = 16;
 
     private EnemyManager enemyManager;
+    private SpectriniumSpawner specSpawner;
 
     void Awake()
     {
@@ -35,14 +36,7 @@ public class GameController : MonoBehaviour
 		currentWavelength = Wavelength.BLUE;
         map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), wall);
 		
-        // spawn the player
-
-
-        //SPAWN ENEMIES HERE PLEASE PATRICK
-        //will set up enemy navmeshes in there, til then...
-
-        
-
+   
 
         NavMeshBuilder.BuildNavMesh();
 
@@ -50,17 +44,11 @@ public class GameController : MonoBehaviour
         enemyManager.AssignFloors(Map.floor_group);
         enemyManager.SpawnEnemies();
 
-/*
+        specSpawner = GetComponent<SpectriniumSpawner>();
+        specSpawner.AssignFloors(Map.floor_group);
+        specSpawner.SpawnSpectrinium();
 
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
-        for (int i = 0; i < enemyObjects.Length; i++)
-        {
-            GameObject enemyObject = enemyObjects[i];
-            EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
-            enemy.SetupNavMeshAgent();
-        }
-*/
         UpdateLayers();
 	}
 
@@ -158,6 +146,7 @@ public class GameController : MonoBehaviour
             playerObjects[i].layer = layerID;
     }
 
+//<<<<<<< HEAD
     //toggles visibility/collidability of enemies
     //should be moved to enemy manager/similar when enemy spawner completed
     private void EnemyVisibileCollidable()
@@ -179,6 +168,9 @@ public class GameController : MonoBehaviour
                 enemyObjects[i].GetComponent<Collider>().isTrigger = true;
             }
     }
+//=======
+   
+//>>>>>>> f16436563f278fdbaa26bff1ced0b97023f99f8b
 
     private void UpdateLayers()
     {

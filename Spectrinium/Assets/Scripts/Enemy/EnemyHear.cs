@@ -13,7 +13,7 @@ public class EnemyHear : MonoBehaviour
 
     public Vector3 lastHeardPosition;
 
-    void Start()
+    void Awake()
     {
         playerHeard = false;
         col = GetComponent<SphereCollider>();
@@ -26,6 +26,7 @@ public class EnemyHear : MonoBehaviour
     {
         GameObject other_object = other.gameObject;
 
+
         //if the object is the player and they are in the same wavelength
         if ((other_object.tag == "Player")&&(other_object.layer == LayerMask.NameToLayer(enemy.wavelength)))
         {
@@ -35,7 +36,7 @@ public class EnemyHear : MonoBehaviour
             {
 
                 playerHeard = true;
-                Debug.Log("i can hear the player");
+     //           Debug.Log("i can hear the player");
                 lastHeardPosition = other_object.transform.position;
             }
         }

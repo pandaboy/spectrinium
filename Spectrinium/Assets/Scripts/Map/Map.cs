@@ -269,28 +269,28 @@ public class Map
             if (tile.green)
             {
                 if (tile.blue)
-                    return GameObjectUtility.GetNavMeshLayerFromName("RedGreenBlue");
-                
-                return GameObjectUtility.GetNavMeshLayerFromName("RedGreen");
+                    return GameObjectUtility.GetNavMeshAreaFromName("RedGreenBlue");
+
+                return GameObjectUtility.GetNavMeshAreaFromName("RedGreen");
             }
 
             if (tile.blue)
-                return GameObjectUtility.GetNavMeshLayerFromName("RedBlue");
-            
-            return GameObjectUtility.GetNavMeshLayerFromName("Red");
+                return GameObjectUtility.GetNavMeshAreaFromName("RedBlue");
+
+            return GameObjectUtility.GetNavMeshAreaFromName("Red");
         }
         if (tile.green)
         {
             if (tile.blue)
-                return GameObjectUtility.GetNavMeshLayerFromName("GreenBlue");
-           
-            return GameObjectUtility.GetNavMeshLayerFromName("Green");
+                return GameObjectUtility.GetNavMeshAreaFromName("GreenBlue");
+
+            return GameObjectUtility.GetNavMeshAreaFromName("Green");
         }
 
         if (tile.blue)
-            return GameObjectUtility.GetNavMeshLayerFromName("Blue");
+            return GameObjectUtility.GetNavMeshAreaFromName("Blue");
 
-        return GameObjectUtility.GetNavMeshLayerFromName("Space");
+        return GameObjectUtility.GetNavMeshAreaFromName("Space");
 
     }
 	
@@ -378,7 +378,7 @@ public class Map
                 Tile tile = tiles[i, j];
                 int layerID = GetTileNavLayerID(tile);
 
-                GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
+                GameObjectUtility.SetNavMeshArea(floorObject, layerID);
             }
     }
 	
