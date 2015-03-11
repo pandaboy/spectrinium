@@ -13,10 +13,13 @@ public class EnemyShooting : MonoBehaviour
 
     private float nextFireTime = 0.0f;
     private float damage = 10.0f;
+
+    private EnemyAI enemySelf;
     
 
     void Start()
     {
+        enemySelf = GetComponentInParent<EnemyAI>();
     }
 
     public void Shoot()
@@ -34,6 +37,7 @@ public class EnemyShooting : MonoBehaviour
         EnemyBullet bullet = bulletInstance.GetComponent<EnemyBullet>();
         bullet.damage = damage;
         bullet.speed = bulletSpeed;
+        bullet.owner = enemySelf;
     }
 
 }

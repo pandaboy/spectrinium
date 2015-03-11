@@ -166,4 +166,24 @@ public class GameController : MonoBehaviour
         keySpawner.UpdateVisibleCollidable();
     }
 
+
+    public void UnlockExit()
+    {
+        PlayerWon();
+    }
+
+    public void PlayerDead()
+    {
+        //LOAD IN LOSS SCENE HERE
+        Debug.Log("YOU LOST");
+    }
+
+
+    public void PlayerWon()
+    {
+        //LOAD IN WIN SCENE HERE
+        Debug.Log("YOU WON");
+    }
+   
+
 }
