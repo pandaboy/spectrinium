@@ -44,8 +44,7 @@ public class EnemyAI : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-            gun.Shoot();
+
 
         if (sight.playerInSight)
             if (checkInRange())
@@ -135,6 +134,7 @@ public class EnemyAI : MonoBehaviour
     //runs towards players position
     void Chase()
     {
+        nav.Resume();
         Debug.Log("chasing");
 
 
@@ -147,13 +147,14 @@ public class EnemyAI : MonoBehaviour
     //walks towards players position
     void Look()
     {
+        nav.Resume();
         Debug.Log("looking");
 
         Vector3 lastHeard = hearing.lastHeardPosition;
 		Vector3 diffHearing = lastHeard - transform.position;
 
-		if (diffHearing.sqrMagnitude >= walkSpeed)
-			nav.destination = lastHeard;
+        if (diffHearing.sqrMagnitude >= walkSpeed)
+            nav.SetDestination(lastHeard);
 
         nav.speed = walkSpeed;
     }
@@ -182,7 +183,8 @@ public class EnemyAI : MonoBehaviour
 
         nav = gameObject.AddComponent<NavMeshAgent>();
         nav = GetComponent<NavMeshAgent>();
-        nav.stoppingDistance = 0.8f;
+        nav.stoppingDistance = 1f;
+        nav.acceleration = 3f;
 
         SetNavLayer(nav);
 
@@ -224,6 +226,7 @@ public class EnemyAI : MonoBehaviour
 
     void Patrol()
     {
+        nav.Resume();
         nav.speed = patrolSpeed;
 
         if (nav.remainingDistance < nav.stoppingDistance)

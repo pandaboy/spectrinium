@@ -15,6 +15,10 @@ public class PlayerResources : MonoBehaviour
     public int fireSpecCost;
     public int switchSpecCost;
 
+    public bool hasRedKey = false;
+    public bool hasGreenKey = false;
+    public bool hasBlueKey = false;
+
     void Start()
     {
         health = maxHealth = startingHealth;
@@ -48,5 +52,15 @@ public class PlayerResources : MonoBehaviour
     public bool SwitchSpectrinium()
     {
         return SpendSpectrinium(switchSpecCost);
+    }
+
+    public void CollectKey(string wavelength)
+    {
+        if (wavelength == "Red")
+            hasRedKey = true;
+        if (wavelength == "Green")
+            hasGreenKey = true;
+        if (wavelength == "Blue")
+            hasBlueKey = true;
     }
 }

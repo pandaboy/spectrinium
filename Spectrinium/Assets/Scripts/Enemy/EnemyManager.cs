@@ -87,13 +87,16 @@ public class EnemyManager : MonoBehaviour {
         int thirdEnemies = numEnemies / 3;
         int leftOver = numEnemies - 2 * thirdEnemies;
 
+        if(thirdEnemies < 1)
+            SpawnEnemy(blue_group);
+
         for (int i = 0; i < thirdEnemies; i++)
         {
-            SpawnEnemy(red_group);
+            SpawnEnemy(blue_group);
             SpawnEnemy(green_group);
 
             if (i < leftOver)
-                SpawnEnemy(blue_group);
+                SpawnEnemy(red_group);
         }
     }
 

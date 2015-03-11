@@ -52,6 +52,7 @@ public class SpectriniumSpawner : MonoBehaviour
             specPos.z = floorPos.z;
             GameObject specObject = (GameObject)Instantiate(specPrefab, specPos, specPrefab.transform.rotation);
             specObject.transform.parent = spec_group.transform;
+            specObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }
 }
