@@ -13,6 +13,7 @@ public class PlayerResources : MonoBehaviour
     private int maxSpectrinium;
 
     public int fireSpecCost;
+    public int switchSpecCost;
 
     void Start()
     {
@@ -28,14 +29,24 @@ public class PlayerResources : MonoBehaviour
             spectrinium = maxSpectrinium;
     }
 
-    public bool FireSpectrinium()
+    public bool SpendSpectrinium(int cost)
     {
-        if (fireSpecCost <= spectrinium)
+        if (cost <= spectrinium)
         {
-            spectrinium -= fireSpecCost;
+            spectrinium -= cost;
             return true;
         }
 
         return false;
+    }
+
+    public bool FireSpectrinium()
+    {
+        return SpendSpectrinium(fireSpecCost);
+    }
+
+    public bool SwitchSpectrinium()
+    {
+        return SpendSpectrinium(switchSpecCost);
     }
 }

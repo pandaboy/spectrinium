@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour
     private EnemyManager enemyManager;
     private SpectriniumSpawner specSpawner;
 
+    private PlayerResources player;
+
     void Awake()
     {
         Instance = this;
@@ -47,6 +49,9 @@ public class GameController : MonoBehaviour
         specSpawner = GetComponent<SpectriniumSpawner>();
         specSpawner.AssignFloors(Map.floor_group);
         specSpawner.SpawnSpectrinium();
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        player = playerObject.GetComponentInParent<PlayerResources>();
 
 
         UpdateLayers();
@@ -100,12 +105,12 @@ public class GameController : MonoBehaviour
 	 */
 	public bool nextWavelength()
 	{
-        if (Wall.CanSwitch(currentWavelength.Next().ToString()))
+        if ((Wall.CanSwitch(currentWavelength.Next().ToString())) && (player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Next();
             return true;
         }
-        else if(Wall.CanSwitch(currentWavelength.Next().Next().ToString()))
+        else if ((Wall.CanSwitch(currentWavelength.Next().Next().ToString())) && (player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Next().Next();
             return true;
@@ -119,12 +124,12 @@ public class GameController : MonoBehaviour
 	 */
 	public bool prevWavelength()
 	{
-        if (Wall.CanSwitch(currentWavelength.Prev().ToString()))
+        if ((Wall.CanSwitch(currentWavelength.Prev().ToString()))&&(player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Prev();
             return true;
         }
-        else if (Wall.CanSwitch(currentWavelength.Prev().Prev().ToString()))
+        else if ((Wall.CanSwitch(currentWavelength.Prev().Prev().ToString()))&&(player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Prev().Prev();
             return true;
