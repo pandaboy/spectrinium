@@ -3,14 +3,16 @@ using System.Collections;
 
 public class PlayerResources : MonoBehaviour
 {
-    private int health;
-    private int spectrinium;
+    public int health;
+    public int spectrinium;
 
     public int startingHealth;
     public int startingSpectrinium;
 
     private int maxHealth;
     private int maxSpectrinium;
+
+    public int fireSpecCost;
 
     void Start()
     {
@@ -24,5 +26,16 @@ public class PlayerResources : MonoBehaviour
 
         if (spectrinium > maxSpectrinium)
             spectrinium = maxSpectrinium;
+    }
+
+    public bool FireSpectrinium()
+    {
+        if (fireSpecCost <= spectrinium)
+        {
+            spectrinium -= fireSpecCost;
+            return true;
+        }
+
+        return false;
     }
 }
