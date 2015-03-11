@@ -8,11 +8,11 @@ public class Bullet : MonoBehaviour
 	public float lifetime = 3.0f;
 
 	// damage the bullet does if it hits an active object
-	public int damage = 5;
+	public int damage = 10;
 
 	// bullet speed
 	public int speed = 100;
-	
+
 	// update the bullet
 	void FixedUpdate ()
     {

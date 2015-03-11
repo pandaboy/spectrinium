@@ -18,7 +18,7 @@ public class EnemyHealth : MonoBehaviour
 	{
         current_health -= damage;
 
-		if(current_health < 0)
-			current_health = 0;
+        if (current_health <= 0)
+            Destroy(gameObject);
 	}
 }

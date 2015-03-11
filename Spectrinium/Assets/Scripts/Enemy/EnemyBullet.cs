@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyBullet : MonoBehaviour
 {
-
+    public EnemyAI owner;
 	// lifetime of the bullet
 	public float lifetime = 3.0f;
 
@@ -27,20 +27,25 @@ public class EnemyBullet : MonoBehaviour
 	
 	void OnTriggerStay(Collider other)
     {
-		// check if the other object is a player/enemy - hurt it if it is
-		if(other.gameObject.tag == "Player")
+        if (!other.isTrigger)
         {
-            /*
-			TO DO ---- IMPLEMENT GET HURT FUNCTION IN PLAYER
-            PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-            player.shot(damage);
-            */
-		}
-		
-		// kill the bullet as soon as we hit the other object
-		if(other.gameObject.tag == "Environment" || other.gameObject.tag == "Player")
-        {
-			Destroy(gameObject);
-		}
+            GameObject otherObject = other.gameObject;
+            // check if the other object is a player/enemy - hurt it if it is
+            if (otherObject.tag == "Player")
+            {
+
+                PlayerResources player = otherObject.GetComponentInParent<PlayerResources>();
+                player.Shot(damage);
+
+            }
+
+            // check to make sure that the object is not just the enemy who shot it
+            EnemyAI enemyHit = otherObject.GetComponentInParent<EnemyAI>();
+
+            if ((enemyHit == null) || (enemyHit != owner))
+            {
+                Destroy(gameObject);
+            }
+        }
 	}
 }

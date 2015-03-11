@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlayerResources : MonoBehaviour
 {
-    public int health;
-    public int spectrinium;
+    public float health;
+    public float spectrinium;
 
     public int startingHealth;
     public int startingSpectrinium;
@@ -14,6 +14,10 @@ public class PlayerResources : MonoBehaviour
 
     public int fireSpecCost;
     public int switchSpecCost;
+
+    public bool hasRedKey = false;
+    public bool hasGreenKey = false;
+    public bool hasBlueKey = false;
 
     void Start()
     {
@@ -48,5 +52,34 @@ public class PlayerResources : MonoBehaviour
     public bool SwitchSpectrinium()
     {
         return SpendSpectrinium(switchSpecCost);
+    }
+
+    public void CollectKey(string wavelength)
+    {
+        if (wavelength == "Red")
+            hasRedKey = true;
+        if (wavelength == "Green")
+            hasGreenKey = true;
+        if (wavelength == "Blue")
+            hasBlueKey = true;
+
+        if (CheckHasKeys())
+            GameController.Instance.UnlockExit();
+    }
+
+    private bool CheckHasKeys()
+    {
+        if ((hasRedKey) && (hasGreenKey) && (hasBlueKey))
+            return true;
+
+        return false;
+    }
+
+    public void Shot(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+            GameController.Instance.PlayerDead();
     }
 }
