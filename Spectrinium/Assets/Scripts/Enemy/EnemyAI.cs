@@ -309,27 +309,65 @@ public class EnemyAI : MonoBehaviour
 
     public Vector3 FindRandomClearPosition()
     {
-        for (int i = 0; i < 10; i++)
+        Vector3 originVec = new Vector3(0f, 0f, 0f);
+        while (true)
         {
             int randomNum = Random.Range(0, num_floorObjects);
 
-            GameObject floorObject = floor_objects[randomNum];
+            Vector3 pos = GetFloorPosAtInt(randomNum);
+            if (pos != originVec)
+                return pos;
+        }
+    }
 
+    public Vector3 FindRandomClearPosition(List<int> noSpawnList)
+    {
+        Vector3 originVec = new Vector3(0f, 0f, 0f);
+        while (true)
+        {
+            int randomNum = Random.Range(0, num_floorObjects);
 
-            int tileLayerID = GameObjectUtility.GetNavMeshArea(floorObject);
+            if(CheckIntInList(randomNum, noSpawnList))
+                continue;
 
-
-            string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
-            int layerMask = nav.areaMask;
-
-            int check = layerMask >> tileLayerID;
-            if (check % 2 != 0)
+            Vector3 pos = GetFloorPosAtInt(randomNum);
+            if (pos != originVec)
             {
-                return floorObject.transform.position;
+                noSpawnList.Add(randomNum);
+                return pos;
             }
         }
-        
-        return new Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    private bool CheckIntInList(int num, List<int> list)
+    {
+        int lengthList = list.Count;
+
+        for (int i = 0; i < lengthList; i++)
+            if (list[i] == num)
+                return true;
+
+        return false;
+    }
+
+    private Vector3 GetFloorPosAtInt(int num)
+    {
+        GameObject floorObject = floor_objects[num];
+
+
+        int tileLayerID = GameObjectUtility.GetNavMeshArea(floorObject);
+
+
+        string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
+        int layerMask = nav.areaMask;
+
+        int check = layerMask >> tileLayerID;
+        if (check % 2 != 0)
+        {
+            return floorObject.transform.position;
+        }
+
+        return new Vector3(0f, 0f, 0f);
     }
 
     public void AssignFloors(GameObject floors)

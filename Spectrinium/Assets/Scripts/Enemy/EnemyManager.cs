@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour {
 
@@ -13,6 +14,11 @@ public class EnemyManager : MonoBehaviour {
     private GameObject red_group;
     private GameObject green_group;
     private GameObject blue_group;
+
+    private List<int> takenRed;
+    private List<int> takenGreen;
+    private List<int> takenBlue;
+    
 
 
 	// Use this for initialization
@@ -32,6 +38,10 @@ public class EnemyManager : MonoBehaviour {
         blue_group = new GameObject();
         blue_group.name = "Blue";
         blue_group.transform.parent = enemy_group.transform;
+
+        takenRed = new List<int>();
+        takenGreen = new List<int>();
+        takenBlue = new List<int>();
 	}
 	
 	// Update is called once per frame
@@ -88,16 +98,38 @@ public class EnemyManager : MonoBehaviour {
         int leftOver = numEnemies - 2 * thirdEnemies;
 
         if(thirdEnemies < 1)
-            SpawnEnemy(blue_group);
+            SpawnEnemy(blue_group, takenBlue);
 
         for (int i = 0; i < thirdEnemies; i++)
         {
-            SpawnEnemy(blue_group);
-            SpawnEnemy(green_group);
+            SpawnEnemy(blue_group, takenBlue);
+            SpawnEnemy(green_group, takenGreen);
 
             if (i < leftOver)
-                SpawnEnemy(red_group);
+                SpawnEnemy(red_group, takenBlue);
         }
+    }
+
+    private void SpawnEnemy(GameObject wavelengthGroup, List<int> noSpawnList)
+    {
+        SpawnEnemy(wavelengthGroup.transform, noSpawnList);
+    }
+
+    private void SpawnEnemy(Transform wavelengthGroup, List<int> noSpawnList)
+    {
+        GameObject enemyObject = (GameObject)Instantiate(enemyPrefab);
+        EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
+        enemy.wavelength = wavelengthGroup.name;
+        enemy.AssignFloors(floor_group);
+
+        enemy.SetupNavMeshAgent();
+
+        Vector3 spawnPos = enemy.FindRandomClearPosition(noSpawnList);
+        spawnPos.y = enemyPrefab.transform.position.y;
+        enemyObject.transform.position = spawnPos;
+        enemyObject.transform.rotation = Quaternion.Euler(Random.insideUnitSphere);
+
+        enemyObject.transform.parent = wavelengthGroup;
     }
 
     private void SpawnEnemy(GameObject wavelengthGroup)
@@ -114,7 +146,9 @@ public class EnemyManager : MonoBehaviour {
 
         enemy.SetupNavMeshAgent();
 
-        enemyObject.transform.position = enemy.FindRandomClearPosition();
+        Vector3 spawnPos = enemy.FindRandomClearPosition();
+        spawnPos.y = enemyPrefab.transform.position.y;
+        enemyObject.transform.position = spawnPos;
         enemyObject.transform.rotation = Quaternion.Euler(Random.insideUnitSphere);
 
         enemyObject.transform.parent = wavelengthGroup;

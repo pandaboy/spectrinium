@@ -13,12 +13,16 @@ public class SpectriniumSpawner : MonoBehaviour
     private List<GameObject> floor_objects;
     private int num_floorObjects;
 
+    private List<int> takenSpawnSpots;
+
 
     // Use this for initialization
     void Awake()
     {
         spec_group = new GameObject();
         spec_group.name = "Spectriniums";
+
+        takenSpawnSpots = new List<int>();
     }
 
 
@@ -44,7 +48,17 @@ public class SpectriniumSpawner : MonoBehaviour
     {
         for (int i = 0; i < numSpec; i++)
         {
-            int randomNum = Random.Range(0, num_floorObjects);
+            int randomNum;
+            while (true)
+            {
+                randomNum = Random.Range(0, num_floorObjects);
+
+                if(!CheckIntInList(randomNum, takenSpawnSpots))
+                {
+                    takenSpawnSpots.Add(randomNum);
+                    break;
+                }
+            }
             GameObject floorObject = floor_objects[randomNum];
             Vector3 floorPos = floorObject.transform.position;
             Vector3 specPos = specPrefab.transform.position;
@@ -55,4 +69,16 @@ public class SpectriniumSpawner : MonoBehaviour
             specObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }
+
+    private bool CheckIntInList(int num, List<int> list)
+    {
+        int lengthList = list.Count;
+
+        for (int i = 0; i < lengthList; i++)
+            if (list[i] == num)
+                return true;
+
+        return false;
+    }
+
 }
