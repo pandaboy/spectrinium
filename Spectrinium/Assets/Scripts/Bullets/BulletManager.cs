@@ -1,17 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletManager : MonoBehaviour {
-
-
+public class BulletManager : MonoBehaviour
+{
 	public Transform spawnPoint;
 	public GameObject bulletPrefab;
     public float fireRate;
-
-    void Start()
-    {
-
-    }
 
 	// Update is called once per frame
 	void Update ()
@@ -19,7 +13,7 @@ public class BulletManager : MonoBehaviour {
 		if(Input.GetButtonDown("Fire1"))
         {
             GameObject bulletInstance = (GameObject)Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
-			GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().Play();
 		}
 	}
 }
