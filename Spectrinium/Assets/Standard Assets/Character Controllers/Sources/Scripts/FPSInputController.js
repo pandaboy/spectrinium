@@ -8,15 +8,7 @@ function Awake () {
 // Update is called once per frame
 function Update () {
 	// Get the input vector from keyboard or analog stick
-    var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-    //  Cursor.visible = false;
-//<<<<<<< HEAD
-//    Screen.showCursor = false;
-//=======
-    Cursor.visible = false;
-//>>>>>>> f16436563f278fdbaa26bff1ced0b97023f99f8b
-
+	var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 	
 	if (directionVector != Vector3.zero) {
 		// Get the length of the directon vector and then normalize it
@@ -41,5 +33,5 @@ function Update () {
 }
 
 // Require a character controller to be attached to the same game object
-//@script RequireComponent (CharacterMotor)
-//@script AddComponentMenu ("Character/FPS Input Controller")
+@script RequireComponent (CharacterMotor)
+@script AddComponentMenu ("Character/FPS Input Controller")
