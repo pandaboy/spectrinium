@@ -146,7 +146,31 @@ public class GameController : MonoBehaviour
             playerObjects[i].layer = layerID;
     }
 
+//<<<<<<< HEAD
+    //toggles visibility/collidability of enemies
+    //should be moved to enemy manager/similar when enemy spawner completed
+    private void EnemyVisibileCollidable()
+    {
+        string wavString = getCurrentWavelengthAsString();
+        string layerName = wavString.Substring(0, 1).ToUpper() + wavString.Substring(1, wavString.Length - 1).ToLower();
+        int layerID = LayerMask.NameToLayer(layerName);
+
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < enemyObjects.Length; i++)
+            if (enemyObjects[i].layer == layerID)
+            {
+                enemyObjects[i].GetComponent<Renderer>().enabled = true;
+                enemyObjects[i].GetComponent<Collider>().isTrigger = false;
+            }
+            else
+            {
+                enemyObjects[i].GetComponent<Renderer>().enabled = false;
+                enemyObjects[i].GetComponent<Collider>().isTrigger = true;
+            }
+    }
+//=======
    
+//>>>>>>> f16436563f278fdbaa26bff1ced0b97023f99f8b
 
     private void UpdateLayers()
     {
