@@ -13,6 +13,8 @@ public class EnemyHear : MonoBehaviour
 
     public Vector3 lastHeardPosition;
 
+    private int scaleFactor = 10;
+
     void Awake()
     {
         playerHeard = false;
@@ -84,5 +86,10 @@ public class EnemyHear : MonoBehaviour
     public void SetNavMeshAgent()
     {
         nav = GetComponentInParent<NavMeshAgent>();
+    }
+
+    public void UpdateHearingRange(float newRange)
+    {
+        col.radius = newRange * scaleFactor;
     }
 }
