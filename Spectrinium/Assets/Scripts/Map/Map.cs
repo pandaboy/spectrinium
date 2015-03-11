@@ -26,10 +26,6 @@ public class Map
 	private float wall_height = 5;
 	private float wall_thickness = 10;
 
-
-    
-
-
     //This function uses a RandomWalker to generate a 3d array (x,y,colour) to be used by the map
     public static int[, ,] GenerateMapArray(int width, int height)
     {
@@ -144,8 +140,6 @@ public class Map
         
         BuildFloorTiles();
         BuildRoof();
-
-       
 
         return true;
     }

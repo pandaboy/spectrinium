@@ -34,8 +34,6 @@ public class GameController : MonoBehaviour
 		// set the start wavelength
 		currentWavelength = Wavelength.BLUE;
         map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), wall);
-		
-   
 
         NavMeshBuilder.BuildNavMesh();
 
@@ -43,8 +41,7 @@ public class GameController : MonoBehaviour
         enemyManager.AssignFloors(Map.floor_group);
         enemyManager.SpawnEnemies();
 
-/*
-
+		/*
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
         for (int i = 0; i < enemyObjects.Length; i++)
@@ -53,7 +50,8 @@ public class GameController : MonoBehaviour
             EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
             enemy.SetupNavMeshAgent();
         }
-*/
+		*/
+
         UpdateLayers();
 	}
 
