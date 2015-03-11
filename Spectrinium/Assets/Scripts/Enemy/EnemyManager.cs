@@ -81,7 +81,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
 
-
+    //NOTE may spawn enemies on same spot
     public void SpawnEnemies()
     {
         int thirdEnemies = numEnemies / 3;
@@ -95,10 +95,6 @@ public class EnemyManager : MonoBehaviour {
             if (i < leftOver)
                 SpawnEnemy(blue_group);
         }
-
-       
-            
-
     }
 
     private void SpawnEnemy(GameObject wavelengthGroup)
@@ -126,48 +122,6 @@ public class EnemyManager : MonoBehaviour {
         floor_group = floors;
     }
 
-/*
-
-    public void UpdateVisibleCollidable()
-    {
-        switch (GameController.Instance.getCurrentWavelengthAsString())
-        {
-            case "RED":
-                MakeVisCol(red_group.transform);
-                ClearVisCol(green_group.transform);
-                ClearVisCol(blue_group.transform);
-                break;
-            case "GREEN":
-                MakeVisCol(green_group.transform);
-                ClearVisCol(red_group.transform);
-                ClearVisCol(blue_group.transform);
-                break;
-            case "BLUE":
-                MakeVisCol(blue_group.transform);
-                ClearVisCol(red_group.transform);
-                ClearVisCol(green_group.transform);
-                break;
-        }
-    }
-
-    private void ClearVisCol(Transform wavelengthGroup)
-    {
-        foreach (Transform child in wavelengthGroup)
-        {
-            child.transform.GetComponent<Renderer>().enabled = false;
-            child.transform.GetComponent<Collider>().isTrigger = true;
-        }
-    }
-
-    private void MakeVisCol(Transform wavelengthGroup)
-    {
-        foreach (Transform child in wavelengthGroup)
-        {
-            child.transform.GetComponent<Renderer>().enabled = true;
-            child.transform.GetComponent<Collider>().isTrigger = false;
-        }
-    }
-    */
 
 
 }

@@ -308,7 +308,7 @@ public class EnemyAI : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            int randomNum = Random.Range(0, num_floorObjects - 1);
+            int randomNum = Random.Range(0, num_floorObjects);
 
             GameObject floorObject = floor_objects[randomNum];
 
