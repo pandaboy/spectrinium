@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		// set the start wavelength
-		currentWavelength = Wavelength.BLUE;
+		currentWavelength = Wavelength.RED;
         map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor);
 
         NavMeshBuilder.BuildNavMesh();
