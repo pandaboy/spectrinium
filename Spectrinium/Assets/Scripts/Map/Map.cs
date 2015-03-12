@@ -27,7 +27,7 @@ public class Map
 	private int width;
 	private float floor_y = 0;
 	private float roof_y = 5;
-	private float wall_height = 5;
+	private float wall_height = 12;
 	private float wall_thickness = 10;
 	
 	public Map(int[,,] map_array, GameObject red_wall, GameObject green_wall, GameObject blue_wall, GameObject floor)
