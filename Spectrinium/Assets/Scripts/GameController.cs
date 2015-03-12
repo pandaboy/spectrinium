@@ -29,6 +29,10 @@ public class GameController : MonoBehaviour
     public int mapDimensionY = 16;
 
     private EnemyManager enemyManager;
+    private SpectriniumSpawner specSpawner;
+    private KeySpawner keySpawner;
+
+    private PlayerResources player;
 
     void Awake()
     {
@@ -47,16 +51,16 @@ public class GameController : MonoBehaviour
         enemyManager.AssignFloors(Map.floor_group);
         enemyManager.SpawnEnemies();
 
-		/*
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        specSpawner = GetComponent<SpectriniumSpawner>();
+        specSpawner.AssignFloors(Map.floor_group);
+        specSpawner.SpawnSpectrinium();
 
-        for (int i = 0; i < enemyObjects.Length; i++)
-        {
-            GameObject enemyObject = enemyObjects[i];
-            EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
-            enemy.SetupNavMeshAgent();
-        }
-		*/
+        keySpawner = GetComponent<KeySpawner>();
+        keySpawner.AssignFloors(Map.floor_group);
+        keySpawner.SpawnKeys();
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        player = playerObject.GetComponentInParent<PlayerResources>();
 
         UpdateLayers();
 	}
@@ -109,12 +113,12 @@ public class GameController : MonoBehaviour
 	 */
 	public bool nextWavelength()
 	{
-        if (Wall.CanSwitch(currentWavelength.Next().ToString()))
+        if ((Wall.CanSwitch(currentWavelength.Next().ToString())) && (player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Next();
             return true;
         }
-        else if(Wall.CanSwitch(currentWavelength.Next().Next().ToString()))
+        else if ((Wall.CanSwitch(currentWavelength.Next().Next().ToString())) && (player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Next().Next();
             return true;
@@ -128,12 +132,12 @@ public class GameController : MonoBehaviour
 	 */
 	public bool prevWavelength()
 	{
-        if (Wall.CanSwitch(currentWavelength.Prev().ToString()))
+        if ((Wall.CanSwitch(currentWavelength.Prev().ToString()))&&(player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Prev();
             return true;
         }
-        else if (Wall.CanSwitch(currentWavelength.Prev().Prev().ToString()))
+        else if ((Wall.CanSwitch(currentWavelength.Prev().Prev().ToString()))&&(player.SwitchSpectrinium()))
         {
             currentWavelength = currentWavelength.Prev().Prev();
             return true;
@@ -155,27 +159,6 @@ public class GameController : MonoBehaviour
             playerObjects[i].layer = layerID;
     }
 
-    //toggles visibility/collidability of enemies
-    //should be moved to enemy manager/similar when enemy spawner completed
-    private void EnemyVisibileCollidable()
-    {
-        string wavString = getCurrentWavelengthAsString();
-        string layerName = wavString.Substring(0, 1).ToUpper() + wavString.Substring(1, wavString.Length - 1).ToLower();
-        int layerID = LayerMask.NameToLayer(layerName);
-
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < enemyObjects.Length; i++)
-            if (enemyObjects[i].layer == layerID)
-            {
-                enemyObjects[i].GetComponent<Renderer>().enabled = true;
-                enemyObjects[i].GetComponent<Collider>().isTrigger = false;
-            }
-            else
-            {
-                enemyObjects[i].GetComponent<Renderer>().enabled = false;
-                enemyObjects[i].GetComponent<Collider>().isTrigger = true;
-            }
-    }
 
     private void UpdateLayers()
     {
@@ -183,7 +166,27 @@ public class GameController : MonoBehaviour
         map.UpdateVisibleCollidable();
         SetPlayerLayer();
         enemyManager.UpdateVisibleCollidable();
-
+        keySpawner.UpdateVisibleCollidable();
     }
+
+
+    public void UnlockExit()
+    {
+        PlayerWon();
+    }
+
+    public void PlayerDead()
+    {
+        //LOAD IN LOSS SCENE HERE
+        Debug.Log("YOU LOST");
+    }
+
+
+    public void PlayerWon()
+    {
+        //LOAD IN WIN SCENE HERE
+        Debug.Log("YOU WON");
+    }
+   
 
 }

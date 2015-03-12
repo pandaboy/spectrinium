@@ -10,6 +10,12 @@ public class EnemySight : MonoBehaviour
 
     public Vector3 lastSeenPosition;
 
+    private int rangeScaleFactor = 500;
+    private float sightZRange;
+    private float halfXRange;
+    private float sightYRange;
+    private float halfFOV;
+
     void Start()
     {
         playerInSight = false;
@@ -83,7 +89,36 @@ public class EnemySight : MonoBehaviour
             playerInSight = false;
     }
 
-    
 
+    public void UpdateSightRange(float newRange)
+    {
+        sightZRange = newRange;
+
+        float halfXRange = sightZRange * Mathf.Tan(halfFOV);
+        float sightXRange = halfXRange * 2;
+        sightYRange = sightXRange;
+
+        Vector3 newScale = transform.localScale;
+        newScale.x = sightXRange * rangeScaleFactor;
+        newScale.y = sightYRange * rangeScaleFactor;
+        newScale.z = sightZRange * rangeScaleFactor;
+        transform.localScale = newScale;
+    }
+
+    public void UpdateFieldOfView(float newFOV)
+    {
+        halfFOV = newFOV / 2;
+        halfFOV *= Mathf.Deg2Rad;
+
+        halfXRange = sightZRange * Mathf.Tan(halfFOV);
+
+        float sightXRange = halfXRange*2;
+        sightYRange = sightXRange;
+
+        Vector3 newScale = transform.localScale;
+        newScale.x = sightXRange * rangeScaleFactor;
+        newScale.y = sightYRange * rangeScaleFactor;
+        transform.localScale = newScale;
+    }
 
 }

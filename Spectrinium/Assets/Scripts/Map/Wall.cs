@@ -17,6 +17,7 @@ public class Wall : MonoBehaviour {
         //make walls navigation static for navmesh - SARAH
         GameObjectUtility.SetStaticEditorFlags(gameObject, StaticEditorFlags.NavigationStatic);
     }
+
     /*
     void OnTriggerEnter(Collider other)
     {

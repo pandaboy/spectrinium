@@ -13,6 +13,8 @@ public class EnemyHear : MonoBehaviour
 
     public Vector3 lastHeardPosition;
 
+    private int scaleFactor = 10;
+
     void Awake()
     {
         playerHeard = false;
@@ -28,17 +30,22 @@ public class EnemyHear : MonoBehaviour
 
 
         //if the object is the player and they are in the same wavelength
-        if ((other_object.tag == "Player")&&(other_object.layer == LayerMask.NameToLayer(enemy.wavelength)))
+        if (other_object.tag == "Player")
         {
-            float soundPathLength = CalculateSoundPathLength(other_object.transform.position);
-
-            if (soundPathLength < col.radius)
+            if (other_object.layer == LayerMask.NameToLayer(enemy.wavelength))
             {
+                float soundPathLength = CalculateSoundPathLength(other_object.transform.position);
 
-                playerHeard = true;
-     //           Debug.Log("i can hear the player");
-                lastHeardPosition = other_object.transform.position;
+                if (soundPathLength < col.radius)
+                {
+
+                    playerHeard = true;
+                    //           Debug.Log("i can hear the player");
+                    lastHeardPosition = other_object.transform.position;
+                }
             }
+            else
+                playerHeard = false;
         }
     }
 
@@ -84,5 +91,10 @@ public class EnemyHear : MonoBehaviour
     public void SetNavMeshAgent()
     {
         nav = GetComponentInParent<NavMeshAgent>();
+    }
+
+    public void UpdateHearingRange(float newRange)
+    {
+        col.radius = newRange * scaleFactor;
     }
 }

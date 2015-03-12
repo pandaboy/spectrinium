@@ -17,7 +17,7 @@ public class pauseBarController : MonoBehaviour {
         {
             PauseMenu.SetActive(true);
             FPSController.SetActive(false);
-  //          Cursor.visible = true;
+            Cursor.visible = true;
             Cursor.visible = true;
             Time.timeScale = 0;
         }
