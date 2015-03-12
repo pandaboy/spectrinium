@@ -27,8 +27,6 @@ public class Bullet : MonoBehaviour
 	
 	void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.tag);
-
 		// check if the other object is a player/enemy - hurt it if it is
 		if(other.gameObject.tag == "Enemy")
         {
