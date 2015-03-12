@@ -75,7 +75,11 @@ public class EnemyManager : MonoBehaviour {
     {
         foreach (Transform child in wavelengthGroup)
         {
-            child.transform.GetComponent<Renderer>().enabled = true;
+            MeshRenderer[] renderers = child.transform.GetComponentsInChildren<MeshRenderer>();
+            int num_renderers = renderers.Length;
+            for(int i=0; i<num_renderers; i++)
+                renderers[i].enabled = true;
+
             child.transform.GetComponent<Collider>().isTrigger = false;
         }
     }
@@ -85,7 +89,11 @@ public class EnemyManager : MonoBehaviour {
     {
         foreach (Transform child in wavelengthGroup)
         {
-            child.transform.GetComponent<Renderer>().enabled = false;
+            MeshRenderer[] renderers = child.transform.GetComponentsInChildren<MeshRenderer>();
+            int num_renderers = renderers.Length;
+            for (int i = 0; i < num_renderers; i++)
+                renderers[i].enabled = false;
+
             child.transform.GetComponent<Collider>().isTrigger = true;
         }
     }
