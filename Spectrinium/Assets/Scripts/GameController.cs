@@ -5,8 +5,6 @@ using UnityEditor;
 
 public class GameController : MonoBehaviour
 {
-    //public GUIText currentColor;
-
     public Text currentColor;
     public static GameController Instance;
 
@@ -18,8 +16,7 @@ public class GameController : MonoBehaviour
 	
 	private Map map;
 
-	// MAP prefabs
-	//public GameObject wall;
+	// MAP prefabs - passed to Map class
 	public GameObject redWall;
 	public GameObject greenWall;
 	public GameObject blueWall;
@@ -79,6 +76,7 @@ public class GameController : MonoBehaviour
             Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
             currentColor.text = getCurrentWavelengthAsString();
         }
+
         if(Input.GetKeyDown(KeyCode.R)) 
         {
             if(prevWavelength())
@@ -162,7 +160,6 @@ public class GameController : MonoBehaviour
 
     private void UpdateLayers()
     {
-
         map.UpdateVisibleCollidable();
         SetPlayerLayer();
         enemyManager.UpdateVisibleCollidable();

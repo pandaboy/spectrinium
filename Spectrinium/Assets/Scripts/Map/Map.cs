@@ -8,8 +8,8 @@ public class Map
 {
 	// Internal storage
 	private Tile[,] tiles;
-	// prefab to use to create the walls - passed in through the constructor	
-	//private GameObject wall_prefab;
+
+	// prefabs to use to create the walls and floor - passed in through the constructor
 	private GameObject red_wall_prefab;
 	private GameObject green_wall_prefab;
 	private GameObject blue_wall_prefab;
@@ -36,7 +36,6 @@ public class Map
 		width = map_array.GetLength(1);
 		tiles = new Tile[length, width];
 		
-		//wall_prefab = wall;
 		red_wall_prefab = red_wall;
 		green_wall_prefab = green_wall;
 		blue_wall_prefab = blue_wall;
@@ -252,8 +251,8 @@ public class Map
                     GameObjectUtility.SetNavMeshLayer(wallObject, layerID);
                 }
 
-          //      GameObject floorObject = BuildFloorTile(i, j);
-         //       GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
+                // GameObject floorObject = BuildFloorTile(i, j);
+                // GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
 			}
 		}
 	}
@@ -312,7 +311,6 @@ public class Map
 			z_offset * wall_thickness
 			), Quaternion.identity) as GameObject;
 		
-        //wall.GetComponent<Renderer>().material.color = color;
 		wall.transform.localScale = new Vector3(
 			wall_thickness,
 			wall.transform.localScale.y * wall_height,
@@ -356,11 +354,13 @@ public class Map
     //build floor tile at position, and return tile
     GameObject BuildFloorTile(int i, int j)
     {
-        GameObject floorObject = BuildPlane("Floor", "Environment",
-                                                        new Vector3((i - length / 2) * 10 + 5, floor_y, (j - width / 2) * 10 + 5),
-                                                        new Vector3(1.0f, 1.0F, 1.0f),
-                                                        Color.white
-                                                    );
+        GameObject floorObject = BuildPlane(
+            "Floor", // object name
+            "Environment", // object tag
+            new Vector3((i - length / 2) * 10 + 5, floor_y, (j - width / 2) * 10 + 5),
+            new Vector3(1.0f, 1.0F, 1.0f),
+            Color.white
+        );
         GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
         floorObject.transform.parent = floor_group.transform;
         return floorObject;
@@ -373,10 +373,14 @@ public class Map
         for(int i=0; i<length; i++)
             for (int j = 0; j < width; j++)
             {
-                GameObject floorObject = BuildPlaneFromPrefab("Floor", "Environment",
-                                                new Vector3((i - length/2)*10 + 5, floor_y, (j - width/2)*10 + 5),
-                                                new Vector3(1.0f, 1.0F, 1.0f),
-                                                Color.white);
+                GameObject floorObject = BuildPlane(
+                    "Floor",
+                    "Environment",
+                    new Vector3((i - length/2)*10 + 5, floor_y, (j - width/2)*10 + 5),
+                    new Vector3(1.0f, 1.0F, 1.0f),
+                    Color.white
+                );
+                
                 //make floor navagation static
                 GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
                 floorObject.transform.parent = floor_group.transform;
@@ -388,7 +392,8 @@ public class Map
             }
     }
 	
-	void BuildRoof() {
+	void BuildRoof()
+    {
 		BuildPlane(
 			"Roof",
 			"Environment",
@@ -397,47 +402,31 @@ public class Map
 			Color.white
 		);
 	}
-	
-	private GameObject BuildPlane(string name, string tag, Vector3 pos, Vector3 scale, Color color) {
-		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		plane.name = name;
-		plane.tag = tag;
-		pos.x -= wall_thickness/2;
-		pos.z -= wall_thickness/2;
-		plane.transform.position = pos;
-		plane.transform.localScale = new Vector3(
-			plane.transform.localScale.x * scale.x,
-			plane.transform.localScale.y * scale.y,
-			plane.transform.localScale.z * scale.z
-		);
-		plane.GetComponent<Renderer>().material.color = color;
-		
-		return plane;
-	}
 
-	private GameObject BuildPlaneFromPrefab(string name, string tag, Vector3 pos, Vector3 scale, Color color) {
+	private GameObject BuildPlane(string name, string tag, Vector3 pos, Vector3 scale, Color color)
+    {
 		pos.x -= wall_thickness/2;
 		pos.z -= wall_thickness/2;
         
 		GameObject plane = GameObject.Instantiate(floor_prefab, pos, Quaternion.identity) as GameObject;
 		plane.name = name;
 		plane.tag = tag;
-		//plane.transform.position = pos;
 		plane.transform.localScale = new Vector3(
 			plane.transform.localScale.x * scale.x,
 			plane.transform.localScale.y * scale.y,
 			plane.transform.localScale.z * scale.z
 		);
-		//plane.GetComponent<Renderer>().material.color = color;
 		
 		return plane;
 	}
 	
-	public Tile GetTile(int x, int y) {
+	public Tile GetTile(int x, int y)
+    {
 		return tiles[x,y];
 	}
 	
-	bool SetTile(int x, int y, bool r, bool g, bool b) {
+	bool SetTile(int x, int y, bool r, bool g, bool b)
+    {
 		tiles[x,y].red = r;
 		tiles[x,y].green = g;
 		tiles[x,y].blue = b;
@@ -445,17 +434,20 @@ public class Map
 	}
 	
 	// convenience methods, could also just use getTile(x,y).red
-	public bool IsRedTile(int x, int y) {
+	public bool IsRedTile(int x, int y)
+    {
 		return GetTile(x,y).red;
 	}
 	
 	// convenience methods, could also just use getTile(x,y).green
-	public bool IsGreenTile(int x, int y) {
+	public bool IsGreenTile(int x, int y)
+    {
 		return GetTile(x,y).green;
 	}
 	
 	// convenience methods, could also just use getTile(x,y).blue
-	public bool IsBlueTile(int x, int y) {
+	public bool IsBlueTile(int x, int y)
+    {
 		return GetTile(x,y).blue;
 	}
 }
