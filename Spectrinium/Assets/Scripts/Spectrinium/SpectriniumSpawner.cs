@@ -64,6 +64,7 @@ public class SpectriniumSpawner : MonoBehaviour
             Vector3 specPos = specPrefab.transform.position;
             specPos.x += floorPos.x;
             specPos.z = floorPos.z;
+			specPos.y = 1.0f;
             GameObject specObject = (GameObject)Instantiate(specPrefab, specPos, specPrefab.transform.rotation);
             specObject.transform.parent = spec_group.transform;
             specObject.layer = LayerMask.NameToLayer("Ignore Raycast");
