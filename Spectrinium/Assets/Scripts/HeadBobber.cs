@@ -7,7 +7,7 @@ public class HeadBobber : MonoBehaviour {
 	private float timer = 0.0f;
 	public float bobbing_speed = 0.18f;
 	public float bobbing_amount = 0.2f;
-	public float mid_point = 2.0f;
+	public float mid_point = 1.0f;
 	
 	// Update is called once per frame
 	void Update () {
