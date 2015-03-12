@@ -176,6 +176,8 @@ public class GameController : MonoBehaviour
     {
         //LOAD IN LOSS SCENE HERE
         Debug.Log("YOU LOST");
+		Application.LoadLevel ("GameOver");
+
     }
 
 
@@ -183,6 +185,7 @@ public class GameController : MonoBehaviour
     {
         //LOAD IN WIN SCENE HERE
         Debug.Log("YOU WON");
+		Application.LoadLevel ("WinTheGame");
     }
    
 
