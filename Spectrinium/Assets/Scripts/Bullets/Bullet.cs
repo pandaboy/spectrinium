@@ -13,6 +13,8 @@ public class Bullet : MonoBehaviour
 	// bullet speed
 	public int speed = 100;
 
+    public Transform sparkPrefab;
+
 	// update the bullet
 	void FixedUpdate ()
     {
@@ -42,6 +44,13 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log("hit something");
 			Destroy(gameObject);
+
+            // fire spark particle at the point of contact
+            ContactPoint contact = other.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point;
+
+            Transform spark = (Transform)Instantiate(sparkPrefab, pos, rot);
 		}
 	}
 }
