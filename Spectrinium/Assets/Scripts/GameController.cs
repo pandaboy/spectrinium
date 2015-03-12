@@ -17,7 +17,13 @@ public class GameController : MonoBehaviour
 	private Wavelength currentWavelength;
 	
 	private Map map;
-	public GameObject wall;
+
+	// MAP prefabs
+	//public GameObject wall;
+	public GameObject redWall;
+	public GameObject greenWall;
+	public GameObject blueWall;
+	public GameObject floor;
 
     public int mapDimensionX = 16;
     public int mapDimensionY = 16;
@@ -37,9 +43,7 @@ public class GameController : MonoBehaviour
 	void Start () {
 		// set the start wavelength
 		currentWavelength = Wavelength.BLUE;
-        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), wall);
-		
-   
+        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor);
 
         NavMeshBuilder.BuildNavMesh();
 
@@ -57,7 +61,6 @@ public class GameController : MonoBehaviour
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponentInParent<PlayerResources>();
-
 
         UpdateLayers();
 	}

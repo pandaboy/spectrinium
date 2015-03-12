@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletManager : MonoBehaviour {
-
-
+public class BulletManager : MonoBehaviour
+{
 	public Transform spawnPoint;
 	public GameObject bulletPrefab;
     public float fireRate;
