@@ -6,8 +6,8 @@ public class RandomWalker
     public int x, y;
     int mapWidth, mapHeight;
 
-    //int lastR; //the previous direction, used to bias it so it will create more corridors
-    //int bias;
+    int lastR; //the previous direction, used to bias it so it will create more corridors
+    int bias;
 
     public RandomWalker(int startX, int startY, int pMapWidth, int pMapHeight)
     {
@@ -17,8 +17,8 @@ public class RandomWalker
         mapWidth = pMapWidth;
         mapHeight = pMapHeight;
 
-        //lastR = UnityEngine.Random.Range(0, 4);
-        //bias = 15;
+        lastR = UnityEngine.Random.Range(0, 4);
+        bias = 99999;
     }
 
     public void Step()
@@ -26,10 +26,10 @@ public class RandomWalker
         int r;
 
         // 1/bias of the time just use the last direction
-        //int useLast = UnityEngine.Random.Range(0, bias);
-        //if (useLast == 0)
-        //    r = lastR;
-        //else
+        int useLast = UnityEngine.Random.Range(0, bias);
+        if (useLast == 0)
+            r = lastR;
+        else
             r = UnityEngine.Random.Range(0, 4);
 
         if (r == 0)
