@@ -1,8 +1,16 @@
 fileFormatVersion: 2
 guid: d323d264030de8c47be3992448a0b7ad
+timeCreated: 1426167783
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - currentColor: {instanceID: 0}
+  - red_wall: {fileID: 136602, guid: 03556e4f061f65443af1190a9bff9d87, type: 2}
+  - green_wall: {fileID: 155522, guid: d2a24fd2cf260794b9636e3b784911f6, type: 2}
+  - blue_wall: {fileID: 159290, guid: 9d7e6368e295c2244afff7b066a872d6, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

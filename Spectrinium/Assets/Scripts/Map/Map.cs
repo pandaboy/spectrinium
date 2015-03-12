@@ -9,7 +9,11 @@ public class Map
 	// Internal storage
 	private Tile[,] tiles;
 	// prefab to use to create the walls - passed in through the constructor	
-	private GameObject wall_prefab;
+	//private GameObject wall_prefab;
+	private GameObject red_wall_prefab;
+	private GameObject green_wall_prefab;
+	private GameObject blue_wall_prefab;
+	private GameObject floor_prefab;
 	
     // grouping for the walls
 	private GameObject wall_group;
@@ -25,6 +29,39 @@ public class Map
 	private float roof_y = 5;
 	private float wall_height = 5;
 	private float wall_thickness = 10;
+	
+	public Map(int[,,] map_array, GameObject red_wall, GameObject green_wall, GameObject blue_wall, GameObject floor)
+	{
+		length = map_array.GetLength(0);
+		width = map_array.GetLength(1);
+		tiles = new Tile[length, width];
+		
+		//wall_prefab = wall;
+		red_wall_prefab = red_wall;
+		green_wall_prefab = green_wall;
+		blue_wall_prefab = blue_wall;
+		floor_prefab = floor;
+		
+		wall_group = new GameObject();
+		wall_group.name = "Walls";
+		
+		red_group = new GameObject();
+		red_group.name = "Red";
+		red_group.transform.parent = wall_group.transform;
+		
+		green_group = new GameObject();
+		green_group.name = "Green";
+		green_group.transform.parent = wall_group.transform;
+		
+		blue_group = new GameObject();
+		blue_group.name = "Blue";
+		blue_group.transform.parent = wall_group.transform;
+		
+		floor_group = new GameObject();
+		floor_group.name = "Floors";
+		
+		BuildMap(map_array);
+	}
 
     //This function uses a RandomWalker to generate a 3d array (x,y,colour) to be used by the map
     public static int[, ,] GenerateMapArray(int width, int height)
@@ -39,8 +76,6 @@ public class Map
 
             RandomWalker walker = new RandomWalker(width / 2, height / 2, width, height);
             int steppedOnCount = 0;
-
-            Debug.Log("HERE!");
 
             while (steppedOnCount < (width * height)/3)
             {
@@ -89,35 +124,6 @@ public class Map
         return map_array;
     }
 
-	public Map(int[,,] map_array, GameObject wall)
-    {
-		length = map_array.GetLength(0);
-		width = map_array.GetLength(1);
-		tiles = new Tile[length, width];
-		
-        wall_prefab = wall;
-		
-        wall_group = new GameObject();
-		wall_group.name = "Walls";
-
-        red_group = new GameObject();
-        red_group.name = "Red";
-        red_group.transform.parent = wall_group.transform;
-
-        green_group = new GameObject();
-        green_group.name = "Green";
-        green_group.transform.parent = wall_group.transform;
-
-        blue_group = new GameObject();
-        blue_group.name = "Blue";
-        blue_group.transform.parent = wall_group.transform;
-
-        floor_group = new GameObject();
-        floor_group.name = "Floors";
-
-		BuildMap(map_array);
-	}
-
     bool BuildMap(int[,,] source)
     {
         //Set the tiles using the source
@@ -139,7 +145,7 @@ public class Map
         UpdateVisibleCollidable();
         
         BuildFloorTiles();
-        BuildRoof();
+        //BuildRoof();
 
         return true;
     }
@@ -248,9 +254,6 @@ public class Map
 
           //      GameObject floorObject = BuildFloorTile(i, j);
          //       GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
-
-
-    
 			}
 		}
 	}
@@ -292,14 +295,24 @@ public class Map
 	{
 		float x_offset = x - (length/2);
 		float z_offset = z - (width/2);
-		
+
+		GameObject wall_prefab = null;
+
+		if(color == Color.red) {
+			wall_prefab = red_wall_prefab;
+		} else if (color == Color.green) {
+			wall_prefab = green_wall_prefab;
+		} else {
+			wall_prefab = blue_wall_prefab;
+		}
+
         GameObject wall = GameObject.Instantiate(wall_prefab,new Vector3(
 			x_offset * wall_thickness,
 			floor_y + (wall_height/2),
 			z_offset * wall_thickness
 			), Quaternion.identity) as GameObject;
 		
-        wall.GetComponent<Renderer>().material.color = color;
+        //wall.GetComponent<Renderer>().material.color = color;
 		wall.transform.localScale = new Vector3(
 			wall_thickness,
 			wall.transform.localScale.y * wall_height,
@@ -360,11 +373,10 @@ public class Map
         for(int i=0; i<length; i++)
             for (int j = 0; j < width; j++)
             {
-                GameObject floorObject = BuildPlane("Floor", "Environment",
-                                                        new Vector3((i - length/2)*10 + 5, floor_y, (j - width/2)*10 + 5),
-                                                        new Vector3(1.0f, 1.0F, 1.0f),
-                                                        Color.white
-                                                    );
+                GameObject floorObject = BuildPlaneFromPrefab("Floor", "Environment",
+                                                new Vector3((i - length/2)*10 + 5, floor_y, (j - width/2)*10 + 5),
+                                                new Vector3(1.0f, 1.0F, 1.0f),
+                                                Color.white);
                 //make floor navagation static
                 GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
                 floorObject.transform.parent = floor_group.transform;
@@ -399,6 +411,24 @@ public class Map
 			plane.transform.localScale.z * scale.z
 		);
 		plane.GetComponent<Renderer>().material.color = color;
+		
+		return plane;
+	}
+
+	private GameObject BuildPlaneFromPrefab(string name, string tag, Vector3 pos, Vector3 scale, Color color) {
+		pos.x -= wall_thickness/2;
+		pos.z -= wall_thickness/2;
+        
+		GameObject plane = GameObject.Instantiate(floor_prefab, pos, Quaternion.identity) as GameObject;
+		plane.name = name;
+		plane.tag = tag;
+		//plane.transform.position = pos;
+		plane.transform.localScale = new Vector3(
+			plane.transform.localScale.x * scale.x,
+			plane.transform.localScale.y * scale.y,
+			plane.transform.localScale.z * scale.z
+		);
+		//plane.GetComponent<Renderer>().material.color = color;
 		
 		return plane;
 	}
