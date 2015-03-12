@@ -63,7 +63,7 @@ public class KeySpawner : MonoBehaviour
             Key key = keyObject.GetComponent<Key>();
             key.wavelength = wav;
             Vector3 spawnPos = key.FindRandomClearPosition(floor_objects);
-            spawnPos.y = keyObject.transform.position.y;
+            spawnPos.y = keyObject.transform.position.y+1.0f;
             keyObject.transform.position = spawnPos;
 
             keyObject.transform.parent = key_group.transform;
