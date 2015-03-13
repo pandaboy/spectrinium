@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 	public int damage = 10;
 
 	// bullet speed
-	public int speed = 100;
+	public int speed = 15;
 
     public Transform sparkPrefab;
 
