@@ -99,8 +99,21 @@ public class KeySpawner : MonoBehaviour
     {
         if (keyObject != null)
         {
-            keyObject.GetComponent<Renderer>().enabled = true;
             keyObject.GetComponent<Collider>().enabled = true;
+
+            MeshRenderer renderer = keyObject.GetComponent<MeshRenderer>();
+            if (renderer != null)
+                renderer.enabled = true;
+
+            ParticleSystem[] particles = keyObject.GetComponentsInChildren<ParticleSystem>();
+            int num_particles = particles.Length;
+            for(int i=0; i<num_particles; i++)
+                particles[i].enableEmission = true;
+
+            Light light = keyObject.GetComponentInChildren<Light>();
+            if (light != null)
+                light.enabled = true;
+            
         }
     }
 
@@ -108,9 +121,24 @@ public class KeySpawner : MonoBehaviour
     private void ClearVisibleCollidable(GameObject keyObject)
     {
         if (keyObject != null)
-        {
-            keyObject.GetComponent<Renderer>().enabled = false;
+        {  
             keyObject.GetComponent<Collider>().enabled = false;
+
+            MeshRenderer renderer = keyObject.GetComponent<MeshRenderer>();
+            if (renderer != null)
+                renderer.enabled = false;
+
+            ParticleSystem[] particles = keyObject.GetComponentsInChildren<ParticleSystem>();
+            int num_particles = particles.Length;
+            for (int i = 0; i < num_particles; i++)
+            {
+                particles[i].enableEmission = false;
+                particles[i].Clear();
+            }
+
+            Light light = keyObject.GetComponentInChildren<Light>();
+            if (light != null)
+                light.enabled = false;
         }
     }
 
