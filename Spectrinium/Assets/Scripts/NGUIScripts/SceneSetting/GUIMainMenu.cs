@@ -5,7 +5,7 @@ public class GUIMainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+	    
 	}
 	
 	// Update is called once per frame
@@ -14,6 +14,7 @@ public class GUIMainMenu : MonoBehaviour {
 	}
 
 	void OnClick(){
+		Cursor.visible = true;
 		Application.LoadLevel ("SettingScene");
 	}
 }

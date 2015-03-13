@@ -14,11 +14,13 @@ public class waveLengthGUIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		float playerSpec = PlayerResources.GetPlayerSpec ();
 		float UpdateWaveLength_f = waveLength_f * 100;
-		if (UpdateWaveLength_f >= 0f && (UpdateWaveLength_f <= 100f))
+		float divideValue = playerSpec / 100;
+		if (playerSpec >= 0f && (playerSpec <= 100f))
 		{
-			GameObject.Find("waveLengthBar").GetComponent<UIProgressBar>().value = waveLength_f;
-			waveLength_Lable.text = (UpdateWaveLength_f.ToString() + ("% wavelength"));
+			GameObject.Find("waveLengthBar").GetComponent<UIProgressBar>().value = divideValue;
+			waveLength_Lable.text = (playerSpec.ToString() + ("% wavelength"));
 		}
 		
 		else

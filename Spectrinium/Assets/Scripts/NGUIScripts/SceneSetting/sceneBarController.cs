@@ -14,15 +14,18 @@ public class sceneBarController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		float playerHealth = PlayerResources.GetPlayerHealth ();
         float UpdateHealth_f = Health_f * 100;
-        if (UpdateHealth_f >= 0f && (UpdateHealth_f <= 100f))
+		float divideValue = playerHealth / 100;
+		if (playerHealth >= 0f && (playerHealth <= 100f))
         {
-            GameObject.Find("HealthBar").GetComponent<UIProgressBar>().value = Health_f;
-            Health_Lable.text = (UpdateHealth_f.ToString() + ("% Health"));
+			GameObject.Find("HealthBar").GetComponent<UIProgressBar>().value = divideValue;
+			Health_Lable.text = (playerHealth.ToString() + ("% Health"));
         }
         
         else
         {
         }
 	}
+
 }

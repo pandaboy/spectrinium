@@ -19,10 +19,22 @@ public class PlayerResources : MonoBehaviour
     public bool hasGreenKey = false;
     public bool hasBlueKey = false;
 
+    static float healValues;
+	static float specValues;
+
+	public GameObject KeyRed;
+	public GameObject KeyGreen;
+	public GameObject KeyBlue;
+
+	public GameObject Door;
+
     void Start()
     {
         health = maxHealth = startingHealth;
+		healValues = health;
         spectrinium = maxSpectrinium = startingSpectrinium;
+		specValues = spectrinium;
+
     }
 
     public void CollectSpectrinium(int spec)
@@ -31,6 +43,8 @@ public class PlayerResources : MonoBehaviour
 
         if (spectrinium > maxSpectrinium)
             spectrinium = maxSpectrinium;
+
+		specValues = spectrinium;
     }
 
     public bool SpendSpectrinium(int cost)
@@ -38,6 +52,7 @@ public class PlayerResources : MonoBehaviour
         if (cost <= spectrinium)
         {
             spectrinium -= cost;
+			specValues = spectrinium;
             return true;
         }
 
@@ -56,15 +71,22 @@ public class PlayerResources : MonoBehaviour
 
     public void CollectKey(string wavelength)
     {
-        if (wavelength == "Red")
-            hasRedKey = true;
-        if (wavelength == "Green")
-            hasGreenKey = true;
-        if (wavelength == "Blue")
-            hasBlueKey = true;
+        if (wavelength == "Red") {
+			hasRedKey = true;
+			KeyRed.SetActive (true);
+		}
+        if (wavelength == "Green") {
+			hasGreenKey = true;
+			KeyGreen.SetActive(true);
+		}
+        if (wavelength == "Blue") {
+			hasBlueKey = true;
+			KeyBlue.SetActive(true);
+		}
 
-        if (CheckHasKeys())
-            GameController.Instance.UnlockExit();
+        if (CheckHasKeys ())
+			DoorAppear ();
+            //GameController.Instance.UnlockExit();
     }
 
     private bool CheckHasKeys()
@@ -78,8 +100,23 @@ public class PlayerResources : MonoBehaviour
     public void Shot(float damage)
     {
         health -= damage;
-
+		healValues = health;
         if (health <= 0)
             GameController.Instance.PlayerDead();
     }
+
+	public static float GetPlayerHealth()
+	{
+		return healValues;
+	}
+	public static float GetPlayerSpec()
+	{
+		return specValues;
+	}
+
+	public void DoorAppear()
+	{
+		Door.SetActive (true);
+	}
+
 }

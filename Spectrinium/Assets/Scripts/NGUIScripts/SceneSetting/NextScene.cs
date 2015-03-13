@@ -10,6 +10,7 @@ public class NextScene : MonoBehaviour {
     void OnClick()
     {
         Application.LoadLevel("SettingScene");
+		Cursor.visible = true;
     }
     void Start()
     {

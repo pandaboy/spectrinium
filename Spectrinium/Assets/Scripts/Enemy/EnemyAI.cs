@@ -69,7 +69,7 @@ public class EnemyAI : MonoBehaviour
     //turns towards player and shoots
     void Attack()
     {
-        Debug.Log("pew pew");
+       // Debug.Log("pew pew");
 		nav.Stop ();
         Vector3 dist_vec = lastSeen - GetComponent<Rigidbody>().position;
         Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
@@ -135,7 +135,7 @@ public class EnemyAI : MonoBehaviour
     void Chase()
     {
         nav.Resume();
-        Debug.Log("chasing");
+//        Debug.Log("chasing");
 
 
         if (sq_distance >= runSpeed)
@@ -148,7 +148,7 @@ public class EnemyAI : MonoBehaviour
     void Look()
     {
         nav.Resume();
-        Debug.Log("looking");
+       // Debug.Log("looking");
 
         Vector3 lastHeard = hearing.lastHeardPosition;
 		Vector3 diffHearing = lastHeard - transform.position;
