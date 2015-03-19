@@ -225,6 +225,7 @@ private function UpdateFunction () {
 	movingPlatform.hitPlatform = null;
 	groundNormal = Vector3.zero;
 	
+
    	// Move our character!
 	movement.collisionFlags = controller.Move (currentMovementOffset);
 	
@@ -283,7 +284,9 @@ private function UpdateFunction () {
 		
 		SendMessage("OnFall", SendMessageOptions.DontRequireReceiver);
 		// We pushed the character down to ensure it would stay on the ground if there was any.
-		// But there wasn't so now we cancel the downwards offset to make the fall smoother.
+	    // But there wasn't so now we cancel the downwards offset to make the fall smoother.
+
+
 		tr.position += pushDownOffset * Vector3.up;
 	}
 	// We were not grounded but just landed on something
@@ -468,7 +471,7 @@ function OnControllerColliderHit (hit : ControllerColliderHit) {
 		movingPlatform.hitPlatform = hit.collider.transform;
 		movement.hitPoint = hit.point;
 		movement.frameVelocity = Vector3.zero;
-	}
+	} 
 }
 
 private function SubtractNewPlatformVelocity () {
