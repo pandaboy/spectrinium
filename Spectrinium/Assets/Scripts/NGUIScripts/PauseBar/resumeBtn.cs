@@ -13,13 +13,14 @@ public class resumeBtn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
+        //OnClick();
 	}
     void OnClick()
     {
         Time.timeScale = 1.0f;
-        PauseMenu.SetActive(false);
+       
         FPSController.SetActive(true);
+        PauseMenu.SetActive(false);
  //       Cursor.visible = false;
         Cursor.visible = false;
           showPauseMenu = false;

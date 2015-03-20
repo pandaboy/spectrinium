@@ -72,15 +72,13 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		GetNextColorInfo();
         if(Input.GetKeyDown(KeyCode.T)) 
         {
             if (nextWavelength())
             {
                 UpdateLayers();
             }
-
-            //Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
-			GetNextColorInfo();
             currentColor.text = getCurrentWavelengthAsString();
         }
 
@@ -91,8 +89,6 @@ public class GameController : MonoBehaviour
                 UpdateLayers();
             }
 
-            //Debug.Log("Current Wavelength: " + getCurrentWavelengthAsString());
-			GetNextColorInfo();
             currentColor.text = getCurrentWavelengthAsString();
 
         }
@@ -200,27 +196,21 @@ public class GameController : MonoBehaviour
 	public void GetNextColorInfo()
 	{
 		if (Wall.CanSwitch ("RED") == false) {
-			//Debug.Log("can switch red");
 			RedLock.SetActive(true);
 		}
 		if (Wall.CanSwitch ("GREEN") == false) {
-			//Debug.Log("can switch green");
 			GreenLock.SetActive(true);
 		}
 		if (Wall.CanSwitch ("BLUE") == false) {
-			//Debug.Log("can switch blue");
 			BlueLock.SetActive(true);
 		}
 		if (Wall.CanSwitch ("RED") == true) {
-			//Debug.Log("can switch red");
 			RedLock.SetActive(false);
 		}
 		if (Wall.CanSwitch ("GREEN") == true) {
-			//Debug.Log("can switch green");
 			GreenLock.SetActive(false);
 		}
 		if (Wall.CanSwitch ("BLUE") == true) {
-			//Debug.Log("can switch blue");
 			BlueLock.SetActive(false);
 		}
 

@@ -8,18 +8,32 @@ public class pauseBarController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+   
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKey("p"))
+        if (Input.GetKeyDown("p"))
         {
+
+            Time.timeScale = 0.7f;
             PauseMenu.SetActive(true);
             FPSController.SetActive(false);
             Cursor.visible = true;
-            Cursor.visible = true;
-            Time.timeScale = 0;
+            // Cursor.visible = true;
+
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        if (Input.GetKey("o"))
+        {
+            PauseMenu.SetActive(false);
+            FPSController.SetActive(true);
+            Cursor.visible = false;
+            // Cursor.visible = true;
+            Time.timeScale = 1;
         }
 	}
 }
