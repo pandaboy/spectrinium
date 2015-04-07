@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerResources : MonoBehaviour
 {
+    public float fireRate = 10;
+
     public float health;
     public float spectrinium;
 

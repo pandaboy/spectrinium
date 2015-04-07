@@ -9,15 +9,49 @@ public class Recoil : MonoBehaviour
     public float maxRecoil_z = -10.0f;
     public float recoilSpeed = 5.0f;
     public float recoil = 0.0f;
-	
-	void Update ()
+
+    private PlayerResources player;
+    private float lastFireTime = -1;
+    private bool firing = false;
+
+    void Start()
     {
-		if(Input.GetButtonDown("Fire1")) {
-            recoil += 0.1f;
+        player = gameObject.GetComponentInParent<PlayerResources>();
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1") && player.FireSpectrinium())
+        {
+            OnStartFire();
+        }
+        else
+        {
+            OnStopFire();
+        }
+
+        if (firing)
+        {
+            if (Time.time > lastFireTime + 1 / player.fireRate)
+            {
+                lastFireTime = Time.time;
+                recoil += 0.1f;
+            }
         }
 
         Recoiling();
-	}
+    }
+
+    void OnStartFire()
+    {
+        if (Time.timeScale == 0) return;
+        firing = true;
+    }
+
+    void OnStopFire()
+    {
+        firing = false;
+    }
 
     void Recoiling()
     {
