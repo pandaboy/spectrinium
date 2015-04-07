@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,15 +26,15 @@ public class Key : MonoBehaviour
     private int GetNavLayer()
     {
 
-        int d = NavMesh.GetAreaFromName("Walkable");
-        int space = NavMesh.GetAreaFromName("Space");
-        int R = NavMesh.GetAreaFromName("Red");
-        int G = NavMesh.GetAreaFromName("Green");
-        int B = NavMesh.GetAreaFromName("Blue");
-        int RG = NavMesh.GetAreaFromName("RedGreen");
-        int RB = NavMesh.GetAreaFromName("RedBlue");
-        int GB = NavMesh.GetAreaFromName("GreenBlue");
-        int RGB = NavMesh.GetAreaFromName("RedGreenBlue");
+        int d = NavAreas.Walkable;
+        int space = NavAreas.Space;
+        int R = NavAreas.Red;
+        int G = NavAreas.Green;
+        int B = NavAreas.Blue;
+        int RG = NavAreas.RedGreen;
+        int RB = NavAreas.RedBlue;
+        int GB = NavAreas.GreenBlue;
+        int RGB = NavAreas.RedGreenBlue;
 
         int layerMask = (1 << d) + (1 << space);
 
@@ -62,10 +62,8 @@ public class Key : MonoBehaviour
             GameObject floorObject = floor_objects[randomNum];
 
 
-            int tileLayerID = GameObjectUtility.GetNavMeshArea(floorObject);
-
-
-            string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
+            TileArea t = floorObject.GetComponent<TileArea>();
+            int tileLayerID = t.navArea;
 
 
             int check = thisLayerMask >> tileLayerID;

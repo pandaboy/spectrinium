@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections.Generic;
 
 //controls enemy fsm
@@ -37,9 +37,14 @@ public class EnemyAI : MonoBehaviour
 
     public string wavelength;
 
+    private int navMask;
+    private EnemyPathfinder pathFinder;
+
     void Start()
     {
         gameObject.layer = LayerMask.NameToLayer(wavelength);
+
+        pathFinder = gameObject.GetComponent<EnemyPathfinder>();
     }
     
     void Update()
@@ -196,15 +201,15 @@ public class EnemyAI : MonoBehaviour
     private void SetNavLayer(NavMeshAgent nma)
     {
 
-        int d = NavMesh.GetAreaFromName("Walkable");
-        int space = NavMesh.GetAreaFromName("Space");
-        int R = NavMesh.GetAreaFromName("Red");
-        int G = NavMesh.GetAreaFromName("Green");
-        int B = NavMesh.GetAreaFromName("Blue");
-        int RG = NavMesh.GetAreaFromName("RedGreen");
-        int RB = NavMesh.GetAreaFromName("RedBlue");
-        int GB = NavMesh.GetAreaFromName("GreenBlue");
-        int RGB = NavMesh.GetAreaFromName("RedGreenBlue");
+        int d = NavAreas.Walkable;
+        int space = NavAreas.Space;
+        int R = NavAreas.Red;
+        int G = NavAreas.Green;
+        int B = NavAreas.Blue;
+        int RG = NavAreas.RedGreen;
+        int RB = NavAreas.RedBlue;
+        int GB = NavAreas.GreenBlue;
+        int RGB = NavAreas.RedGreenBlue;
 
         int layerMask = (1 << d) + (1 << space);
 
@@ -215,9 +220,7 @@ public class EnemyAI : MonoBehaviour
         else
             layerMask += (1 << R) + (1 << G) + (1 << RG);
 
-        nma.areaMask = layerMask;
-
-
+        navMask = layerMask;
 
 
        
@@ -231,23 +234,36 @@ public class EnemyAI : MonoBehaviour
 
         if (nav.remainingDistance < nav.stoppingDistance)
         {
-            patrolTimer += Time.deltaTime;
+            Vector2 currTile = Map.getClosestTileCoord(gameObject.transform.position);
+            Vector3 currPatrolPoint = patrolWayPoints[wayPointIndex];
+            Vector2 goalTile = Map.getClosestTileCoord(currPatrolPoint);
+            Tile tile = Map.tiles[(int)currTile.x, (int)currTile.y];
+            Vector2 nextTile = new Vector2();
+            pathFinder.FindPath(currTile, goalTile, ref nextTile);
 
-            if (patrolTimer >= patrolWaitTime)
+            if (currTile == goalTile)
             {
-                if (wayPointIndex >= patrolWayPoints.Length - 1)
-                    wayPointIndex = 0;
-                else
-                    wayPointIndex++;
+                patrolTimer += Time.deltaTime;
 
+                if (patrolTimer >= patrolWaitTime)
+                {
+                    if (wayPointIndex >= patrolWayPoints.Length - 1)
+                        wayPointIndex = 0;
+                    else
+                        wayPointIndex++;
+
+                    patrolTimer = 0.0f;
+                }
+            }
+            else
+            {
+                Tile nextWorldTile = Map.tiles[(int)nextTile.x, (int)nextTile.y];
+                nav.destination = nextWorldTile.worldPos;
                 patrolTimer = 0.0f;
             }
-          
         }
         else
             patrolTimer = 0.0f;
-
-        nav.destination = patrolWayPoints[wayPointIndex];
 
     }
 
@@ -262,32 +278,26 @@ public class EnemyAI : MonoBehaviour
 
         while (count < numWayPoints)
         {
-  
+
 
             while (true)
             {
-                int objectNum = Random.Range(0, numEnvironmentObjects);
+                int objectNum = Random.Range(0, num_floorObjects);
 
-                GameObject tile = environmentObjects[objectNum];
+                GameObject tile = floor_objects[objectNum];
+                TileArea t = tile.GetComponent<TileArea>();
 
-                if (tile.name == "Floor")
+  
+                int tileLayerID = t.navArea;
+
+
+                int check = navMask >> tileLayerID;
+                if (check % 2 != 0)
                 {
-                    int tileLayerID = GameObjectUtility.GetNavMeshArea(tile);
-
-         
-                    string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
-                    int layerMask = nav.areaMask;
-
-                    int check = layerMask >> tileLayerID;
-                    if(check%2 != 0)
-                    {
-                        patrolWayPoints[count] = tile.transform.position;
-                        count++;
-                        break;
-                    }
-
+                    patrolWayPoints[count] = tile.transform.position;
+                    count++;
+                    break;
                 }
-
 
             }
         }
@@ -353,15 +363,14 @@ public class EnemyAI : MonoBehaviour
     private Vector3 GetFloorPosAtInt(int num)
     {
         GameObject floorObject = floor_objects[num];
+        TileArea t = floorObject.GetComponent<TileArea>();
+
+    
+        int tileLayerID = t.navArea;
 
 
-        int tileLayerID = GameObjectUtility.GetNavMeshArea(floorObject);
 
-
-        string tileLayerString = GameObjectUtility.GetNavMeshAreaNames()[tileLayerID];
-        int layerMask = nav.areaMask;
-
-        int check = layerMask >> tileLayerID;
+        int check = navMask >> tileLayerID;
         if (check % 2 != 0)
         {
             return floorObject.transform.position;
