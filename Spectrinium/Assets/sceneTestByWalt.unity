@@ -3468,7 +3468,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 418258, guid: f2490c22570760b41b49e576d6e8bd2c, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2490c22570760b41b49e576d6e8bd2c, type: 2}
@@ -3590,7 +3590,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 482566, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 11422696, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
       propertyPath: KeyRed
@@ -4058,6 +4058,7 @@ MonoBehaviour:
   greenWall: {fileID: 155522, guid: d2a24fd2cf260794b9636e3b784911f6, type: 2}
   blueWall: {fileID: 159290, guid: 9d7e6368e295c2244afff7b066a872d6, type: 2}
   floor: {fileID: 106320, guid: 210b8159480fcb049aab2e76cb24a932, type: 2}
+  extent: {fileID: 166190, guid: 933b30495a09ecc4087859a6f164ebaf, type: 2}
   mapDimensionX: 16
   mapDimensionY: 16
   RedLock: {fileID: 1467009585}
@@ -8006,7 +8007,7 @@ Transform:
   m_GameObject: {fileID: 1974967518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00625000009, y: .00625000009, z: .00625000009}
+  m_LocalScale: {x: .00523560215, y: .00523560215, z: .00523560215}
   m_Children:
   - {fileID: 1713852818}
   - {fileID: 792703784}

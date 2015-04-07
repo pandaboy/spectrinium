@@ -14,6 +14,7 @@ public class Map
 	private GameObject green_wall_prefab;
 	private GameObject blue_wall_prefab;
 	private GameObject floor_prefab;
+    private GameObject extent_prefab;
 	
     // grouping for the walls
 	private GameObject wall_group;
@@ -21,6 +22,7 @@ public class Map
     public static GameObject blue_group;
     public static GameObject green_group;
     public static GameObject floor_group;
+    public static GameObject extent_group;
 	
 	// internal stuff.
     private static int width;
@@ -33,7 +35,7 @@ public class Map
 
     public static Node[,] nodes;
 	
-	public Map(int[,,] map_array, GameObject red_wall, GameObject green_wall, GameObject blue_wall, GameObject floor)
+	public Map(int[,,] map_array, GameObject red_wall, GameObject green_wall, GameObject blue_wall, GameObject floor, GameObject extent)
 	{
         width = map_array.GetLength(0);
 		height = map_array.GetLength(1);
@@ -49,6 +51,7 @@ public class Map
 		green_wall_prefab = green_wall;
 		blue_wall_prefab = blue_wall;
 		floor_prefab = floor;
+        extent_prefab = extent;
 		
 		wall_group = new GameObject();
 		wall_group.name = "Walls";
@@ -67,6 +70,9 @@ public class Map
 		
 		floor_group = new GameObject();
 		floor_group.name = "Floors";
+
+        extent_group = new GameObject();
+        extent_group.name = "Extents";
 		
 		BuildMap(map_array);
 	}
@@ -155,6 +161,8 @@ public class Map
         BuildFloorTiles();
         //BuildRoof();
 
+        BuildExtents();
+
         return true;
     }
 
@@ -193,6 +201,7 @@ public class Map
     //    return true;
     //}
     #endregion
+
 
     public void UpdateVisibleCollidable()
     {
@@ -256,6 +265,72 @@ public class Map
 			}
 		}
 	}
+
+    public void BuildExtents()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            // East
+            GameObject extent = GameObject.Instantiate(extent_prefab, new Vector3(
+                (i - (width / 2)) * wall_thickness,
+                floor_y + (wall_height / 2),
+                (height / 2) * wall_thickness
+                ), Quaternion.identity) as GameObject;
+
+            extent.transform.localScale = new Vector3(
+                wall_thickness,
+                extent.transform.localScale.y * wall_height,
+                wall_thickness
+            );
+
+            extent.transform.parent = extent_group.transform;
+
+            // West
+            extent = GameObject.Instantiate(extent_prefab, new Vector3(
+                (i - (width / 2)) * wall_thickness,
+                floor_y + (wall_height / 2),
+                -(height/2 + 1) * wall_thickness
+                ), Quaternion.identity) as GameObject;
+
+            extent.transform.localScale = new Vector3(
+                wall_thickness,
+                extent.transform.localScale.y * wall_height,
+                wall_thickness
+            );
+
+            extent.transform.parent = extent_group.transform;
+
+            // North
+            extent = GameObject.Instantiate(extent_prefab, new Vector3(
+                ((width / 2)) * wall_thickness,
+                floor_y + (wall_height / 2),
+                (i - height / 2) * wall_thickness
+                ), Quaternion.identity) as GameObject;
+
+            extent.transform.localScale = new Vector3(
+                wall_thickness,
+                extent.transform.localScale.y * wall_height,
+                wall_thickness
+            );
+
+            extent.transform.parent = extent_group.transform;
+
+            // South
+            extent = GameObject.Instantiate(extent_prefab, new Vector3(
+                -((width / 2 + 1)) * wall_thickness,
+                floor_y + (wall_height / 2),
+                (i - height / 2) * wall_thickness
+                ), Quaternion.identity) as GameObject;
+
+            extent.transform.localScale = new Vector3(
+                wall_thickness,
+                extent.transform.localScale.y * wall_height,
+                wall_thickness
+            );
+
+            extent.transform.parent = extent_group.transform;
+        }
+    }
 
     private int GetTileNavLayerID(Tile tile, ref Node node)
     {
