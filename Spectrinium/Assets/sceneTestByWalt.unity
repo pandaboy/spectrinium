@@ -86,7 +86,7 @@ NavMeshSettings:
     minRegionArea: 2
     cellSize: .166666657
     manualCellSize: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: af48f49fa60ccce4db5a02ddf4327b02, type: 2}
 --- !u!1 &3678283
 GameObject:
   m_ObjectHideFlags: 0
@@ -8386,7 +8386,7 @@ Transform:
   m_GameObject: {fileID: 1974967518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00348432059, y: .00348432059, z: .00348432059}
+  m_LocalScale: {x: .00357781746, y: .00357781746, z: .00357781746}
   m_Children:
   - {fileID: 1713852818}
   - {fileID: 792703784}

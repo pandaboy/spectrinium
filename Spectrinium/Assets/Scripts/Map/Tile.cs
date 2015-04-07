@@ -3,6 +3,9 @@ using System.Collections;
 
 public struct Tile
 {
+    public int navArea;
+    public Vector3 worldPos;
+
     private bool red_value;
     public bool red
     {

@@ -241,7 +241,7 @@ public class FrozenUI_IconSlot : UIDragDropItem
 			GameObject icon = this.CreateTemporary();
 			
 			// Prepare the temporary slot
-			this.AttachToTemporary(icon);
+	//		this.AttachToTemporary(icon);
 
 			// Unassign this slot
 			if (!this.IsStatic)
@@ -410,6 +410,8 @@ public class FrozenUI_IconSlot : UIDragDropItem
 	/// Attachs this slot to a temporary one (Cloning).
 	/// </summary>
 	/// <param name="temporary">Temporary.</param>
+    /// 
+    /*
 	protected virtual void AttachToTemporary(GameObject temporary)
 	{
 		// Add the slot component
@@ -421,4 +423,5 @@ public class FrozenUI_IconSlot : UIDragDropItem
 		slot.SetSource(this);
 		slot.OnDragDropStart();
 	}
+    */
 }

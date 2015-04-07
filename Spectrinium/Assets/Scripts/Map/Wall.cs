@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 
 public class Wall : MonoBehaviour {
     /*
@@ -14,8 +14,7 @@ public class Wall : MonoBehaviour {
 
     void Start()
     {
-        //make walls navigation static for navmesh - SARAH
-        GameObjectUtility.SetStaticEditorFlags(gameObject, StaticEditorFlags.NavigationStatic);
+   
     }
 
     /*

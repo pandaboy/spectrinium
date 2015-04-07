@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 
 public class GameController : MonoBehaviour
 {
@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
 		currentWavelength = Wavelength.RED;
         map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor);
 
-        NavMeshBuilder.BuildNavMesh();
+//        NavMeshBuilder.BuildNavMesh();
 
         enemyManager = GetComponent<EnemyManager>();
         enemyManager.AssignFloors(Map.floor_group);

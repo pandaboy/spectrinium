@@ -98,6 +98,7 @@ GameObject:
   - 95: {fileID: 9518838}
   - 114: {fileID: 11418844}
   - 114: {fileID: 11493502}
+  - 114: {fileID: 11418352}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -288,6 +289,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11418352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e3c8ee5287eb64b83d8762c5bf512c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalNodePos: {x: 0, y: 0}
+  startingNodePos: {x: 0, y: 0}
+  nextNodePos: {x: 0, y: 0}
+  useDijkstras: 0
+  useAStar: 1
+  allowDiagonals: 0
+  drawPath: 0
+  wavelength: 
 --- !u!114 &11418838
 MonoBehaviour:
   m_ObjectHideFlags: 1
