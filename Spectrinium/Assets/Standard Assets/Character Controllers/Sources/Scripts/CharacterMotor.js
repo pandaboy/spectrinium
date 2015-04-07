@@ -183,7 +183,6 @@ function Awake () {
 private function UpdateFunction () {
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
-	
 	// Update velocity based on input
 	velocity = ApplyInputVelocityChange(velocity);
 	
@@ -233,10 +232,12 @@ private function UpdateFunction () {
 	lastGroundNormal = groundNormal;
 	
 	if (movingPlatform.enabled && movingPlatform.activePlatform != movingPlatform.hitPlatform) {
+	    GetComponent.<AudioSource>().Play();
 		if (movingPlatform.hitPlatform != null) {
 			movingPlatform.activePlatform = movingPlatform.hitPlatform;
 			movingPlatform.lastMatrix = movingPlatform.hitPlatform.localToWorldMatrix;
 			movingPlatform.newPlatform = true;
+			//GetComponent.<AudioSource>().Play();
 		}
 	}
 	

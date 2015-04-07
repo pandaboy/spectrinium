@@ -37,6 +37,9 @@ public class GameController : MonoBehaviour
 
     private PlayerResources player;
 
+    public float startTime;
+    private float currentTime;
+
     void Awake()
     {
         Instance = this;
@@ -92,6 +95,9 @@ public class GameController : MonoBehaviour
             currentColor.text = getCurrentWavelengthAsString();
 
         }
+        startTime += Time.deltaTime;
+        currentTime = startTime;
+       // Debug.Log("time:" + currentTime);
 	}
 	
 	/**
@@ -190,6 +196,8 @@ public class GameController : MonoBehaviour
         //LOAD IN WIN SCENE HERE
         Debug.Log("YOU WON");
 		Cursor.visible = true;
+        //save all info in playerpref
+        saveAll();
 		Application.LoadLevel ("WinTheGame");
     }
 
@@ -216,6 +224,14 @@ public class GameController : MonoBehaviour
 
 	
 	}
+
+    //use playerpref to store the info(can also use similar function to get info)
+    public void saveAll()
+    {
+        //Debug.Log("time:" + currentTime);
+        PlayerPrefs.SetFloat("GameTime", currentTime);
+        
+    }
    
 
 }
