@@ -817,10 +817,8 @@ GameObject:
   - 124: {fileID: 12480246}
   - 114: {fileID: 11426350}
   - 81: {fileID: 8113482}
-  - 114: {fileID: 11459280}
   - 114: {fileID: 11472020}
   - 114: {fileID: 11436248}
-  - 82: {fileID: 8283066}
   - 82: {fileID: 8258440}
   - 114: {fileID: 11432784}
   m_Layer: 0
@@ -1231,6 +1229,7 @@ GameObject:
   - 33: {fileID: 3393186}
   - 23: {fileID: 2306334}
   - 108: {fileID: 10898784}
+  - 114: {fileID: 11474140}
   m_Layer: 0
   m_Name: MuzzleFlash
   m_TagString: Untagged
@@ -4478,75 +4477,6 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!82 &8283066
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152322}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a019ae3af8e864616b85773c509f5285, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
 --- !u!92 &9221704
 Behaviour:
   m_ObjectHideFlags: 1
@@ -4815,20 +4745,6 @@ MonoBehaviour:
   bobbing_speed: .180000007
   bobbing_amount: .150000006
   mid_point: 1
---- !u!114 &11459280
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152322}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327913800a093bc47841b50732e4b82f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 496792}
-  bulletPrefab: {fileID: 144614, guid: f9a04cb6046f07c488183598787257c1, type: 2}
-  fireRate: 1
 --- !u!114 &11472020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4867,6 +4783,17 @@ MonoBehaviour:
   blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
   brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
     type: 3}
+--- !u!114 &11474140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf708c6188b1b8f4d9b6c198a9443677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11476654
 MonoBehaviour:
   m_ObjectHideFlags: 1
