@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: proto_white
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _NORMALMAP
-  m_LightmapFlags: 1
+  m_Name: prop_sciFi_Gun_mat
+  m_Shader: {fileID: 4, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -18,15 +18,15 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 0e4b8713af0358548aa45b5c748ce7ad, type: 3}
-          m_Scale: {x: 25, y: 25}
+          m_Texture: {fileID: 2800000, guid: ee75d90e8a153444d9c6948dfaf1401c, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: f85b378874d684b4580612bb98cb0e79, type: 3}
-          m_Scale: {x: 25, y: 25}
+          m_Texture: {fileID: 2800000, guid: 35a3342990e13b543bcd9715ebbe1f69, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -53,8 +53,8 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: e98838b52a70d864dbee6d1993366431, type: 3}
-          m_Scale: {x: 25, y: 25}
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -85,7 +85,7 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .0590000004
+        second: .523000002
       data:
         first:
           name: _SrcBlend
@@ -105,7 +105,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .291000009
+        second: .5
       data:
         first:
           name: _BumpScale
@@ -125,7 +125,7 @@ Material:
       data:
         first:
           name: _EmissionScaleUI
-        second: .330000013
+        second: 0
       data:
         first:
           name: _Mode
@@ -133,12 +133,12 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .192000002
+        second: 0
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: .330000013, g: .330000013, b: .330000013, a: .330000013}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Color
@@ -151,6 +151,3 @@ Material:
         first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
---- !u!1002 &2100001
-EditorExtensionImpl:
-  serializedVersion: 6
