@@ -166,6 +166,7 @@ GameObject:
   - 114: {fileID: 11439354}
   - 114: {fileID: 11464996}
   - 114: {fileID: 11410390}
+  - 114: {fileID: 11420834}
   m_Layer: 0
   m_Name: RobotEnemy
   m_TagString: Enemy
@@ -1692,6 +1693,19 @@ MonoBehaviour:
   fireRange: 5
   bulletSpeed: 10
   damage: 5
+--- !u!114 &11420834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45801d1c98f5a944967079a8a2d5dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_health: 100
+  current_health: 0
 --- !u!114 &11439354
 MonoBehaviour:
   m_ObjectHideFlags: 1
