@@ -31,7 +31,7 @@ public class EnemySight : MonoBehaviour
         GameObject other_object = other.gameObject;
 
         //if the object is the player
-        if (other_object.tag == "Player")
+        if (other_object.CompareTag("Player"))
         {
 			Vector3 player_position = other_object.transform.position;
 			Vector3 eye_position = eyes.transform.position;
@@ -59,18 +59,19 @@ public class EnemySight : MonoBehaviour
             layerMask += 1 << ignoreLayerID;
 
             layerMask = ~layerMask;
-
+            
             bool hit = Physics.Raycast(eye_position, dir.normalized, out hitInfo, 100.0f, layerMask);
-
+           
             //if view unobstructed
 			if(hit)
 			{
 				Collider coll = hitInfo.collider;
-                if (coll.gameObject.tag == "Player")
+                if (coll.gameObject.CompareTag("Player"))
                 {
                     SeesPlayer(coll.gameObject.transform.position);
                 }
 			}
+            
 		}
     }
 

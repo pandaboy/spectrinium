@@ -31,7 +31,7 @@ public class EnemyBullet : MonoBehaviour
         {
             GameObject otherObject = other.gameObject;
             // check if the other object is a player/enemy - hurt it if it is
-            if (otherObject.tag == "Player")
+            if (otherObject.CompareTag("Player"))
             {
 
                 PlayerResources player = otherObject.GetComponentInParent<PlayerResources>();
