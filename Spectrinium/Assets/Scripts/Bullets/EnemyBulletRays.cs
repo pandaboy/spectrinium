@@ -18,6 +18,8 @@ public class EnemyBulletRays : MonoBehaviour
     private PerFrameRaycast raycast;
     private Animator anim;
 
+    private bool shooting = false;
+
     void Awake()
     {
         muzzleFlash.SetActive(false);
@@ -43,14 +45,19 @@ public class EnemyBulletRays : MonoBehaviour
 
         float shot = anim.GetFloat(Animator.StringToHash("Shot"));
 
-        if ((shot > 0.5f) && (Time.time > nextFireTime))
+        if ((shot > 0.5f) && (!shooting))
         {
-            nextFireTime = Time.time + fireRate;
+            shooting = true;
             OnStartFire();
             FireBullet();
         }
         else
             muzzleFlash.SetActive(false);
+
+        if (shot < 0.5f)
+            shooting = false;
+
+        
     }
 
     public void StopShooting()

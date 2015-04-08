@@ -16,6 +16,7 @@ public class EnemyShooting : MonoBehaviour
     private EnemyAI enemySelf;
 
     private Animator anim;
+    private bool shooting = false;
     
 
     void Start()
@@ -37,11 +38,13 @@ public class EnemyShooting : MonoBehaviour
 
         float shot = anim.GetFloat(Animator.StringToHash("Shot"));
 
-        if ((shot > 0.5f)&&(Time.time > nextFireTime))
+        if ((shot > 0.5f)&&(!shooting))
         {
-            nextFireTime = Time.time + fireRate;
+            shooting = true;
             FireBullet();
         }
+        if (shot <= 0.5f)
+            shooting = false;
     }
 
     public void StopShooting()

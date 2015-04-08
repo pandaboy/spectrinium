@@ -3699,6 +3699,10 @@ Prefab:
       propertyPath: m_CullingMask.m_Bits
       value: 4294965215
       objectReference: {fileID: 0}
+    - target: {fileID: 11422696, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
   m_IsPrefabParent: 0
@@ -8099,7 +8103,7 @@ Transform:
   m_GameObject: {fileID: 1974967518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00523560215, y: .00523560215, z: .00523560215}
+  m_LocalScale: {x: .00325203245, y: .00325203245, z: .00325203245}
   m_Children:
   - {fileID: 1713852818}
   - {fileID: 792703784}

@@ -32,8 +32,7 @@ public class BulletRays : MonoBehaviour {
     {
         if (Time.timeScale == 0) return;
         firing = true;
-        muzzleFlash.SetActive(true);
-        GetComponent<AudioSource>().Play();
+
     }
 
     void OnStopFire()
@@ -52,8 +51,13 @@ public class BulletRays : MonoBehaviour {
 
         if (firing)
         {
-            if (Time.time > lastFireTime + 1 / player.fireRate)
+            if (Time.time > (lastFireTime + 1 / player.fireRate))
             {
+                muzzleFlash.SetActive(true);
+                GetComponent<AudioSource>().Play();
+
+
+
                 Quaternion coneRandomRotation = Quaternion.Euler(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
 			    GameObject go = (GameObject)Instantiate(bulletPrefab, spawn.position, spawn.rotation * coneRandomRotation);
 			    SimpleBullet bullet = go.GetComponent<SimpleBullet>();
