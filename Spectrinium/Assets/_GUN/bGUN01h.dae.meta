@@ -1,11 +1,26 @@
 fileFormatVersion: 2
-guid: 616599f5bb9b98244bf44adfb851fb11
+guid: f0e752841005383439ac22987ecb9705
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: bGUN01h_action
+    100004: bGUN01h_ammo
+    100006: bGUN01h_body
+    400000: //RootNode
+    400002: bGUN01h_action
+    400004: bGUN01h_ammo
+    400006: bGUN01h_body
+    2300000: bGUN01h_action
+    2300002: bGUN01h_ammo
+    2300004: bGUN01h_body
+    3300000: bGUN01h_action
+    3300002: bGUN01h_ammo
+    3300004: bGUN01h_body
     4300000: bGUN01h_body
     4300002: bGUN01h_ammo
     4300004: bGUN01h_action
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

@@ -19,7 +19,7 @@ public class sceneBarController : MonoBehaviour {
 		float divideValue = playerHealth / 100;
 		if (playerHealth >= 0f && (playerHealth <= 100f))
         {
-			GameObject.Find("HealthBar").GetComponent<UIProgressBar>().value = divideValue;
+			GameObject.Find("HB").GetComponent<UIProgressBar>().value = divideValue;
 			Health_Lable.text = (playerHealth.ToString() + ("% Health"));
         }
         

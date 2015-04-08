@@ -19,7 +19,7 @@ public class waveLengthGUIController : MonoBehaviour {
 		float divideValue = playerSpec / 100;
 		if (playerSpec >= 0f && (playerSpec <= 100f))
 		{
-			GameObject.Find("waveLengthBar").GetComponent<UIProgressBar>().value = divideValue;
+			GameObject.Find("EB").GetComponent<UIProgressBar>().value = divideValue;
 			waveLength_Lable.text = (playerSpec.ToString() + ("% Spectrinium"));
 		}
 		

@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
 
     public Transform sparkPrefab;
 
+    private int killed;
+
 	// update the bullet
 	void FixedUpdate ()
     {
@@ -25,6 +27,7 @@ public class Bullet : MonoBehaviour
 		}
 		
 		transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        saveAll();
 	}
 	
 	void OnCollisionEnter(Collision other)
@@ -35,8 +38,10 @@ public class Bullet : MonoBehaviour
 			// deduct it's health if it has the EnemyHealth component
 			if(other.gameObject.GetComponent<EnemyHealth>() != null)
             {
+                killed++;
 				other.gameObject.GetComponent<EnemyHealth>().shot(damage);
 			}
+           
 		}
 		
 		// kill the bullet as soon as we hit the other object
@@ -53,4 +58,10 @@ public class Bullet : MonoBehaviour
             Transform spark = (Transform)Instantiate(sparkPrefab, pos, rot);
 		}
 	}
+
+
+    public void saveAll()
+    {
+        PlayerPrefs.SetInt("Killed", killed);
+    }
 }

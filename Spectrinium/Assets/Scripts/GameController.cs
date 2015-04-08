@@ -15,13 +15,13 @@ public class GameController : MonoBehaviour
 	private Wavelength currentWavelength;
 	
 	private Map map;
+
 	// MAP prefabs - passed to Map class
 	public GameObject redWall;
 	public GameObject greenWall;
 	public GameObject blueWall;
-    public GameObject floor;
-    public GameObject extent;
-    // MAP size
+	public GameObject floor;
+
     public int mapDimensionX = 16;
     public int mapDimensionY = 16;
 
@@ -29,15 +29,19 @@ public class GameController : MonoBehaviour
 	public GameObject GreenLock;
 	public GameObject BlueLock;
 
-    // ENEMIES
+
+
     private EnemyManager enemyManager;
     private SpectriniumSpawner specSpawner;
     private KeySpawner keySpawner;
 
-    // PLAYER
     private PlayerResources player;
 
-    void Awake() {
+    public float startTime;
+    private float currentTime;
+
+    void Awake()
+    {
         Instance = this;
     }
 
@@ -45,9 +49,9 @@ public class GameController : MonoBehaviour
 	void Start () {
 		// set the start wavelength
 		currentWavelength = Wavelength.RED;
-        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor, extent);
+        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor);
 
-        // NavMeshBuilder.BuildNavMesh();
+//        NavMeshBuilder.BuildNavMesh();
 
         enemyManager = GetComponent<EnemyManager>();
         enemyManager.AssignFloors(Map.floor_group);
@@ -91,6 +95,9 @@ public class GameController : MonoBehaviour
             currentColor.text = getCurrentWavelengthAsString();
 
         }
+        startTime += Time.deltaTime;
+        currentTime = startTime;
+       // Debug.Log("time:" + currentTime);
 	}
 	
 	/**
@@ -124,8 +131,8 @@ public class GameController : MonoBehaviour
             currentWavelength = currentWavelength.Next().Next();
             return true;
         }
-        
-        return false;
+        else
+            return false;
 	}
 	
 	/**
@@ -143,9 +150,11 @@ public class GameController : MonoBehaviour
             currentWavelength = currentWavelength.Prev().Prev();
             return true;
         }
-        
-        return false;
+        else
+            return false;
 	}
+
+
 
     private void SetPlayerLayer()
     {
@@ -187,6 +196,8 @@ public class GameController : MonoBehaviour
         //LOAD IN WIN SCENE HERE
         Debug.Log("YOU WON");
 		Cursor.visible = true;
+        //save all info in playerpref
+        saveAll();
 		Application.LoadLevel ("WinTheGame");
     }
 
@@ -195,26 +206,32 @@ public class GameController : MonoBehaviour
 		if (Wall.CanSwitch ("RED") == false) {
 			RedLock.SetActive(true);
 		}
-		
-        if (Wall.CanSwitch ("GREEN") == false) {
+		if (Wall.CanSwitch ("GREEN") == false) {
 			GreenLock.SetActive(true);
 		}
-		
-        if (Wall.CanSwitch ("BLUE") == false) {
+		if (Wall.CanSwitch ("BLUE") == false) {
 			BlueLock.SetActive(true);
 		}
-		
-        if (Wall.CanSwitch ("RED") == true) {
+		if (Wall.CanSwitch ("RED") == true) {
 			RedLock.SetActive(false);
 		}
-		
-        if (Wall.CanSwitch ("GREEN") == true) {
+		if (Wall.CanSwitch ("GREEN") == true) {
 			GreenLock.SetActive(false);
 		}
-
 		if (Wall.CanSwitch ("BLUE") == true) {
 			BlueLock.SetActive(false);
 		}
+
+	
 	}
+
+    //use playerpref to store the info(can also use similar function to get info)
+    public void saveAll()
+    {
+        //Debug.Log("time:" + currentTime);
+        PlayerPrefs.SetFloat("GameTime", currentTime);
+        
+    }
+   
 
 }
