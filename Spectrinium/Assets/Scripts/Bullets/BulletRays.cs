@@ -71,9 +71,11 @@ public class BulletRays : MonoBehaviour {
                             //Debug.Log("Connected with environment!");
                         }
 
-                        if (other.GetComponent<EnemyHealth>() != null)
+                        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+
+                        if (enemy != null)
                         {
-                            other.GetComponent<EnemyHealth>().shot(damage);
+                            enemy.shot(damage);
                         }
                     }
 
