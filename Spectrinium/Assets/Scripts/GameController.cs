@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
 	public GameObject blueWall;
 	public GameObject floor;
 
+    public GameObject extent;
+
     public int mapDimensionX = 16;
     public int mapDimensionY = 16;
 
@@ -46,10 +48,11 @@ public class GameController : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		// set the start wavelength
 		currentWavelength = Wavelength.RED;
-        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor);
+        map = new Map(Map.GenerateMapArray(mapDimensionX, mapDimensionY), redWall, greenWall, blueWall, floor, extent);
 
 //        NavMeshBuilder.BuildNavMesh();
 
