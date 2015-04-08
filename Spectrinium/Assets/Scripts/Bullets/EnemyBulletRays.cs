@@ -8,32 +8,26 @@ public class EnemyBulletRays : MonoBehaviour
     public GameObject muzzleFlash;
 
     public float spread = 1;
-    public float life = 0.5F;
-    public float dist = 10000;
     public float speed = 50;
-    public float forcePerSecond = 20;
     public float damage = 10;
-    public float rate;
-    public float range;
-
-    private bool firing = false;
-    private float lastFireTime = -1;
+    public float fireRate = 2;
+    public float fireRange = 5;
     private float nextFireTime = 0.0f;
 
     private EnemyAI enemySelf;
     private PerFrameRaycast raycast;
     private Animator anim;
 
-    void Start()
-    {
-        enemySelf = GetComponentInParent<EnemyAI>();
-        anim = GetComponentInParent<Animator>();
-    }
-
     void Awake()
     {
         muzzleFlash.SetActive(false);
         raycast = gameObject.AddComponent<PerFrameRaycast>();
+    }
+
+    void Start()
+    {
+        enemySelf = GetComponentInParent<EnemyAI>();
+        anim = GetComponentInParent<Animator>();
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -51,29 +45,18 @@ public class EnemyBulletRays : MonoBehaviour
 
         if ((shot > 0.5f) && (Time.time > nextFireTime))
         {
-            nextFireTime = Time.time + rate;
+            nextFireTime = Time.time + fireRate;
             OnStartFire();
             FireBullet();
         }
         else
-        {
-            OnStopFire();
-        }
+            muzzleFlash.SetActive(false);
     }
 
     void FireBullet()
     {
-        /*
-        GameObject bulletInstance = (GameObject)Instantiate(enemyBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
+        GameObject bulletInstance = (GameObject)Instantiate(bulletPrefab, spawn.position, spawn.rotation);
         EnemyBullet bullet = bulletInstance.GetComponent<EnemyBullet>();
-        bullet.damage = damage;
-        bullet.speed = bulletSpeed;
-        bullet.owner = enemySelf;
-        */
-
-        Quaternion coneRandomRotation = Quaternion.Euler(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
-        GameObject go = (GameObject)Instantiate(bulletPrefab, spawn.position, spawn.rotation * coneRandomRotation);
-        EnemySimpleBullet bullet = go.GetComponent<EnemySimpleBullet>();
         bullet.damage = damage;
         bullet.speed = speed;
         bullet.owner = enemySelf;
@@ -83,67 +66,34 @@ public class EnemyBulletRays : MonoBehaviour
         if (hit.transform)
         {
             if (hit.collider) {
-                GameObject other = hit.collider.gameObject;
-            }
+                Collider other = hit.collider;
 
-            bullet.dist = hit.distance;
-        }
-        else
-        {
-            bullet.dist = 1000;
+                if (!other.isTrigger)
+                {
+                    GameObject otherObject = other.gameObject;
+                    // check if the other object is a player/enemy - hurt it if it is
+                    if (otherObject.CompareTag("Player"))
+                    {
+                        PlayerResources player = otherObject.GetComponentInParent<PlayerResources>();
+                        player.Shot(damage);
+                    }
+
+                    // check to make sure that the object is not just the enemy who shot it
+                    EnemyAI enemyHit = otherObject.GetComponentInParent<EnemyAI>();
+
+                    if ((enemyHit == null) || (enemyHit != enemySelf))
+                    {
+                        //Destroy(gameObject);
+                    }
+                }
+            }
         }
     }
 
     void OnStartFire()
     {
-        //if (Time.timeScale == 0) return;
+        if (Time.timeScale == 0) return;
         muzzleFlash.SetActive(true);
         GetComponent<AudioSource>().Play();
     }
-
-    void OnStopFire()
-    {
-        muzzleFlash.SetActive(false);
-        firing = false;
-    }
-
-    /*
-    void Update()
-    {
-        if (firing)
-        {
-            if (Time.time > lastFireTime + 1 / rate)
-            {
-                Quaternion coneRandomRotation = Quaternion.Euler(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
-                GameObject go = (GameObject)Instantiate(bulletPrefab, spawn.position, spawn.rotation * coneRandomRotation);
-                SimpleBullet bullet = go.GetComponent<SimpleBullet>();
-
-                lastFireTime = Time.time;
-
-                // fire the bullet
-                RaycastHit hit = raycast.GetInfo();
-                if (hit.transform)
-                {
-                    if (hit.collider)
-                    {
-                        GameObject other = hit.collider.gameObject;
-                    }
-
-                    // apply a force to the rigid body hit
-                    if (hit.rigidbody)
-                    {
-                        Vector3 force = transform.forward * (forcePerSecond / rate);
-                        hit.rigidbody.AddForceAtPosition(force, hit.point, ForceMode.Impulse);
-                    }
-
-                    bullet.dist = hit.distance;
-                }
-                else
-                {
-                    bullet.dist = 1000;
-                }
-            }
-        }
-    }
-    */
 }

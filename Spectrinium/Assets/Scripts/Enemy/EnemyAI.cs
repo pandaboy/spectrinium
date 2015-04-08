@@ -9,7 +9,8 @@ public class EnemyAI : MonoBehaviour
     public EnemySight sight;
     public EnemyHear hearing;
     private NavMeshAgent nav;
-    public EnemyShooting gun;
+  //  public EnemyShooting gun;
+    public EnemyBulletRays gun;
 
     public GameObject floor_group;
     private List<GameObject> floor_objects;
