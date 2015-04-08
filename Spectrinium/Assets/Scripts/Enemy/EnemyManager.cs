@@ -80,6 +80,11 @@ public class EnemyManager : MonoBehaviour {
             for(int i=0; i<num_renderers; i++)
                 renderers[i].enabled = true;
 
+            SkinnedMeshRenderer[] skinnedRenderers = child.transform.GetComponentsInChildren<SkinnedMeshRenderer>();
+            num_renderers = skinnedRenderers.Length;
+            for (int i = 0; i < num_renderers; i++)
+                skinnedRenderers[i].enabled = true;
+
             child.transform.GetComponent<Collider>().isTrigger = false;
         }
     }
@@ -93,6 +98,11 @@ public class EnemyManager : MonoBehaviour {
             int num_renderers = renderers.Length;
             for (int i = 0; i < num_renderers; i++)
                 renderers[i].enabled = false;
+
+            SkinnedMeshRenderer[] skinnedRenderers = child.transform.GetComponentsInChildren<SkinnedMeshRenderer>();
+            num_renderers = skinnedRenderers.Length;
+            for (int i = 0; i < num_renderers; i++)
+                skinnedRenderers[i].enabled = false;
 
             child.transform.GetComponent<Collider>().isTrigger = true;
         }

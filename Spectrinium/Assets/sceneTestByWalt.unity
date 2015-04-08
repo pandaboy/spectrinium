@@ -3624,6 +3624,10 @@ Prefab:
       propertyPath: muzzleFlash
       value: 
       objectReference: {fileID: 176873948}
+    - target: {fileID: 2025188, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965215
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
   m_IsPrefabParent: 0
@@ -4103,7 +4107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467779697475e8d4084f2de1e38b4bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numEnemies: 30
+  numEnemies: 1
   enemyPrefab: {fileID: 131080, guid: 648d0742e170f1c4aa55b5e862fd9241, type: 2}
 --- !u!114 &1146819234
 MonoBehaviour:
@@ -8023,7 +8027,7 @@ Transform:
   m_GameObject: {fileID: 1974967518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00363636366, y: .00363636366, z: .00363636366}
+  m_LocalScale: {x: .00327868853, y: .00327868853, z: .00327868853}
   m_Children:
   - {fileID: 1713852818}
   - {fileID: 792703784}

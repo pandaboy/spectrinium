@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AnimatorSetup
+public class EnemyAnimatorSetup
 {
     public float speedDampTime = 0.1f;
     public float angularSpeedDampTime = 0.7f;
@@ -9,7 +9,7 @@ public class AnimatorSetup
 
     private Animator anim;
 
-    public AnimatorSetup(Animator animator)
+    public EnemyAnimatorSetup(Animator animator)
     {
         anim = animator;
     }
@@ -18,7 +18,7 @@ public class AnimatorSetup
     {
         float angularSpeed = angle / angleResponseTime;
 
-        anim.SetFloat(0, speed, speedDampTime, Time.deltaTime);
-        anim.SetFloat(0, angularSpeed, angularSpeedDampTime, Time.deltaTime);
+        anim.SetFloat(Animator.StringToHash("Speed"), speed, speedDampTime, Time.deltaTime);
+        anim.SetFloat(Animator.StringToHash("AngularSpeed"), angularSpeed, angularSpeedDampTime, Time.deltaTime);
     }
 }

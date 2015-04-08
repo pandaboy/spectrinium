@@ -32,13 +32,17 @@ public class EnemyAI : MonoBehaviour
     private float chaseTimer;
 
 
-	private Vector3 lastSeen;
+	public Vector3 lastSeen;
 	private float sq_distance;
 
     public string wavelength;
 
     private int navMask;
     private EnemyPathfinder pathFinder;
+
+    public bool playerInRange = false;
+
+ 
 
     void Start()
     {
@@ -49,20 +53,29 @@ public class EnemyAI : MonoBehaviour
     
     void Update()
     {
-
-
         if (sight.playerInSight)
             if (checkInRange())
+            {
+                playerInRange = true;
                 Attack();
+            }
             else
+            {
+                playerInRange = false;
                 Chase();
-        else if (hearing.playerHeard)
-            Look();
+            }
         else
-            if (wayPointsSet)
-                Patrol();
+        {
+            playerInRange = false;
+
+            if (hearing.playerHeard)
+                Look();
             else
-                Idle();
+                if (wayPointsSet)
+                    Patrol();
+                else
+                    Idle();
+        }
     }
     
     /*
@@ -76,6 +89,7 @@ public class EnemyAI : MonoBehaviour
     {
        // Debug.Log("pew pew");
 		nav.Stop ();
+        /*
         Vector3 dist_vec = lastSeen - GetComponent<Rigidbody>().position;
         Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
         Quaternion lookDir = Quaternion.LookRotation(dist_vec, up);
@@ -99,8 +113,22 @@ public class EnemyAI : MonoBehaviour
         currEuler.y = currAngle;
 
         transform.rotation = Quaternion.Euler(currEuler);
+        */
+        Vector3 dist_vec = lastSeen - GetComponent<Rigidbody>().position;
+        Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
+        Quaternion lookDir = Quaternion.LookRotation(dist_vec, up);
 
+        Vector3 currEuler = transform.rotation.eulerAngles;
+        float currAngle = currEuler.y;
+        float wantAngle = lookDir.eulerAngles.y;
 
+        currAngle = zeroTo360Range(currAngle);
+        wantAngle = zeroTo360Range(wantAngle);
+
+        float diffAngle = wantAngle - currAngle;
+
+        if (Mathf.Abs(diffAngle) <= 5)
+            gun.Shoot();
 
   //      transform.rotation = lookDir;
  //       gun.Shoot();
@@ -173,18 +201,6 @@ public class EnemyAI : MonoBehaviour
 
     public void SetupNavMeshAgent()
     {
-/*
-        NavMeshHit closestHit;
-        if (NavMesh.SamplePosition(transform.position, out closestHit, 500, 1))
-        {
-            transform.position = closestHit.position;
-            nav = gameObject.AddComponent<NavMeshAgent>();
-        }
-        else
-        {
-             Debug.Log("oh no");
-        }
- * */
 
         nav = gameObject.AddComponent<NavMeshAgent>();
         nav = GetComponent<NavMeshAgent>();
@@ -193,7 +209,7 @@ public class EnemyAI : MonoBehaviour
 
         SetNavLayer(nav);
 
-        hearing.SetNavMeshAgent();
+        gameObject.GetComponent<EnemyAnimation>().SetupNavMeshAgent();
 
         SetPatrolWayPoints();
     }

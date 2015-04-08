@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //controls enemy hearing
 public class EnemyHear : MonoBehaviour
@@ -15,11 +16,21 @@ public class EnemyHear : MonoBehaviour
 
     private int scaleFactor = 10;
 
+
+
+    private EnemyPathfinder pathFinder;
+
     void Awake()
     {
         playerHeard = false;
         col = GetComponent<SphereCollider>();
+
+
+  
         enemy = enemyObject.GetComponent<EnemyAI>();
+
+
+        pathFinder = enemyObject.GetComponent<EnemyPathfinder>();
     }
 
     //rigidbody in hear sphere
@@ -29,19 +40,22 @@ public class EnemyHear : MonoBehaviour
 
 
         //if the object is the player and they are in the same wavelength
-        if (other_object.CompareTag("Player"))
+        if (other_object.tag == "Player")
         {
-            if (other_object.layer == LayerMask.NameToLayer(enemy.wavelength))
+            string waveStr;
+
+            waveStr = enemy.wavelength;
+
+
+            if (other_object.layer == LayerMask.NameToLayer(waveStr))
             {
-                float soundPathLength = CalculateSoundPathLength(other_object.transform.position);
 
-                if (soundPathLength < col.radius)
-                {
 
-                    playerHeard = true;
-                    //           Debug.Log("i can hear the player");
-                    lastHeardPosition = other_object.transform.position;
-                }
+                playerHeard = true;
+                //           Debug.Log("i can hear the player");
+                lastHeardPosition = other_object.transform.position;
+       
+ 
             }
             else
                 playerHeard = false;
@@ -59,38 +73,8 @@ public class EnemyHear : MonoBehaviour
         }
     }
 
-    //calculates the path the sound takes on the navmesh - ensure player is not in another room
-    float CalculateSoundPathLength(Vector3 targetPos)
-    {
-        NavMeshPath path = new NavMeshPath();
-
-        if (nav.enabled)
-            nav.CalculatePath(targetPos, path);
-
-        Vector3[] wayPoints = new Vector3[path.corners.Length + 2];
-
-        wayPoints[0] = transform.position;
-        wayPoints[wayPoints.Length - 1] = targetPos;
-
-        for (int i = 0; i < path.corners.Length; i++)
-            wayPoints[i + 1] = path.corners[i];
-
-        float pathLength = 0.0f;
-
-        for(int i=0; i<wayPoints.Length-1; i++)
-        {
-            float dist = Vector3.Distance(wayPoints[i], wayPoints[i+1]);
-            pathLength += dist;
-        }
-
-        return pathLength;
-    }
 
 
-    public void SetNavMeshAgent()
-    {
-        nav = GetComponentInParent<NavMeshAgent>();
-    }
 
     public void UpdateHearingRange(float newRange)
     {

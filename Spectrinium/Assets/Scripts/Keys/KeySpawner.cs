@@ -101,18 +101,20 @@ public class KeySpawner : MonoBehaviour
         {
             keyObject.GetComponent<Collider>().enabled = true;
 
-            MeshRenderer renderer = keyObject.GetComponent<MeshRenderer>();
-            if (renderer != null)
-                renderer.enabled = true;
+            MeshRenderer[] renderers = keyObject.GetComponentsInChildren<MeshRenderer>();
+            int num_renderers = renderers.Length;
+            for (int i = 0; i < num_renderers; i++)
+                renderers[i].enabled = true;
 
             ParticleSystem[] particles = keyObject.GetComponentsInChildren<ParticleSystem>();
             int num_particles = particles.Length;
             for(int i=0; i<num_particles; i++)
                 particles[i].enableEmission = true;
 
-            Light light = keyObject.GetComponentInChildren<Light>();
-            if (light != null)
-                light.enabled = true;
+            Light[] lights = keyObject.GetComponentsInChildren<Light>();
+            int num_lights = lights.Length;
+            for(int i=0; i<num_lights; i++)
+                lights[i].enabled = true;
             
         }
     }
@@ -124,9 +126,10 @@ public class KeySpawner : MonoBehaviour
         {  
             keyObject.GetComponent<Collider>().enabled = false;
 
-            MeshRenderer renderer = keyObject.GetComponent<MeshRenderer>();
-            if (renderer != null)
-                renderer.enabled = false;
+            MeshRenderer[] renderers = keyObject.GetComponentsInChildren<MeshRenderer>();
+            int num_renderers = renderers.Length;
+            for (int i = 0; i < num_renderers; i++)
+                renderers[i].enabled = false;
 
             ParticleSystem[] particles = keyObject.GetComponentsInChildren<ParticleSystem>();
             int num_particles = particles.Length;
@@ -136,9 +139,10 @@ public class KeySpawner : MonoBehaviour
                 particles[i].Clear();
             }
 
-            Light light = keyObject.GetComponentInChildren<Light>();
-            if (light != null)
-                light.enabled = false;
+            Light[] lights = keyObject.GetComponentsInChildren<Light>();
+            int num_lights = lights.Length;
+            for (int i = 0; i < num_lights; i++)
+                lights[i].enabled = false;
         }
     }
 
