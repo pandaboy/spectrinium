@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 405042}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandIndex2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ GameObject:
   - 4: {fileID: 419332}
   m_Layer: 0
   m_Name: char_robotGuard_LeftForeArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - 4: {fileID: 430890}
   m_Layer: 0
   m_Name: char_robotGuard_skeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ GameObject:
   - 4: {fileID: 418856}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandThumb1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ GameObject:
   - 137: {fileID: 13739114}
   m_Layer: 0
   m_Name: char_robotGuard_body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,7 @@ GameObject:
   - 4: {fileID: 416542}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandPinky2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ GameObject:
   - 4: {fileID: 475980}
   m_Layer: 0
   m_Name: char_robotGuard_LeftUpLeg
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +131,7 @@ GameObject:
   - 4: {fileID: 459962}
   m_Layer: 0
   m_Name: char_robotGuard_LeftLeg
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,7 +168,7 @@ GameObject:
   - 114: {fileID: 11410390}
   m_Layer: 0
   m_Name: RobotEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +198,7 @@ GameObject:
   - 4: {fileID: 401584}
   m_Layer: 0
   m_Name: char_robotGuard_LeftToeBase
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,7 @@ GameObject:
   - 4: {fileID: 422380}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandPinky1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,7 +228,7 @@ GameObject:
   - 4: {fileID: 419364}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandIndex2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,8 +241,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 411318}
-  - 64: {fileID: 6451378}
   - 114: {fileID: 11496080}
+  - 136: {fileID: 13647494}
   m_Layer: 2
   m_Name: View Cone
   m_TagString: Untagged
@@ -260,7 +260,7 @@ GameObject:
   - 4: {fileID: 463706}
   m_Layer: 0
   m_Name: char_robotGuard_RightUpLeg
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -275,7 +275,7 @@ GameObject:
   - 4: {fileID: 455032}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandMiddle1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -305,7 +305,7 @@ GameObject:
   - 4: {fileID: 429080}
   m_Layer: 0
   m_Name: char_robotGuard_RightShoulder
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -320,7 +320,7 @@ GameObject:
   - 4: {fileID: 483474}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHand
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +335,7 @@ GameObject:
   - 4: {fileID: 407948}
   m_Layer: 0
   m_Name: char_robotGuard_LeftShoulder
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,7 +350,7 @@ GameObject:
   - 4: {fileID: 448430}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandMiddle2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   - 4: {fileID: 489628}
   m_Layer: 0
   m_Name: char_robotGuard_RightLeg
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -398,7 +398,7 @@ GameObject:
   - 4: {fileID: 472854}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandRing2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,7 +413,7 @@ GameObject:
   - 4: {fileID: 424154}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandIndex1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -428,7 +428,7 @@ GameObject:
   - 4: {fileID: 423326}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandPinky1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -443,7 +443,7 @@ GameObject:
   - 4: {fileID: 475872}
   m_Layer: 0
   m_Name: char_robotGuard_RightHand
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -458,7 +458,7 @@ GameObject:
   - 4: {fileID: 481448}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandThumb2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -505,7 +505,7 @@ GameObject:
   - 4: {fileID: 494818}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandRing1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -535,7 +535,7 @@ GameObject:
   - 4: {fileID: 423160}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandPinky2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -550,7 +550,7 @@ GameObject:
   - 4: {fileID: 413022}
   m_Layer: 0
   m_Name: char_robotGuard_LeftArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -565,7 +565,7 @@ GameObject:
   - 4: {fileID: 498178}
   m_Layer: 0
   m_Name: char_robotGuard_Neck
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -580,7 +580,7 @@ GameObject:
   - 4: {fileID: 409578}
   m_Layer: 0
   m_Name: char_robotGuard_LeftFoot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -610,7 +610,7 @@ GameObject:
   - 4: {fileID: 495334}
   m_Layer: 0
   m_Name: char_robotGuard_RightForeArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -625,7 +625,7 @@ GameObject:
   - 4: {fileID: 446248}
   m_Layer: 0
   m_Name: char_robotGuard_Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -670,7 +670,7 @@ GameObject:
   - 4: {fileID: 404666}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandThumb2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -685,7 +685,7 @@ GameObject:
   - 4: {fileID: 473560}
   m_Layer: 0
   m_Name: char_robotGuard_Head
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -700,7 +700,7 @@ GameObject:
   - 4: {fileID: 454034}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandIndex1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -715,7 +715,7 @@ GameObject:
   - 4: {fileID: 477562}
   m_Layer: 0
   m_Name: char_robotGuard_LeftHandRing1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -730,7 +730,7 @@ GameObject:
   - 4: {fileID: 424532}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandMiddle2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -747,7 +747,7 @@ GameObject:
   - 23: {fileID: 2332286}
   m_Layer: 0
   m_Name: char_robotGuard_helmet
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -762,7 +762,7 @@ GameObject:
   - 4: {fileID: 481808}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandThumb1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -792,7 +792,7 @@ GameObject:
   - 4: {fileID: 409228}
   m_Layer: 0
   m_Name: char_robotGuard_RightArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -807,7 +807,7 @@ GameObject:
   - 4: {fileID: 460244}
   m_Layer: 0
   m_Name: char_robotGuard_Spine
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -822,7 +822,7 @@ GameObject:
   - 4: {fileID: 426206}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandMiddle1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -837,7 +837,7 @@ GameObject:
   - 4: {fileID: 488356}
   m_Layer: 0
   m_Name: char_robotGuard_RightHandRing2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -948,9 +948,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137272}
-  m_LocalRotation: {x: .551175475, y: -.442951024, z: .551175475, w: .442951083}
-  m_LocalPosition: {x: -.0900000036, y: -.100000001, z: -.00999999978}
-  m_LocalScale: {x: 499.999878, y: 499.999878, z: 499.999878}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
+  m_LocalPosition: {x: 4.13000011, y: -.0500000007, z: .119999997}
+  m_LocalScale: {x: 5000, y: 5000, z: 5000}
   m_Children: []
   m_Father: {fileID: 498178}
   m_RootOrder: 2
@@ -1566,8 +1566,8 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: fc89391ed50056e4096548c1e72d278b, type: 2}
-  - {fileID: 2100000, guid: dd774f74beeb46f468e7284f8d6648a4, type: 2}
+  - {fileID: 2100000, guid: 8010b124d1200184ea3c7f7a577e3863, type: 2}
+  - {fileID: 2100000, guid: 8c187c85afe181c46afb715a0decebf7, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1591,7 +1591,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d8360e534c433664b86af2f3f14cbfa3, type: 2}
+  - {fileID: 2100000, guid: b8fb6823f1ff7d04bbc3612212bb1b00, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1634,18 +1634,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6451378
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137272}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: f83d4340753ace14a91338c2e285133b, type: 3}
 --- !u!65 &6522976
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1805,6 +1793,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &13647494
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137272}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .000500000024
+  m_Height: .00249999994
+  m_Direction: 2
+  m_Center: {x: -.00100000005, y: 0, z: -.00124999997}
 --- !u!137 &13739114
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1815,7 +1816,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7b543f9c8b4ced9488ceaefbade4a98e, type: 2}
+  - {fileID: 2100000, guid: f644a6be15fe7974c92037e9cae8ac73, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
