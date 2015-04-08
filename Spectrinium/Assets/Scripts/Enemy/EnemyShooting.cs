@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//controls enemy shooting
+// controls enemy shooting
 public class EnemyShooting : MonoBehaviour
 {
-
     public Transform bulletSpawnPos;
     public GameObject enemyBulletPrefab;
     public float fireRate;
