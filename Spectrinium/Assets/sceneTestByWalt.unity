@@ -596,6 +596,10 @@ MonoBehaviour:
   mAtlas: {fileID: 11400000, guid: 0af66dd81b345e1469edaa493a30079b, type: 2}
   mSpriteName: UnitFrame_Experience_Bar
   mFillCenter: 1
+--- !u!1 &176873948
+GameObject:
+  m_PrefabParentObject: {fileID: 174868, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
+  m_PrefabInternal: {fileID: 1027925703}
 --- !u!1 &188893736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,6 +3435,10 @@ MonoBehaviour:
   mAtlas: {fileID: 11400000, guid: 0af66dd81b345e1469edaa493a30079b, type: 2}
   mSpriteName: MobaActionBar_SpellSlot_LevelBar_Fill
   mFillCenter: 1
+--- !u!4 &971257887
+Transform:
+  m_PrefabParentObject: {fileID: 496792, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
+  m_PrefabInternal: {fileID: 1027925703}
 --- !u!1001 &1000571642
 Prefab:
   m_ObjectHideFlags: 0
@@ -3608,6 +3616,14 @@ Prefab:
       propertyPath: Door
       value: 
       objectReference: {fileID: 710157734}
+    - target: {fileID: 11432784, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
+      propertyPath: spawn
+      value: 
+      objectReference: {fileID: 971257887}
+    - target: {fileID: 11432784, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 176873948}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18e2fcf38e4591449917af7ae0fbfe8d, type: 2}
   m_IsPrefabParent: 0
@@ -8007,7 +8023,7 @@ Transform:
   m_GameObject: {fileID: 1974967518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00523560215, y: .00523560215, z: .00523560215}
+  m_LocalScale: {x: .00625000009, y: .00625000009, z: .00625000009}
   m_Children:
   - {fileID: 1713852818}
   - {fileID: 792703784}
