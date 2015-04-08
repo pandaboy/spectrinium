@@ -57,7 +57,7 @@ public class Wall : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             if (this.transform.parent == Map.red_group.transform)
                 insideRed = true;
@@ -72,7 +72,7 @@ public class Wall : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             if (this.transform.parent == Map.red_group.transform)
                 insideRed = false;

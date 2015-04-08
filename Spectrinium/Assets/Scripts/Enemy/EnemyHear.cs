@@ -29,7 +29,7 @@ public class EnemyHear : MonoBehaviour
 
 
         //if the object is the player and they are in the same wavelength
-        if (other_object.tag == "Player")
+        if (other_object.CompareTag("Player"))
         {
             if (other_object.layer == LayerMask.NameToLayer(enemy.wavelength))
             {
