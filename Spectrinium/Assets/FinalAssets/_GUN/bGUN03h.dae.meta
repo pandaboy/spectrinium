@@ -3,7 +3,12 @@ guid: d6598356f0497af44af04e0d3465b40b
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: bGUN03_BFG
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

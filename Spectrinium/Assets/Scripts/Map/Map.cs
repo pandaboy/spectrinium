@@ -2,12 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 
 public class Map
 {
 	// Internal storage
-	private Tile[,] tiles;
+	public static Tile[,] tiles;
 
 	// prefabs to use to create the walls and floor - passed in through the constructor
 	private GameObject red_wall_prefab;
@@ -23,18 +23,27 @@ public class Map
     public static GameObject floor_group;
 	
 	// internal stuff.
-	private int length;
-	private int width;
+    private static int width;
+    private static int height;
+
 	private float floor_y = 0;
 	private float roof_y = 5;
 	private float wall_height = 12;
-	private float wall_thickness = 10;
+    private static float wall_thickness = 10;
+
+    public static Node[,] nodes;
 	
 	public Map(int[,,] map_array, GameObject red_wall, GameObject green_wall, GameObject blue_wall, GameObject floor)
 	{
-		length = map_array.GetLength(0);
-		width = map_array.GetLength(1);
-		tiles = new Tile[length, width];
+        width = map_array.GetLength(0);
+		height = map_array.GetLength(1);
+
+        tiles = new Tile[width, height];
+        nodes = new Node[width, height];
+
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                nodes[i, j] = new Node();
 		
 		red_wall_prefab = red_wall;
 		green_wall_prefab = green_wall;
@@ -126,9 +135,9 @@ public class Map
     bool BuildMap(int[,,] source)
     {
         //Set the tiles using the source
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < height; j++)
             {
                 bool red = source[i, j, 0] == 1 ? true : false;
                 bool green = source[i, j, 1] == 1 ? true : false;
@@ -227,9 +236,9 @@ public class Map
     // build walls from the tiles array
 	public void BuildWalls()
 	{
-		for(int i = 0; i < length; i++)
+		for(int i = 0; i < width; i++)
         {
-			for(int j = 0; j < width; j++)
+			for(int j = 0; j < height; j++)
             {
 				Tile tile = tiles[i, j];
                 GameObject wallObject = null;
@@ -244,56 +253,70 @@ public class Map
                     wallObject = BuildWall("blue wall", "Environment", i, j, Color.blue);
 				}
 
-                int layerID = GetTileNavLayerID(tile);
-
-                if (wallObject != null)
-                {
-                    GameObjectUtility.SetNavMeshLayer(wallObject, layerID);
-                }
-
-                // GameObject floorObject = BuildFloorTile(i, j);
-                // GameObjectUtility.SetNavMeshLayer(floorObject, layerID);
 			}
 		}
 	}
 
-    private int GetTileNavLayerID(Tile tile)
+    private int GetTileNavLayerID(Tile tile, ref Node node)
     {
-  
+
         if (tile.red)
         {
             if (tile.green)
             {
                 if (tile.blue)
-                    return GameObjectUtility.GetNavMeshAreaFromName("RedGreenBlue");
+                {
+                    node.redCost = 99999.0f;
+                    node.greenCost = 99999.0f;
+                    node.blueCost = 99999.0f;
 
-                return GameObjectUtility.GetNavMeshAreaFromName("RedGreen");
+                    return NavAreas.RedGreenBlue;
+                }
+                node.redCost = 99999.0f;
+                node.greenCost = 99999.0f;
+
+                return NavAreas.RedGreen;
             }
 
             if (tile.blue)
-                return GameObjectUtility.GetNavMeshAreaFromName("RedBlue");
+            {
+                node.redCost = 99999.0f;
+                node.blueCost = 99999.0f;
 
-            return GameObjectUtility.GetNavMeshAreaFromName("Red");
+                return NavAreas.RedBlue;
+            }
+            node.redCost = 99999.0f;
+
+            return NavAreas.Red;
         }
         if (tile.green)
         {
             if (tile.blue)
-                return GameObjectUtility.GetNavMeshAreaFromName("GreenBlue");
+            {
+                node.greenCost = 99999.0f;
+                node.blueCost = 99999.0f;
 
-            return GameObjectUtility.GetNavMeshAreaFromName("Green");
+                return NavAreas.GreenBlue;
+            }
+            node.greenCost = 99999.0f;
+
+            return NavAreas.Green;
         }
 
         if (tile.blue)
-            return GameObjectUtility.GetNavMeshAreaFromName("Blue");
+        {
+            node.blueCost = 99999.0f;
 
-        return GameObjectUtility.GetNavMeshAreaFromName("Space");
+            return NavAreas.Blue;
+        }
 
+        return NavAreas.Space;
     }
 	
 	GameObject BuildWall(string name, string tag, int x, int z, Color color)
 	{
-		float x_offset = x - (length/2);
-		float z_offset = z - (width/2);
+		float x_offset = x - (width/2);
+		float z_offset = z - (height/2);
 
 		GameObject wall_prefab = null;
 
@@ -343,11 +366,10 @@ public class Map
 	void BuildFloor() {
 		GameObject floorObject = BuildPlane(    "Floor", "Environment",
 			                                    new Vector3(0.0F, floor_y, 0.0f),
-			                                    new Vector3(length, 1.0F, width),
+			                                    new Vector3(width, 1.0f, height),
 			                                    Color.white
 		                                    );
-        //make floor navagation static
-        GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
+  
         floorObject.transform.parent = floor_group.transform;
 	}
 
@@ -357,11 +379,11 @@ public class Map
         GameObject floorObject = BuildPlane(
             "Floor", // object name
             "Environment", // object tag
-            new Vector3((i - length / 2) * 10 + 5, floor_y, (j - width / 2) * 10 + 5),
+            new Vector3((i - width / 2) * 10 + 5, floor_y, (j - height / 2) * 10 + 5),
             new Vector3(1.0f, 1.0F, 1.0f),
             Color.white
         );
-        GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
+
         floorObject.transform.parent = floor_group.transform;
         return floorObject;
     }
@@ -370,25 +392,27 @@ public class Map
     //build floor in tiles
     void BuildFloorTiles()
     {
-        for(int i=0; i<length; i++)
-            for (int j = 0; j < width; j++)
+        for(int i=0; i<width; i++)
+            for (int j = 0; j < height; j++)
             {
                 GameObject floorObject = BuildPlane(
                     "Floor",
                     "Environment",
-                    new Vector3((i - length/2)*10 + 5, floor_y, (j - width/2)*10 + 5),
-                    new Vector3(1.0f, 1.0F, 1.0f),
+                    new Vector3((i - width / 2) * 10 + 5, floor_y, (j - height / 2) * 10 + 5),
+                    new Vector3(1.0f, 1.0f, 1.0f),
                     Color.white
                 );
-                
-                //make floor navagation static
-                GameObjectUtility.SetStaticEditorFlags(floorObject, StaticEditorFlags.NavigationStatic);
+
+                tiles[i, j].worldPos = floorObject.transform.position;
+
                 floorObject.transform.parent = floor_group.transform;
 
                 Tile tile = tiles[i, j];
-                int layerID = GetTileNavLayerID(tile);
+                int layerID = GetTileNavLayerID(tile, ref nodes[i, j]);
+                tile.navArea = layerID;
 
-                GameObjectUtility.SetNavMeshArea(floorObject, layerID);
+                TileArea t = floorObject.GetComponent<TileArea>();
+                t.navArea = layerID;
             }
     }
 	
@@ -398,7 +422,7 @@ public class Map
 			"Roof",
 			"Environment",
 			new Vector3(0.0F, roof_y, 0.0F),
-			new Vector3(length, -1.0F, width), // flip the y-axis for the roof plane
+			new Vector3(width, -1.0F, height), // flip the y-axis for the roof plane
 			Color.white
 		);
 	}
@@ -450,4 +474,18 @@ public class Map
     {
 		return GetTile(x,y).blue;
 	}
+
+
+    public static Vector2 getClosestTileCoord(Vector3 pos)
+    {
+        float f_i = 0.1f * (pos.x - 5 + (0.5f * wall_thickness)) + (0.5f * width);
+        float f_j = 0.1f * (pos.z - 5 + (0.5f * wall_thickness)) + (0.5f * height);
+
+
+
+        int i = Convert.ToInt32(f_i);
+        int j = Convert.ToInt32(f_j);
+
+        return new Vector2(i, j);
+    }
 }

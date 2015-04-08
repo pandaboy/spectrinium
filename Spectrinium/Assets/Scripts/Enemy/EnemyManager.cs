@@ -114,7 +114,7 @@ public class EnemyManager : MonoBehaviour {
             SpawnEnemy(green_group, takenGreen);
 
             if (i < leftOver)
-                SpawnEnemy(red_group, takenBlue);
+                SpawnEnemy(red_group, takenRed);
         }
     }
 
@@ -128,6 +128,7 @@ public class EnemyManager : MonoBehaviour {
         GameObject enemyObject = (GameObject)Instantiate(enemyPrefab);
         EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
         enemy.wavelength = wavelengthGroup.name;
+        enemyObject.GetComponent<EnemyPathfinder>().wavelength = wavelengthGroup.name;
         enemy.AssignFloors(floor_group);
 
         enemy.SetupNavMeshAgent();
@@ -150,6 +151,7 @@ public class EnemyManager : MonoBehaviour {
         GameObject enemyObject = (GameObject)Instantiate(enemyPrefab);
         EnemyAI enemy = enemyObject.GetComponent<EnemyAI>();
         enemy.wavelength = wavelengthGroup.name;
+        enemyObject.GetComponent<EnemyPathfinder>().wavelength = wavelengthGroup.name;
         enemy.AssignFloors(floor_group);
 
         enemy.SetupNavMeshAgent();
