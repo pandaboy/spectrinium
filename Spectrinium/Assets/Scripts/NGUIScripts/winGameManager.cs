@@ -4,7 +4,8 @@ using System.Collections;
 public class winGameManager : MonoBehaviour {
 
 
-	void Start () {
+	void Start ()
+    {
         float time = PlayerPrefs.GetFloat("GameTime");
         string temps = string.Format("{0:0.0}", time);
         GameObject.Find("timers").GetComponent<UILabel>().text = "Time: "+temps;

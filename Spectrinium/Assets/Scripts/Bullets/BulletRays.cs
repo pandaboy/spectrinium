@@ -18,6 +18,8 @@ public class BulletRays : MonoBehaviour {
     private PerFrameRaycast raycast;
     private float lastFireTime = -1;
 
+    private int killed = 0;
+
     void Awake()
     {
         muzzleFlash.SetActive(false);
@@ -96,5 +98,9 @@ public class BulletRays : MonoBehaviour {
                 }
             }
         }
+
+    
 	}
+
+ 
 }

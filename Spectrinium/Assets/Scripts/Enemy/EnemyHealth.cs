@@ -44,5 +44,10 @@ public class EnemyHealth : MonoBehaviour
         dead = true;
 
         deathTime = Time.time + deathLength;
+
+        int killed = PlayerPrefs.GetInt("Killed");
+        killed++;
+        PlayerPrefs.SetInt("Killed", killed);
+    
     }
 }
