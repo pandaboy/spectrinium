@@ -65,7 +65,7 @@ public class BulletRays : MonoBehaviour {
                 lastFireTime = Time.time;
 
                 // fire the bullet
-                RaycastHit hit = raycast.GetInfo();
+                RaycastHit hit = raycast.GetInfo(player.gameObject.layer);
                 if(hit.transform) {
                     if (hit.collider)
                     {

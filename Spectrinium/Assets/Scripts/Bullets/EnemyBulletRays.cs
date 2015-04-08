@@ -73,8 +73,9 @@ public class EnemyBulletRays : MonoBehaviour
         bullet.speed = speed;
         bullet.owner = enemySelf;
 
+
         // fire a ray into the scene
-        RaycastHit hit = raycast.GetInfo();
+        RaycastHit hit = raycast.GetInfo(enemySelf.gameObject.layer);
         if (hit.transform)
         {
             if (hit.collider) {
