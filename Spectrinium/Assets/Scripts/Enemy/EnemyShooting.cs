@@ -44,6 +44,11 @@ public class EnemyShooting : MonoBehaviour
         }
     }
 
+    public void StopShooting()
+    {
+        anim.SetBool(Animator.StringToHash("PlayerInSight"), false);
+    }
+
     void FireBullet()
     {
         GameObject bulletInstance = (GameObject)Instantiate(enemyBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);

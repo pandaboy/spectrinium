@@ -53,6 +53,11 @@ public class EnemyBulletRays : MonoBehaviour
             muzzleFlash.SetActive(false);
     }
 
+    public void StopShooting()
+    {
+        anim.SetBool(Animator.StringToHash("PlayerInSight"), false);
+    }
+
     void FireBullet()
     {
         GameObject bulletInstance = (GameObject)Instantiate(bulletPrefab, spawn.position, spawn.rotation);
